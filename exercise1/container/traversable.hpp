@@ -27,6 +27,7 @@ private:
 protected:
 
   // ...
+  TraversableContainer() = default;
 
 public:
 
@@ -38,16 +39,18 @@ public:
 
   // Copy assignment
   // type operator=(argument); // Copy assignment of abstract types is not possible.
-
+  virtual ConTraversableContainertainer& operator=(const TraversableContainer & daCopiare);
   // Move assignment
   // type operator=(argument); // Move assignment of abstract types is not possible.
+  virtual ContTraversableContainerainer& operator=(const TraversableContainer && daSpostare) noexcept;
 
   /* ************************************************************************ */
 
   // Comparison operators
   // type operator==(argument) specifiers; // Comparison of abstract types might be possible.
+  virtual bool operator==(const TraversableContainer & daConfrontare) const;
   // type operator!=(argument) specifiers; // Comparison of abstract types might be possible.
-
+  virtual bool operator!=(const TraversableContainer & daConfrontare) const;
   /* ************************************************************************ */
 
   // Specific member function
@@ -73,7 +76,7 @@ public:
 /* ************************************************************************** */
 
 template <typename Data>
-class PreOrderTraversableContainer {
+class PreOrderTraversableContainer : protected TraversableContainer<Data>{
   // Must extend TraversableContainer<Data>
 
 private:
@@ -128,7 +131,7 @@ public:
 /* ************************************************************************** */
 
 template <typename Data>
-class PostOrderTraversableContainer {
+class PostOrderTraversableContainer : protected TraversableContainer<Data>{
   // Must extend TraversableContainer<Data>
 
 private:
@@ -183,7 +186,7 @@ public:
 /* ************************************************************************** */
 
 template <typename Data>
-class InOrderTraversableContainer {
+class InOrderTraversableContainer : protected TraversableContainer<Data>{
   // Must extend TraversableContainer<Data>
 
 private:
@@ -238,7 +241,7 @@ public:
 /* ************************************************************************** */
 
 template <typename Data>
-class BreadthTraversableContainer {
+class BreadthTraversableContainer : protected TraversableContainer<Data>{
   // Must extend TraversableContainer<Data>
 
 private:

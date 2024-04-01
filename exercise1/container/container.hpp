@@ -37,15 +37,20 @@ public:
 
   // Copy assignment
   // type operator=(argument); // Copy assignment of abstract types is not possible.
-
+  virtual Container& operator=(const Container & daCopiare);
   // Move assignment
   // type operator=(argument); // Move assignment of abstract types is not possible.
+  virtual Container& operator=(const Container && daSpostare) noexcept;
 
   /* ************************************************************************ */
 
   // Comparison operators
   // type operator==(argument) specifiers; // Comparison of abstract types is not possible.
+  virtual bool operator==(const Container & daConfrontare) const;
+
   // type operator!=(argument) specifiers; // Comparison of abstract types is not possible.
+  virtual bool operator!=(const Container & daConfrontare) const;
+
 
   /* ************************************************************************ */
 
@@ -86,22 +91,24 @@ public:
 
   // Copy assignment
   // type operator=(argument); // Copy assignment of abstract types is not possible.
+  virtual ClearableContainer& operator=(const ClearableContainer & daCopiare);
 
   // Move assignment
   // type operator=(argument); // Move assignment of abstract types is not possible.
-
+  virtual ClearableContainer& operator=(const ClearableContainer && daSpostare) noexcept;
   /* ************************************************************************ */
 
   // Comparison operators
   // type operator==(argument) specifiers; // Comparison of abstract types is not possible.
+  virtual bool operator==(const ClearableContainer & daConfrontare) const;
   // type operator!=(argument) specifiers; // Comparison of abstract types is not possible.
-
+  virtual bool operator!=(const ClearableContainer & daConfrontare) const;
   /* ************************************************************************ */
 
   // Specific member functions
 
   // type Clear() specifiers;
-  void virtual Clear();
+  virtual void Clear();
    
 
 };
@@ -130,22 +137,23 @@ public:
 
   // Copy assignment
   // type operator=(argument); // Copy assignment of abstract types is not possible.
-
+  virtual ResizableContainer& operator=(const ResizableContainer & daCopiare);
   // Move assignment
   // type operator=(argument); // Move assignment of abstract types is not possible.
-
+  virtual ResizableContainer& operator=(const ResizableContainer && daSpostare) noexcept;
   /* ************************************************************************ */
 
   // Comparison operators
   // type operator==(argument) specifiers; // Comparison of abstract types is not possible.
+  virtual bool operator==(const ResizableContainer & daConfrontare) const;
   // type operator!=(argument) specifiers; // Comparison of abstract types is not possible.
-
+  virtual bool operator!=(const ResizableContainer & daConfrontare) const;
   /* ************************************************************************ */
 
   // Specific member functions
 
   // type Resize(argument) specifiers;
-   void virtual Resize (unsigned long const &newSize) {
+  virtual void Resize (const unsigned long  &newSize) {
     size = newSize;
   }
 
@@ -154,7 +162,7 @@ public:
   // Specific member function (inherited from ClearableContainer)
 
   // type Clear() specifiers; // Override ClearableContainer member
-   void virtual Clear() override{
+  virtual void Clear() override{
     size = 0;
   }
 
