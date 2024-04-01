@@ -13,7 +13,7 @@ namespace lasd {
 /* ************************************************************************** */
 
 template <typename Data>
-class DictionaryContainer {
+class DictionaryContainer : protected TestableContainer<Data>{
   // Must extend TestableContainer<Data>
 
 private:
@@ -23,12 +23,13 @@ private:
 protected:
 
   // ...
-
+  DictionaryContainer() = default;
+  
 public:
 
   // Destructor
   // ~DictionaryContainer() specifiers
-
+  ~DictionaryContainer() = default;
   /* ************************************************************************ */
 
   // Copy assignment

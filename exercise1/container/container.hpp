@@ -75,7 +75,7 @@ private:
 protected:
 
   // ...
-  
+  ClearableContainer() = default;
 public:
 
   // Destructor
@@ -118,6 +118,7 @@ private:
 protected:
 
   // ...
+  ResizableContainer() = default;
 
 public:
 
@@ -144,7 +145,7 @@ public:
   // Specific member functions
 
   // type Resize(argument) specifiers;
-   void virtual Resize (unsigned long newSize) {
+   void virtual Resize (unsigned long const &newSize) {
     size = newSize;
   }
 
