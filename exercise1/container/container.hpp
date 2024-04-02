@@ -12,44 +12,28 @@ class Container {
 
 private:
 
-  // ...
-
 protected:
 
-  // ...
   unsigned long size = 0;
-
-
-  /* ************************************************************************ */
-  
-  // Default constructor
-  // Container() specifiers;
-  Container() = default;
-
 
 public:
 
   // Destructor
-  // ~Container() specifiers 
   ~Container() = default;
  
  /* ************************************************************************ */
 
   // Copy assignment
-  // type operator=(argument); // Copy assignment of abstract types is not possible.
-  virtual Container& operator=(const Container & daCopiare);
+  Container& operator=(const Container &) = delete; // Non è ancora possibile
+ 
   // Move assignment
-  // type operator=(argument); // Move assignment of abstract types is not possible.
-  virtual Container& operator=(const Container && daSpostare) noexcept;
+  Container& operator=(Container &&) noexcept = delete; // Non ancora possibile
 
   /* ************************************************************************ */
 
-  // Comparison operators
-  // type operator==(argument) specifiers; // Comparison of abstract types is not possible.
-  virtual bool operator==(const Container & daConfrontare) const;
-
-  // type operator!=(argument) specifiers; // Comparison of abstract types is not possible.
-  virtual bool operator!=(const Container & daConfrontare) const;
+  // Comparison operators (Non ancora possibili)
+  bool operator==(const Container &) const noexcept = delete;
+  bool operator!=(const Container &) const noexcept = delete;
 
 
   /* ************************************************************************ */
@@ -57,12 +41,12 @@ public:
   // Specific member functions
 
   // type Empty() specifiers; // (concrete function should not throw exceptions)
-  bool Empty() const noexcept{
+  inline virtual bool Empty() const noexcept{
     return size == 0;
   }
 
   // type Size() specifiers; // (concrete function should not throw exceptions)
-  unsigned long Size() const noexcept{
+  inline virtual unsigned long Size() const noexcept{
     return size;
   }
 
@@ -70,17 +54,13 @@ public:
 
 /* ************************************************************************** */
 
-class ClearableContainer : protected Container {
+class ClearableContainer : virtual protected Container {
   // Must extend Container
 
 private:
 
-  // ...
-
 protected:
 
-  // ...
-  ClearableContainer() = default;
 public:
 
   // Destructor
@@ -91,31 +71,31 @@ public:
 
   // Copy assignment
   // type operator=(argument); // Copy assignment of abstract types is not possible.
-  virtual ClearableContainer& operator=(const ClearableContainer & daCopiare);
+  ClearableContainer& operator=(const ClearableContainer &) = delete;
 
   // Move assignment
   // type operator=(argument); // Move assignment of abstract types is not possible.
-  virtual ClearableContainer& operator=(const ClearableContainer && daSpostare) noexcept;
+  ClearableContainer& operator=(const ClearableContainer &&) noexcept = delete;
   /* ************************************************************************ */
 
   // Comparison operators
   // type operator==(argument) specifiers; // Comparison of abstract types is not possible.
-  virtual bool operator==(const ClearableContainer & daConfrontare) const;
+  bool operator==(const ClearableContainer &) const noexcept = delete;
   // type operator!=(argument) specifiers; // Comparison of abstract types is not possible.
-  virtual bool operator!=(const ClearableContainer & daConfrontare) const;
+  bool operator!=(const ClearableContainer &) const noexcept = delete;
   /* ************************************************************************ */
 
   // Specific member functions
 
   // type Clear() specifiers;
-  virtual void Clear();
+  virtual void Clear() = 0; // virtual puro (l'erede deve definirlo)
    
 
 };
 
 /* ************************************************************************** */
 
-class ResizableContainer: protected ClearableContainer{
+class ResizableContainer: virtual protected ClearableContainer{
   // Must extend ClearableContainer
 
 private:
@@ -123,9 +103,6 @@ private:
   // ...
 
 protected:
-
-  // ...
-  ResizableContainer() = default;
 
 public:
 
@@ -137,17 +114,17 @@ public:
 
   // Copy assignment
   // type operator=(argument); // Copy assignment of abstract types is not possible.
-  virtual ResizableContainer& operator=(const ResizableContainer & daCopiare);
+  ResizableContainer& operator=(const ResizableContainer &) = delete;
   // Move assignment
   // type operator=(argument); // Move assignment of abstract types is not possible.
-  virtual ResizableContainer& operator=(const ResizableContainer && daSpostare) noexcept;
+  ResizableContainer& operator=(const ResizableContainer &&) noexcept = delete;
   /* ************************************************************************ */
 
   // Comparison operators
   // type operator==(argument) specifiers; // Comparison of abstract types is not possible.
-  virtual bool operator==(const ResizableContainer & daConfrontare) const;
+  bool operator==(const ResizableContainer &) const noexcept = delete;
   // type operator!=(argument) specifiers; // Comparison of abstract types is not possible.
-  virtual bool operator!=(const ResizableContainer & daConfrontare) const;
+  bool operator!=(const ResizableContainer &) const noexcept = delete;
   /* ************************************************************************ */
 
   // Specific member functions
@@ -163,7 +140,7 @@ public:
 
   // type Clear() specifiers; // Override ClearableContainer member
   virtual void Clear() override{
-    size = 0;
+    size = 0; // Resize(0)
   }
 
 };

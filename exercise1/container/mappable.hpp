@@ -17,7 +17,7 @@ namespace lasd {
 /* ************************************************************************** */
 
 template <typename Data>
-class MappableContainer {
+class MappableContainer : virtual protected TraversableContainer<Data>{
   // Must extend TraversableContainer<Data>
 
 private:
@@ -32,7 +32,7 @@ public:
 
   // Destructor
   // ~MappableContainer() specifiers
-
+  ~MappableContainer() = default;
   /* ************************************************************************ */
 
   // Copy assignment

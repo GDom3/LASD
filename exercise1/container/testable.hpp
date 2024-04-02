@@ -13,44 +13,39 @@ namespace lasd {
 /* ************************************************************************** */
 
 template <typename Data>
-class TestableContainer : protected Container {
+class TestableContainer : virtual protected Container {
   // Must extend Container
 
 private:
 
-  // ...
-
 protected:
-
-  // ...
-  TestableContainer() = default;
 
 public:
 
   // Destructor
   // ~TestableContainer() specifiers
-  ~TestableContainer() = default;
+  virtual ~TestableContainer() = default;
   /* ************************************************************************ */
 
   // Copy assignment
   // type operator=(argument); // Copy assignment of abstract types is not possible.
-  virtual TestableContainer& operator=(const TestableContainer & daCopiare);
+  virtual TestableContainer& operator=(const TestableContainer &);
   // Move assignment
   // type operator=(argument); // Move assignment of abstract types is not possible.
-  virtual TestableContainer& operator=(const TestableContainer && daSpostare) noexcept;
+  virtual TestableContainer& operator=(const TestableContainer &&) noexcept;
   /* ************************************************************************ */
 
   // Comparison operators
   // type operator==(argument) specifiers; // Comparison of abstract types is not possible.
-  virtual bool operator==(const TestableContainer & daConfrontare) const;
+  virtual bool operator==(const TestableContainer &) const;
   // type operator!=(argument) specifiers; // Comparison of abstract types is not possible.
-  virtual bool operator!=(const TestableContainer & daConfrontare) const;
+  virtual bool operator!=(const TestableContainer &) const;
   /* ************************************************************************ */
 
   // Specific member function
 
   // type Exists(argument) specifiers; // (concrete function should not throw exceptions)
-  virtual bool Exists(const Data &elemento) const noexcept;
+  virtual bool Exists(const Data&) const noexcept = 0; // virtual puro (deve essere implementata dall'erede)
 };
 
 /* ************************************************************************** */

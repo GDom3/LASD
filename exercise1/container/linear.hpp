@@ -13,37 +13,38 @@ namespace lasd {
 /* ************************************************************************** */
 
 template <typename Data>
-class LinearContainer {
+class LinearContainer{
   // Must extend PreOrderMappableContainer<Data>,
   //             PostOrderMappableContainer<Data>
 
 private:
 
-  // ...
-
 protected:
-
-  // ...
 
 public:
 
   // Destructor
   // ~LinearContainer() specifiers
+  virtual ~LinearContainer() = default;
 
   /* ************************************************************************ */
 
   // Copy assignment
   // type operator=(argument); // Copy assignment of abstract types is not possible.
+  LinearContainer& operator=(const LinearContainer & daCopiare) = delete;
 
   // Move assignment
   // type operator=(argument); // Move assignment of abstract types is not possible.
+  LinearContainer& operator=(LinearContainer && daCopiare) noexcept = delete;
 
   /* ************************************************************************ */
 
   // Comparison operators
   // type operator==(argument) specifiers; // Comparison of abstract types is possible.
+  bool operator==(const LinearContainer&) const noexcept;
   // type operator!=(argument) specifiers; // Comparison of abstract types is possible.
-
+  bool operator!=(const LinearContainer&) const noexcept;
+  
   /* ************************************************************************ */
 
   // Specific member functions
@@ -53,10 +54,10 @@ public:
 
   // type Front() specifiers; // (non-mutable version; concrete function must throw std::length_error when empty)
   // type Front() specifiers; // (mutable version; concrete function must throw std::length_error when empty)
-
+  virtual Data& Front() const;
   // type Back() specifiers; // (non-mutable version; concrete function must throw std::length_error when empty)
   // type Back() specifiers; // (mutable version; concrete function must throw std::length_error when empty)
-
+  virtual Data& Back() const;
   /* ************************************************************************ */
 
   // Specific member function (inherited from TraversableContainer)
