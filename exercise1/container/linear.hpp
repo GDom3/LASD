@@ -13,13 +13,17 @@ namespace lasd {
 /* ************************************************************************** */
 
 template <typename Data>
-class LinearContainer{
+class LinearContainer : protected PreOrderMappableContainer, protected PostOrderMappableContainer{
   // Must extend PreOrderMappableContainer<Data>,
   //             PostOrderMappableContainer<Data>
 
 private:
 
 protected:
+
+
+  using Container::size;
+
 
 public:
 
@@ -51,21 +55,28 @@ public:
 
   // type operator[](argument) specifiers; // (non-mutable version; concrete function must throw std::out_of_range when out of range)
   // type operator[](argument) specifiers; // (mutable version; concrete function must throw std::out_of_range when out of range)
+  virtual const Data & operator[](unsigned long) const = 0;
+  virtual Data & operator[](unsigned long) = 0;
+
 
   // type Front() specifiers; // (non-mutable version; concrete function must throw std::length_error when empty)
   // type Front() specifiers; // (mutable version; concrete function must throw std::length_error when empty)
-  virtual Data& Front() const;
+  inline virtual const Data& Front() const;
+  inline virtual Data& Front();
+ 
   // type Back() specifiers; // (non-mutable version; concrete function must throw std::length_error when empty)
   // type Back() specifiers; // (mutable version; concrete function must throw std::length_error when empty)
-  virtual Data& Back() const;
+  inline virtual const Data& Back() const;
+  inline virtual Data& Back();
   /* ************************************************************************ */
 
   // Specific member function (inherited from TraversableContainer)
 
   // using typename TraversableContainer<Data>::TraverseFun;
+  using typename TraversableContainer<Data>::TraverseFun;
 
   // type Traverse(argument) specifiers; // Override TraversableContainer member
-
+  inline void Traverse(TraverseFun) const noexcept;
   /* ************************************************************************ */
 
   // Specific member function (inherited from PreOrderTraversableContainer)
@@ -112,7 +123,7 @@ private:
 
 protected:
 
-  // ...
+  
 
 public:
 
@@ -138,11 +149,13 @@ public:
   // Specific member function
 
   // type Sort() specifiers;
+  virtual void Sort() noexcept;
+
 
 protected:
 
   // Auxiliary member functions
-
+  // qui va  il sort
   // ...
 
 };

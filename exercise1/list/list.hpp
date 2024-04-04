@@ -32,19 +32,23 @@ protected:
 
     // Data
     // ...
+    Data elemento;
+    Node * next = nullptr;
 
     /* ********************************************************************** */
 
     // Specific constructors
     // ...
-
+    inline Node() = default; 
     /* ********************************************************************** */
 
     // Copy constructor
     // ...
+    inline Node(const Data& );
 
     // Move constructor
     // ...
+    
 
     /* ********************************************************************** */
 
@@ -66,6 +70,9 @@ protected:
 
   // ...
 
+  Node * head = (std::nullptr_t) nullptr;
+  Node * tail = nullptr;
+
 public:
 
   // Default constructor
@@ -76,7 +83,7 @@ public:
   // Specific constructor
   // List(argument) specifiers; // A list obtained from a TraversableContainer
   // List(argument) specifiers; // A list obtained from a MappableContainer
-
+  
   /* ************************************************************************ */
 
   // Copy constructor

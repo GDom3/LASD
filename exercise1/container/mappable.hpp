@@ -52,8 +52,11 @@ public:
   // Specific member function
 
   // using MapFun = std::function<void(Data &)>;
+  using MapFun = std::function<void(Data &)>;
+
 
   // type Map(argument) specifiers;
+  virtual void Map(MapFun) = 0;
 
 };
 

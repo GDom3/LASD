@@ -29,17 +29,17 @@ public:
 
   // Copy assignment
   // type operator=(argument); // Copy assignment of abstract types is not possible.
-  virtual TestableContainer& operator=(const TestableContainer &);
+  virtual TestableContainer& operator=(const TestableContainer &) = delete;
   // Move assignment
   // type operator=(argument); // Move assignment of abstract types is not possible.
-  virtual TestableContainer& operator=(const TestableContainer &&) noexcept;
+  virtual TestableContainer& operator=(TestableContainer &&) noexcept = delete;
   /* ************************************************************************ */
 
   // Comparison operators
   // type operator==(argument) specifiers; // Comparison of abstract types is not possible.
-  virtual bool operator==(const TestableContainer &) const;
+  virtual bool operator==(const TestableContainer &) const = delete;
   // type operator!=(argument) specifiers; // Comparison of abstract types is not possible.
-  virtual bool operator!=(const TestableContainer &) const;
+  virtual bool operator!=(const TestableContainer &) const = delete;
   /* ************************************************************************ */
 
   // Specific member function

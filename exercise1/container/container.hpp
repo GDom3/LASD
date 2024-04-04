@@ -16,10 +16,12 @@ protected:
 
   unsigned long size = 0;
 
+  Container() = default;
+
 public:
 
   // Destructor
-  ~Container() = default;
+  virtual ~Container() = default;
  
  /* ************************************************************************ */
 
@@ -65,7 +67,7 @@ public:
 
   // Destructor
   // ~ClearableContainer() specifiers
-  ~ClearableContainer() = default;
+  virtual ~ClearableContainer() = default;
  
   /* ************************************************************************ */
 
@@ -75,7 +77,7 @@ public:
 
   // Move assignment
   // type operator=(argument); // Move assignment of abstract types is not possible.
-  ClearableContainer& operator=(const ClearableContainer &&) noexcept = delete;
+  ClearableContainer& operator=(ClearableContainer &&) noexcept = delete;
   /* ************************************************************************ */
 
   // Comparison operators
@@ -108,7 +110,7 @@ public:
 
   // Destructor
   // ~ResizableContainer() specifiers
-  ~ResizableContainer() = default;
+  virtual ~ResizableContainer() = default;
   
   /* ************************************************************************ */
 
@@ -117,7 +119,7 @@ public:
   ResizableContainer& operator=(const ResizableContainer &) = delete;
   // Move assignment
   // type operator=(argument); // Move assignment of abstract types is not possible.
-  ResizableContainer& operator=(const ResizableContainer &&) noexcept = delete;
+  ResizableContainer& operator=(ResizableContainer &&) noexcept = delete;
   /* ************************************************************************ */
 
   // Comparison operators
