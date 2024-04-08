@@ -13,7 +13,7 @@ namespace lasd {
 /* ************************************************************************** */
 
 template <typename Data>
-class LinearContainer : protected PreOrderMappableContainer, protected PostOrderMappableContainer{
+class LinearContainer : virtual protected PreOrderMappableContainer, virtual protected PostOrderMappableContainer{
   // Must extend PreOrderMappableContainer<Data>,
   //             PostOrderMappableContainer<Data>
 
@@ -77,6 +77,7 @@ public:
 
   // type Traverse(argument) specifiers; // Override TraversableContainer member
   inline void Traverse(TraverseFun) const noexcept;
+  
   /* ************************************************************************ */
 
   // Specific member function (inherited from PreOrderTraversableContainer)

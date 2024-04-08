@@ -37,9 +37,9 @@ public:
 
   // Comparison operators
   // type operator==(argument) specifiers; // Comparison of abstract types is not possible.
-  virtual bool operator==(const TestableContainer &) const = delete;
+  virtual bool operator==(const TestableContainer &) const noexcept = delete;
   // type operator!=(argument) specifiers; // Comparison of abstract types is not possible.
-  virtual bool operator!=(const TestableContainer &) const = delete;
+  virtual bool operator!=(const TestableContainer &) const noexcept = delete;
   /* ************************************************************************ */
 
   // Specific member function

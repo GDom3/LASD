@@ -34,11 +34,17 @@ public:
 
   // Default constructor
   // Vector() specifiers;
+  Vector() = default;
 
   /* ************************************************************************ */
 
   // Specific constructors
   // Vector(argument) specifiers; // A vector with a given initial dimension
+  Vector(const unsigned long & num ){
+    if(num != 0)
+      elementi = new Data[num];
+
+  }
   // Vector(argument) specifiers; // A vector obtained from a TraversableContainer
   // Vector(argument) specifiers; // A vector obtained from a MappableContainer
 
@@ -54,7 +60,10 @@ public:
 
   // Destructor
   // ~Vector() specifiers;
-
+  ~Vector(){
+    if(elementi != nullptr)
+      delete[] elementi;
+  }
   /* ************************************************************************ */
 
   // Copy assignment
