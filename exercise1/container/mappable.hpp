@@ -17,7 +17,7 @@ namespace lasd {
 /* ************************************************************************** */
 
 template <typename Data>
-class MappableContainer : virtual protected TraversableContainer<Data>{
+class MappableContainer : virtual public TraversableContainer<Data>{
   // Must extend TraversableContainer<Data>
 
 private:
@@ -66,7 +66,7 @@ public:
 /* ************************************************************************** */
 
 template <typename Data>
-class PreOrderMappableContainer : virtual protected MappableContainer<Data>, virtual protected PreOrderTraversableContainer<Data>{
+class PreOrderMappableContainer : virtual public MappableContainer<Data>, virtual public PreOrderTraversableContainer<Data>{
   // Must extend MappableContainer<Data>,
   //             PreOrderTraversableContainer<Data>
 
@@ -122,7 +122,7 @@ public:
 /* ************************************************************************** */
 
 template <typename Data>
-class PostOrderMappableContainer : virtual protected MappableContainer<Data>, virtual protected PostOrderTraversableContainer<Data>{
+class PostOrderMappableContainer : virtual public MappableContainer<Data>, virtual public PostOrderTraversableContainer<Data>{
   // Must extend MappableContainer<Data>,
   //             PostOrderTraversableContainer<Data>
 
@@ -169,13 +169,13 @@ public:
   // Specific member function (inherited from MappableContainer)
 
   // type Map(argument) specifiers; // Override MappableContainer member
-  virtual void Map(MapFun) override;
+  virtual inline void Map(MapFun) override;
 };
 
 /* ************************************************************************** */
 
 template <typename Data>
-class InOrderMappableContainer: virtual protected MappableContainer<Data>, virtual protected InOrderTraversableContainer<Data>{
+class InOrderMappableContainer: virtual public MappableContainer<Data>, virtual public InOrderTraversableContainer<Data>{
   // Must extend MappableContainer<Data>,
   //             InOrderTraversableContainer<Data>
 
@@ -224,13 +224,13 @@ public:
   // Specific member function (inherited from MappableContainer)
 
   // type Map(argument) specifiers; // Override MappableContainer member
-  virtual void Map(MapFun) override;
+  virtual inline void Map(MapFun) override;
 };
 
 /* ************************************************************************** */
 
 template <typename Data>
-class BreadthMappableContainer : virtual protected MappableContainer<Data>, virtual protected BreadthTraversableContainer<Data>{
+class BreadthMappableContainer : virtual public MappableContainer<Data>, virtual public BreadthTraversableContainer<Data>{
   // Must extend MappableContainer<Data>,
   //             BreadthTraversableContainer<Data>
 
@@ -278,7 +278,7 @@ public:
   // Specific member function (inherited from MappableContainer)
 
   // type Map(argument) specifiers; // Override MappableContainer member
-  virtual void Map(MapFun) override;
+  virtual inline void Map(MapFun) override;
 };
 
 /* ************************************************************************** */

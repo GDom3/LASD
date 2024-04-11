@@ -1,7 +1,7 @@
 
 namespace lasd {
 
-//Esiste
+//Esiste:
 template <typename Data>
 inline bool TraversableContainer<Data>::Exists(const Data& valoreDaTrovare) const noexcept override{
     bool esiste = false;
@@ -15,7 +15,7 @@ inline bool TraversableContainer<Data>::Exists(const Data& valoreDaTrovare) cons
     return esiste;
 }
 
-// Fold
+// Fold:
 
 template <typename Data>
 template <typename Accumulator>
@@ -79,7 +79,7 @@ inline Accumulator BreadthOrderFold(FoldFun<Accumulator> funzione ,Accumulator a
     return acc;
 }
 
-//Traverse
+//Traverse:
 
 template <typename Data>
 inline void PreOrderTraversableContainer<Data>::Traverse(TraverseFun funzione) const noexcept override{
@@ -102,3 +102,7 @@ inline void BreadthTraversableContainer<Data>::Traverse(TraverseFun funzione) co
 }
 
 }
+
+
+
+

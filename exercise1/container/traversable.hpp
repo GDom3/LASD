@@ -17,7 +17,7 @@ namespace lasd {
 /* ************************************************************************** */
 
 template <typename Data>
-class TraversableContainer : virtual protected TestableContainer<Data>  {
+class TraversableContainer : virtual public TestableContainer<Data>  {
   // Must extend TestableContainer<Data>
 
 private:
@@ -58,7 +58,7 @@ public:
   using TraverseFun = std::function<void(const Data &)>;
 
   // type Traverse(arguments) specifiers;
-  virtual void Traverse(TraverseFun) const noexcept = 0;
+  virtual void Traverse(TraverseFun) const = 0;
 
   // template <typename Accumulator>
   // using FoldFun = std::function<Accumulator(const Data &, const Accumulator &)>;
@@ -82,7 +82,7 @@ public:
 /* ************************************************************************** */
 
 template <typename Data>
-class PreOrderTraversableContainer : virtual protected TraversableContainer<Data>{
+class PreOrderTraversableContainer : virtual public TraversableContainer<Data>{
   // Must extend TraversableContainer<Data>
 
 private:
@@ -124,7 +124,7 @@ public:
   using typename TraversableContainer<Data>::TraverseFun;
   
   // type PreOrderTraverse(arguments) specifiers;
-  virtual void PreOrderTraverse(TraverseFun) const noexcept = 0;
+  virtual void PreOrderTraverse(TraverseFun) const = 0;
 
 
   // template <typename Accumulator>
@@ -147,13 +147,12 @@ public:
   // type Traverse(arguments) specifiers; // Override TraversableContainer member
   inline void Traverse(TraverseFun) const noexcept override;
 
-
 };
 
 /* ************************************************************************** */
 
 template <typename Data>
-class PostOrderTraversableContainer : virtual protected TraversableContainer<Data>{
+class PostOrderTraversableContainer : virtual public TraversableContainer<Data>{
   // Must extend TraversableContainer<Data>
 
 private:
@@ -194,7 +193,7 @@ public:
   using typename TraversableContainer<Data>::TraverseFun;
 
   // type PostOrderTraverse(arguments) specifiers;
-  virtual void PostOrderTraverse(TraverseFun) const noexcept = 0;
+  virtual void PostOrderTraverse(TraverseFun) const = 0;
 
   // template <typename Accumulator>
   // using FoldFun = typename TraversableContainer<Data>::FoldFun<Accumulator>;
@@ -217,7 +216,7 @@ public:
 /* ************************************************************************** */
 
 template <typename Data>
-class InOrderTraversableContainer : virtual protected TraversableContainer<Data>{
+class InOrderTraversableContainer : virtual public TraversableContainer<Data>{
   // Must extend TraversableContainer<Data>
 
 private:
@@ -256,7 +255,7 @@ public:
   // using typename TraversableContainer<Data>::TraverseFun;
   using typename TraversableContainer<Data>::TraverseFun;
   // type InOrderTraverse(arguments) specifiers;
-  virtual void InOrderTraverse(TraverseFun) const noexcept = 0;
+  virtual void InOrderTraverse(TraverseFun) const = 0;
 
   // template <typename Accumulator>
   // using FoldFun = typename TraversableContainer<Data>::FoldFun<Accumulator>;
@@ -279,7 +278,7 @@ public:
 /* ************************************************************************** */
 
 template <typename Data>
-class BreadthTraversableContainer : virtual protected TraversableContainer<Data>{
+class BreadthTraversableContainer : virtual public TraversableContainer<Data>{
   // Must extend TraversableContainer<Data>
 
 private:
@@ -304,9 +303,6 @@ public:
   // type operator=(argument); // Move assignment of abstract types is not possible.
   BreadthTraversableContainer& operator=(BreadthTraversableContainer &&) noexcept = delete;
   
-  
-  
-  
 
   /* ************************************************************************ */
 
@@ -322,7 +318,7 @@ public:
   // using typename TraversableContainer<Data>::TraverseFun;
   using typename TraversableContainer<Data>::TraverseFun;
   // type BreadthTraverse(arguments) specifiers;
-  virtual void BreadthTraverse(TraverseFun) const noexcept = 0;
+  virtual void BreadthTraverse(TraverseFun) const = 0;
 
   // template <typename Accumulator>
   // using FoldFun = typename TraversableContainer<Data>::FoldFun<Accumulator>;

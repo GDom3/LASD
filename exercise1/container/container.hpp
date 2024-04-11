@@ -56,7 +56,7 @@ public:
 
 /* ************************************************************************** */
 
-class ClearableContainer : virtual protected Container {
+class ClearableContainer : virtual public Container {
   // Must extend Container
 
 private:
@@ -97,7 +97,7 @@ public:
 
 /* ************************************************************************** */
 
-class ResizableContainer: virtual protected ClearableContainer{
+class ResizableContainer: virtual public ClearableContainer{
   // Must extend ClearableContainer
 
 private:
@@ -132,17 +132,15 @@ public:
   // Specific member functions
 
   // type Resize(argument) specifiers;
-  virtual void Resize (const unsigned long  &newSize) {
-    size = newSize;
-  }
+  virtual void Resize (const unsigned long  &newSize) = 0;
 
   /* ************************************************************************ */
 
   // Specific member function (inherited from ClearableContainer)
 
   // type Clear() specifiers; // Override ClearableContainer member
-  virtual void Clear() override{
-    size = 0; // Resize(0)
+  virtual inline void Clear() override{
+    Resize(0);
   }
 
 };
