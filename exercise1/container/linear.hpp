@@ -54,9 +54,9 @@ public:
   // Specific member functions
 
   // type operator[](argument) specifiers; // (non-mutable version; concrete function must throw std::out_of_range when out of range)
-  virtual const Data & operator[](unsigned long) const = 0;
+  virtual const Data & operator[](const unsigned long int ) const = 0;
   // type operator[](argument) specifiers; // (mutable version; concrete function must throw std::out_of_range when out of range)
-  virtual Data & operator[](unsigned long) = 0;
+  virtual Data & operator[](unsigned long int ) = 0;
 
 
   // type Front() specifiers; // (non-mutable version; concrete function must throw std::length_error when empty)
