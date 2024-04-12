@@ -14,7 +14,7 @@ namespace lasd {
 /* ************************************************************************** */
 
 template <typename Data>
-class Vector : protected ResizableContainer , protected LinearContainer{
+class Vector : public ResizableContainer , public LinearContainer<Data>{
   // Must extend ResizableContainer,
   //             LinearContainer<Data>
 

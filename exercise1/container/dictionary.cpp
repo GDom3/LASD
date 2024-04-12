@@ -8,44 +8,44 @@ namespace lasd {
 /* ************************************************************************** */
 
 template <typename Data>
-bool DictionaryContainer<Data>::InsertAll(const TraversableContainer& strutturaDaCopiare){
+bool DictionaryContainer<Data>::InsertAll(const TraversableContainer<Data>& strutturaDaCopiare){
     bool copiatiTutti = true;
     
     strutturaDaCopiare.Traverse(
       
         [&copiatiTutti](const Data& datoPassato){
-            copiatiTutti = copiatiTutti && *this.Insert(datoPassato);
+            copiatiTutti = copiatiTutti && Insert(datoPassato);
         }
-    )
+    );
 
     return copiatiTutti;
 }
 
 template <typename Data>
-bool DictionaryContainer<Data>::InsertAll(MappableContainer&& strutturaDaSpostare){
+bool DictionaryContainer<Data>::InsertAll(MappableContainer<Data>&& strutturaDaSpostare){
 bool spostatiTutti = true;
     
     strutturaDaSpostare.Map(
         
         [&spostatiTutti](Data& datoPassato){
-            spostatiTutti = spostatiTutti && *this.Insert(datoPassato);
+            spostatiTutti = spostatiTutti && Insert(datoPassato);
         }
-    )
+    );
 
     return spostatiTutti;
 }
 
 
 template <typename Data>
-bool DictionaryContainer<Data>::RemoveAll(const TraversableContainer& strutturaDaRimuovere){
+bool DictionaryContainer<Data>::RemoveAll(const TraversableContainer<Data>& strutturaDaRimuovere){
     bool rimossiTutti = true;
     
-    strutturaDaCopiare.Traverse(
+    strutturaDaRimuovere.Traverse(
       
         [&rimossiTutti](const Data& datoPassato){
-            rimossiTutti = rimossiTutti && *this.Remove(datoPassato);
+            rimossiTutti = rimossiTutti && Remove(datoPassato);
         }
-    )
+    );
 
     return rimossiTutti;
 
@@ -53,44 +53,44 @@ bool DictionaryContainer<Data>::RemoveAll(const TraversableContainer& strutturaD
 
 
 template <typename Data>
-bool DictionaryContainer<Data>::InsertSome(const TraversableContainer& strutturaDaCopiare){
+bool DictionaryContainer<Data>::InsertSome(const TraversableContainer<Data>& strutturaDaCopiare){
     bool copiatiAlcuni = false;
     
     strutturaDaCopiare.Traverse(
       
         [&copiatiAlcuni](const Data& datoPassato){
-            copiatiAlcuni = copiatiAlcuni || *this.Insert(datoPassato);
+            copiatiAlcuni = copiatiAlcuni || Insert(datoPassato);
         }
-    )
+    );
 
     return copiatiAlcuni;
 }
 
 template <typename Data>
-bool DictionaryContainer<Data>::InsertAll(MappableContainer&& strutturaDaSpostare){
+bool DictionaryContainer<Data>::InsertSome(MappableContainer<Data>&& strutturaDaSpostare){
 bool spostatiAlcuni = false;
     
     strutturaDaSpostare.Map(
         
         [&spostatiAlcuni](Data& datoPassato){
-            spostatiAlcuni = spostatiAlcuni || *this.Insert(datoPassato);
+            spostatiAlcuni = spostatiAlcuni || Insert(datoPassato);
         }
-    )
+    );
 
     return spostatiAlcuni;
 }
 
 
 template <typename Data>
-bool DictionaryContainer<Data>::RemoveAll(const TraversableContainer& strutturaDaRimuovere){
+bool DictionaryContainer<Data>::RemoveSome(const TraversableContainer<Data>& strutturaDaRimuovere){
     bool rimossiAlcuni = false;
     
-    strutturaDaCopiare.Traverse(
+    strutturaDaRimuovere.Traverse(
       
         [&rimossiAlcuni](const Data& datoPassato){
-            rimossiAlcuni = rimossiAlcuni || *this.Remove(datoPassato);
+            rimossiAlcuni = rimossiAlcuni || Remove(datoPassato);
         }
-    )
+    );
 
     return rimossiAlcuni;
 

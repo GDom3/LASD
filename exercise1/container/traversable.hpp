@@ -176,7 +176,7 @@ public:
 
   // Move assignment
   // type operator=(argument); // Move assignment of abstract types is not possible.
-  PostOrderTraversableContainer& operator=(PreOrderTraversableContainer &&) noexcept = delete;
+  PostOrderTraversableContainer& operator=(PostOrderTraversableContainer &&) noexcept = delete;
 
   /* ************************************************************************ */
 
