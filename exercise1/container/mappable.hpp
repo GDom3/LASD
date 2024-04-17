@@ -26,6 +26,7 @@ private:
 
 protected:
 
+
   // ...
 
 public:
@@ -116,6 +117,9 @@ public:
 
   // type Map(argument) specifiers; // Override MappableContainer member
   virtual void Map(MapFun) override;
+  /* ************************************************************************ */
+
+  inline bool Exists(const Data&) const noexcept override;
 
 };
 
@@ -170,6 +174,9 @@ public:
 
   // type Map(argument) specifiers; // Override MappableContainer member
   virtual inline void Map(MapFun) override;
+
+
+  inline bool Exists(const Data&) const noexcept override;
 };
 
 /* ************************************************************************** */
@@ -225,6 +232,9 @@ public:
 
   // type Map(argument) specifiers; // Override MappableContainer member
   virtual inline void Map(MapFun) override;
+
+
+  inline bool Exists(const Data&) const noexcept override;
 };
 
 /* ************************************************************************** */
@@ -279,6 +289,9 @@ public:
 
   // type Map(argument) specifiers; // Override MappableContainer member
   virtual inline void Map(MapFun) override;
+
+
+  inline bool Exists(const Data&) const noexcept override;
 };
 
 /* ************************************************************************** */

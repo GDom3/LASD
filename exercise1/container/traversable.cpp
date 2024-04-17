@@ -8,7 +8,7 @@ inline bool TraversableContainer<Data>::Exists(const Data& valoreDaTrovare) cons
     Traverse(
         //[] è il contesto, sono valore che passo da Exists a Traverse(default è copia)
         [valoreDaTrovare, &esiste](const Data& datoPassato){
-            esiste = esiste || (datoPassato = valoreDaTrovare); //potrei scrivere |=
+            esiste = esiste || (datoPassato == valoreDaTrovare); //potrei scrivere |=
         }
     );
 

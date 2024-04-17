@@ -118,6 +118,9 @@ public:
 
   // type PostOrderMap(argument) specifiers; // Override PostOrderMappableContainer member
   inline void PostOrderMap(MapFun ) override;
+
+  inline bool Exists(const Data&) const noexcept override;
+
 };
 
 /* ************************************************************************** */

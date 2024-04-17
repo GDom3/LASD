@@ -8,7 +8,7 @@ namespace lasd {
 /* ************************************************************************** */
 template <typename Data>
 Vector<Data>::Vector(const TraversableContainer<Data> &struttura ){
-    LinearContainer<Data>::size = struttura.size;
+    LinearContainer<Data>::size = struttura.Size();
     elementi = new Data[LinearContainer<Data>::size];
     unsigned long int i = 0;
     struttura.Traverse(
@@ -23,22 +23,22 @@ Vector<Data>::Vector(const TraversableContainer<Data> &struttura ){
 template <typename Data>
 Vector<Data>::Vector (Vector && vet){
     elementi = std::move(vet.elementi);
-    size = std::move(vet.size);
+    size = std::move(vet.Size());
 }
 
 template <typename Data>
 Vector<Data>::Vector(const Vector & vet){
-    LinearContainer<Data>::size = vet.size;
+    LinearContainer<Data>::size = vet.Size();
     elementi = new Data[LinearContainer<Data>::size];
 
-    for (unsigned long int i = 0; i < vet.size; i++)
+    for (unsigned long int i = 0; i < vet.Size(); i++)
         elementi[i] = vet[i];
       
   }
 
 template <typename Data>
 Vector<Data>::Vector(MappableContainer<Data> &struttura ){
-    LinearContainer<Data>::size = struttura.size;
+    LinearContainer<Data>::size = struttura.Size();
     elementi = new Data[LinearContainer<Data>::size];
     unsigned long int i = 0;
     struttura.Traverse(
@@ -53,7 +53,7 @@ Vector<Data>::Vector(MappableContainer<Data> &struttura ){
 
 template <typename Data>
 bool Vector<Data>::operator==(const Vector & vet) const noexcept {
-    if(elementi == nullptr || LinearContainer<Data>::size != vet.size)
+    if(elementi == nullptr || LinearContainer<Data>::size != vet.Size())
         return false;
     
     for(unsigned long int i = 0; i < LinearContainer<Data>::size; i++)
@@ -156,10 +156,10 @@ Vector<Data>& Vector<Data>::operator=(const Vector & vet){
         delete[] elementi;
 
 
-    LinearContainer<Data>::size = vet.size;
+    LinearContainer<Data>::size = vet.Size();
     elementi = new Data[LinearContainer<Data>::size];
 
-    for (unsigned long int i = 0; i < vet.size; i++)
+    for (unsigned long int i = 0; i < vet.Size(); i++)
         elementi[i] = vet[i];
     
     
@@ -173,7 +173,7 @@ Vector<Data>& Vector<Data>::operator=(Vector && vet){
         delete[] elementi;
 
     elementi = std::move(vet.elementi);
-    size = std::move(vet.size);
+    size = std::move(vet.Size());
 
     
     return (*this);
@@ -185,10 +185,10 @@ SortableVector<Data>& SortableVector<Data>::operator=(const SortableVector & vet
         delete[] elementi;
 
 
-    LinearContainer<Data>::size = vet.size;
+    LinearContainer<Data>::size = vet.Size();
     elementi = new Data[LinearContainer<Data>::size];
 
-    for (unsigned long int i = 0; i < vet.size; i++)
+    for (unsigned long int i = 0; i < vet.Size(); i++)
         elementi[i] = vet[i];
     
     
@@ -212,7 +212,7 @@ SortableVector<Data>& SortableVector<Data>::operator=(SortableVector && vet){
 
 template <typename Data>
 SortableVector<Data>::SortableVector(MappableContainer<Data> &struttura ){
-    LinearContainer<Data>::size = struttura.size;
+    LinearContainer<Data>::size = struttura.Size();
     elementi = new Data[LinearContainer<Data>::size];
     unsigned long int i = 0;
     struttura.Traverse(
@@ -244,7 +244,7 @@ SortableVector<Data>::SortableVector(const SortableVector & vet){
 
 template <typename Data>
 SortableVector<Data>::SortableVector(const TraversableContainer<Data> &struttura ){
-    LinearContainer<Data>::size = struttura.size;
+    LinearContainer<Data>::size = struttura.Size();
     elementi = new Data[LinearContainer<Data>::size];
     unsigned long int i = 0;
     struttura.Traverse(

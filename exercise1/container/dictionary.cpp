@@ -13,7 +13,7 @@ bool DictionaryContainer<Data>::InsertAll(const TraversableContainer<Data>& stru
     
     strutturaDaCopiare.Traverse(
       
-        [&copiatiTutti](const Data& datoPassato){
+        [this,&copiatiTutti](const Data& datoPassato){
             copiatiTutti = copiatiTutti && Insert(datoPassato);
         }
     );
@@ -27,7 +27,7 @@ bool spostatiTutti = true;
     
     strutturaDaSpostare.Map(
         
-        [&spostatiTutti](Data& datoPassato){
+        [this,&spostatiTutti](Data& datoPassato){
             spostatiTutti = spostatiTutti && Insert(datoPassato);
         }
     );
@@ -42,7 +42,7 @@ bool DictionaryContainer<Data>::RemoveAll(const TraversableContainer<Data>& stru
     
     strutturaDaRimuovere.Traverse(
       
-        [&rimossiTutti](const Data& datoPassato){
+        [this,&rimossiTutti](const Data& datoPassato){
             rimossiTutti = rimossiTutti && Remove(datoPassato);
         }
     );
@@ -58,7 +58,7 @@ bool DictionaryContainer<Data>::InsertSome(const TraversableContainer<Data>& str
     
     strutturaDaCopiare.Traverse(
       
-        [&copiatiAlcuni](const Data& datoPassato){
+        [this,&copiatiAlcuni](const Data& datoPassato){
             copiatiAlcuni = copiatiAlcuni || Insert(datoPassato);
         }
     );
@@ -72,7 +72,7 @@ bool spostatiAlcuni = false;
     
     strutturaDaSpostare.Map(
         
-        [&spostatiAlcuni](Data& datoPassato){
+        [this,&spostatiAlcuni](Data& datoPassato){
             spostatiAlcuni = spostatiAlcuni || Insert(datoPassato);
         }
     );
@@ -87,7 +87,7 @@ bool DictionaryContainer<Data>::RemoveSome(const TraversableContainer<Data>& str
     
     strutturaDaRimuovere.Traverse(
       
-        [&rimossiAlcuni](const Data& datoPassato){
+        [this,&rimossiAlcuni](const Data& datoPassato){
             rimossiAlcuni = rimossiAlcuni || Remove(datoPassato);
         }
     );

@@ -55,7 +55,7 @@ public:
   // type Insert(argument) specifiers; // Move of the value
   virtual bool Insert(Data &&) = 0;
   // type Remove(argument) specifiers;
-  virtual bool Remove(Data &) = 0;
+  virtual bool Remove(const Data &) = 0;
 
   // type InsertAll(argument) specifiers; // Copy of the value; From TraversableContainer; True if all are inserted
  

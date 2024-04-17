@@ -95,6 +95,10 @@ inline void LinearContainer<Data>::PostOrderMap(MapFun funzione){
         funzione(operator[](--i));
 }
 
+template <typename Data>
+inline bool LinearContainer<Data>::Exists(const Data& dato) const noexcept{
+    return PreOrderTraversableContainer<Data>::Exists(dato);
+}
 
 template <typename Data>
 inline bool SortableLinearContainer<Data>::operator==(const SortableLinearContainer<Data>& elem) const noexcept{

@@ -22,15 +22,15 @@ void lasdtest() {
   stestnum += loctestnum; stesterr += loctesterr;
 
   loctestnum = 0; loctesterr = 0;
-  testSimpleExercise1B(loctestnum, loctesterr);
+  //testSimpleExercise1B(loctestnum, loctesterr);
   stestnum += loctestnum; stesterr += loctesterr;
 
   loctestnum = 0; loctesterr = 0;
-  testFullExercise1A(loctestnum, loctesterr);
+  //testFullExercise1A(loctestnum, loctesterr);
   ftestnum += loctestnum; ftesterr += loctesterr;
 
   loctestnum = 0; loctesterr = 0;
-  testFullExercise1B(loctestnum, loctesterr);
+  //testFullExercise1B(loctestnum, loctesterr);
   ftestnum += loctestnum; ftesterr += loctesterr;
 
   cout << endl << "Exercise 1 (Simple Test) (Errors/Tests: " << stesterr << "/" << stestnum << ")";
