@@ -30,22 +30,22 @@ namespace lasd {
 
     template <typename Data>
     inline bool PreOrderMappableContainer<Data>::Exists(const Data& dato) const noexcept{
-        return PreOrderTraversableContainer<Data>::Exists(dato);
+        return MappableContainer<Data>::Exists(dato);
     }
 
     template <typename Data>
     inline bool PostOrderMappableContainer<Data>::Exists(const Data& dato) const noexcept{
-       return PostOrderTraversableContainer<Data>::Exists(dato);
+       return MappableContainer<Data>::Exists(dato);
     }
 
     template <typename Data>
     inline bool InOrderMappableContainer<Data>::Exists(const Data& dato) const noexcept{ 
-        return InOrderTraversableContainer<Data>::Exists(dato);
+        return MappableContainer<Data>::Exists(dato);
     }
     
     template <typename Data>
     inline bool BreadthMappableContainer<Data>::Exists(const Data& dato) const noexcept{
-        return BreadthOrderTraversableContainer<Data>::Exists(dato);
+        return MappableContainer<Data>::Exists(dato);
     }
 
 

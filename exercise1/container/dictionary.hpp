@@ -13,7 +13,7 @@ namespace lasd {
 /* ************************************************************************** */
 
 template <typename Data>
-class DictionaryContainer : public TestableContainer<Data>{
+class DictionaryContainer : virtual public TestableContainer<Data>{
   // Must extend TestableContainer<Data>
 
 private:
@@ -71,6 +71,7 @@ public:
   virtual bool InsertSome(MappableContainer<Data>&& );
   // type RemoveSome(argument) specifiers; // From TraversableContainer; True if some is removed
   virtual bool RemoveSome(const TraversableContainer<Data>& );
+
 
 };
 

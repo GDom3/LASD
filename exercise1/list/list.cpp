@@ -345,11 +345,9 @@ inline void List<Data>::PostOrderMap(MapFun funzione){
     LinearContainer<Data>::PostOrderMap(funzione);
 }
 
-/*
 template <typename Data>
-inline bool List<Data>::Exists(const Data& dato) const noexcept {
-    return TraversableContainer<Data>::Exists(dato);
+inline bool List<Data>::Exists(const Data& dato) const noexcept{
+    return LinearContainer<Data>::Exists(dato);
 }
-*/
 
 }

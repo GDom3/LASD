@@ -235,7 +235,7 @@ public:
 
   //Doppio uso : ambigua
 
-  //inline bool Exists(const Data&) const noexcept override;
+  inline bool Exists(const Data&) const noexcept override;
 
 
 protected:
