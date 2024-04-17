@@ -108,7 +108,7 @@ template <typename Data>
 Vector& Vector<Data>::operator=(const Vector & vet){
     Vector nuovoVet = new Vector(vet);
     
-    if(elemnti != nullptr)
+    if(elementi != nullptr)
         delete[] elementi;
     
     return nuovoVet;
@@ -119,7 +119,7 @@ template <typename Data>
 Vector& Vector<Data>::operator=(Vector && vet){
     Vector nuovoVet = new Vector(vet);
     
-    if(elemnti != nullptr)
+    if(elementi != nullptr)
         delete[] elementi;
     
     return nuovoVet;
@@ -129,7 +129,7 @@ template <typename Data>
 SortableVector& SortableVector<Data>::operator=(const SortableVector & vet){
     SortableVector nuovoVet = new SortableVector(vet);
     
-    if(elemnti != nullptr)
+    if(elementi != nullptr)
         delete[] elementi;
     
     return nuovoVet;
@@ -140,7 +140,7 @@ template <typename Data>
 SortableVector& SortableVector<Data>::operator=(SortableVector && vet){
     SortableVector nuovoVet = new SortableVector(vet);
     
-    if(elemnti != nullptr)
+    if(elementi != nullptr)
         delete[] elementi;
     
     return nuovoVet;
