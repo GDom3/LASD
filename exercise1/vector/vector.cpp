@@ -102,7 +102,22 @@ void Vector<Data>::Resize (const unsigned long  &newSize){
 
 }
 
+template <typename Data>
+const Data & Vector<Data>::operator[](const unsigned long int indice) const {
+    if(indice >= LinearContainer<Data>::size)
+        throw std::out_of_range("Dimensione Troppo Grande!");
 
+    return elementi[indice];
+}
+
+
+template <typename Data>
+Data & Vector<Data>::operator[](unsigned long int indice) {
+    if(indice >= LinearContainer<Data>::size)
+        throw std::out_of_range("Dimensione Troppo Grande!");
+
+    return elementi[indice];
+}
 
 
 template <typename Data>
@@ -209,22 +224,7 @@ SortableVector<Data>::SortableVector(MappableContainer<Data> &struttura ){
 
   }
 
-template <typename Data>
-const Data & Vector<Data>::operator[](const unsigned long int indice) const {
-    if(indice >= LinearContainer<Data>::size)
-        throw std::out_of_range("Dimensione Troppo Grande!");
 
-    return elementi[indice];
-}
-
-
-template <typename Data>
-Data & Vector<Data>::operator[](unsigned long int indice) {
-    if(indice >= LinearContainer<Data>::size)
-        throw std::out_of_range("Dimensione Troppo Grande!");
-
-    return elementi[indice];
-}
 
 
 template <typename Data>
