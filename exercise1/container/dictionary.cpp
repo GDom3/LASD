@@ -8,7 +8,7 @@ namespace lasd {
 /* ************************************************************************** */
 
 template <typename Data>
-bool DictionaryContainer<Data>::InsertAll(const TraversableContainer<Data>& strutturaDaCopiare){
+bool DictionaryContainer<Data>::InsertAll(const TraversableContainer<Data>& strutturaDaCopiare) {
     bool copiatiTutti = true;
     
     strutturaDaCopiare.Traverse(
@@ -22,7 +22,7 @@ bool DictionaryContainer<Data>::InsertAll(const TraversableContainer<Data>& stru
 }
 
 template <typename Data>
-bool DictionaryContainer<Data>::InsertAll(MappableContainer<Data>&& strutturaDaSpostare){
+bool DictionaryContainer<Data>::InsertAll(MappableContainer<Data>&& strutturaDaSpostare)  {
 bool spostatiTutti = true;
     
     strutturaDaSpostare.Map(
@@ -37,7 +37,7 @@ bool spostatiTutti = true;
 
 
 template <typename Data>
-bool DictionaryContainer<Data>::RemoveAll(const TraversableContainer<Data>& strutturaDaRimuovere){
+bool DictionaryContainer<Data>::RemoveAll(const TraversableContainer<Data>& strutturaDaRimuovere) {
     bool rimossiTutti = true;
     
     strutturaDaRimuovere.Traverse(
@@ -53,7 +53,7 @@ bool DictionaryContainer<Data>::RemoveAll(const TraversableContainer<Data>& stru
 
 
 template <typename Data>
-bool DictionaryContainer<Data>::InsertSome(const TraversableContainer<Data>& strutturaDaCopiare){
+bool DictionaryContainer<Data>::InsertSome(const TraversableContainer<Data>& strutturaDaCopiare) {
     bool copiatiAlcuni = false;
     
     strutturaDaCopiare.Traverse(
@@ -67,7 +67,7 @@ bool DictionaryContainer<Data>::InsertSome(const TraversableContainer<Data>& str
 }
 
 template <typename Data>
-bool DictionaryContainer<Data>::InsertSome(MappableContainer<Data>&& strutturaDaSpostare){
+bool DictionaryContainer<Data>::InsertSome(MappableContainer<Data>&& strutturaDaSpostare) {
 bool spostatiAlcuni = false;
     
     strutturaDaSpostare.Map(
@@ -82,7 +82,7 @@ bool spostatiAlcuni = false;
 
 
 template <typename Data>
-bool DictionaryContainer<Data>::RemoveSome(const TraversableContainer<Data>& strutturaDaRimuovere){
+bool DictionaryContainer<Data>::RemoveSome(const TraversableContainer<Data>& strutturaDaRimuovere) {
     bool rimossiAlcuni = false;
     
     strutturaDaRimuovere.Traverse(

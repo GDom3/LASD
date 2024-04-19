@@ -60,20 +60,20 @@ inline Data& LinearContainer<Data>::Back(){
 }
 
 template <typename Data>
-inline void LinearContainer<Data>::PreOrderTraverse(TraverseFun funzione) const{
+inline void LinearContainer<Data>::PreOrderTraverse(TraverseFun funzione) const noexcept{
     for(unsigned long int i = 0; i < Container::size; i++)
         funzione(operator[](i));
 }
 
 template <typename Data>
-inline void LinearContainer<Data>::PostOrderTraverse(TraverseFun funzione) const{
+inline void LinearContainer<Data>::PostOrderTraverse(TraverseFun funzione) const noexcept{
     unsigned long int i = Container::size;
     while(i > 0)
         funzione(operator[](--i));
 }
 
 template <typename Data>
-inline void LinearContainer<Data>::Map(MapFun funzione){
+inline void LinearContainer<Data>::Map(MapFun funzione) {
     PreOrderMap(funzione);
 }
 
@@ -83,13 +83,13 @@ inline void LinearContainer<Data>::Traverse(TraverseFun funzione) const noexcept
 }
 
 template <typename Data>
-inline void LinearContainer<Data>::PreOrderMap(MapFun funzione) {
+inline void LinearContainer<Data>::PreOrderMap(MapFun funzione)  {
     for(unsigned long int i = 0; i < Container::size; i++)
         funzione(operator[](i));
 }
 
 template <typename Data>
-inline void LinearContainer<Data>::PostOrderMap(MapFun funzione){
+inline void LinearContainer<Data>::PostOrderMap(MapFun funzione) {
     unsigned long int i = Container::size;
     while(i > 0)
         funzione(operator[](--i));

@@ -58,7 +58,7 @@ public:
   using TraverseFun = std::function<void(const Data &)>;
 
   // type Traverse(arguments) specifiers;
-  virtual void Traverse(TraverseFun) const = 0;
+  virtual void Traverse(TraverseFun) const noexcept = 0;
 
   // template <typename Accumulator>
   // using FoldFun = std::function<Accumulator(const Data &, const Accumulator &)>;
@@ -124,7 +124,7 @@ public:
   using typename TraversableContainer<Data>::TraverseFun;
   
   // type PreOrderTraverse(arguments) specifiers;
-  virtual void PreOrderTraverse(TraverseFun) const = 0;
+  virtual void PreOrderTraverse(TraverseFun) const noexcept = 0;
 
 
   // template <typename Accumulator>
@@ -193,7 +193,7 @@ public:
   using typename TraversableContainer<Data>::TraverseFun;
 
   // type PostOrderTraverse(arguments) specifiers;
-  virtual void PostOrderTraverse(TraverseFun) const = 0;
+  virtual void PostOrderTraverse(TraverseFun) const noexcept = 0;
 
   // template <typename Accumulator>
   // using FoldFun = typename TraversableContainer<Data>::FoldFun<Accumulator>;
@@ -255,7 +255,7 @@ public:
   // using typename TraversableContainer<Data>::TraverseFun;
   using typename TraversableContainer<Data>::TraverseFun;
   // type InOrderTraverse(arguments) specifiers;
-  virtual void InOrderTraverse(TraverseFun) const = 0;
+  virtual void InOrderTraverse(TraverseFun) const noexcept = 0;
 
   // template <typename Accumulator>
   // using FoldFun = typename TraversableContainer<Data>::FoldFun<Accumulator>;
@@ -318,7 +318,7 @@ public:
   // using typename TraversableContainer<Data>::TraverseFun;
   using typename TraversableContainer<Data>::TraverseFun;
   // type BreadthTraverse(arguments) specifiers;
-  virtual void BreadthTraverse(TraverseFun) const = 0;
+  virtual void BreadthTraverse(TraverseFun) const noexcept= 0;
 
   // template <typename Accumulator>
   // using FoldFun = typename TraversableContainer<Data>::FoldFun<Accumulator>;

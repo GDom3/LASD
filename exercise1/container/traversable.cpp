@@ -5,9 +5,8 @@ namespace lasd {
 template <typename Data>
 inline bool TraversableContainer<Data>::Exists(const Data& valoreDaTrovare) const noexcept{
     bool esiste = false;
-    Traverse(
-        //[] è il contesto, sono valore che passo da Exists a Traverse(default è copia)
-        [valoreDaTrovare, &esiste](const Data& datoPassato){
+    Traverse([valoreDaTrovare, &esiste](const Data& datoPassato)
+        {
             esiste = esiste || (datoPassato == valoreDaTrovare); //potrei scrivere |=
         }
     );
@@ -20,9 +19,8 @@ inline bool TraversableContainer<Data>::Exists(const Data& valoreDaTrovare) cons
 template <typename Data>
 template <typename Accumulator>
 inline Accumulator TraversableContainer<Data>::Fold(FoldFun<Accumulator> funzione, Accumulator acc) const noexcept{
-    Traverse(
-        //[] è il contesto, sono valore che passo da Exists a Traverse(default è copia)
-        [funzione, &acc](const Data& datoPassato){
+    Traverse([funzione, &acc](const Data& datoPassato)
+        {
             acc = funzione(datoPassato, acc);
         }
     );
@@ -32,21 +30,20 @@ inline Accumulator TraversableContainer<Data>::Fold(FoldFun<Accumulator> funzion
 template <typename Data>
 template <typename Accumulator>
 inline Accumulator PreOrderTraversableContainer<Data>::PreOrderFold(FoldFun<Accumulator> funzione, Accumulator acc) const noexcept{
-    PreOrderTraverse(
-        //[] è il contesto, sono valore che passo da Exists a Traverse(default è copia)
-        [funzione, &acc](const Data& datoPassato){
+    PreOrderTraverse([funzione, &acc](const Data& datoPassato)
+        {
             acc = funzione(datoPassato, acc);
         }
     );
+    
     return acc;
 }
 
 template <typename Data>
 template <typename Accumulator>
 inline Accumulator PostOrderTraversableContainer<Data>::PostOrderFold(FoldFun<Accumulator> funzione, Accumulator acc) const noexcept{
-    PostOrderTraverse(
-        //[] è il contesto, sono valore che passo da Exists a Traverse(default è copia)
-        [funzione, &acc](const Data& datoPassato){
+    PostOrderTraverse([funzione, &acc](const Data& datoPassato)
+        {
             acc = funzione(datoPassato, acc);
         }
     );
@@ -56,10 +53,8 @@ inline Accumulator PostOrderTraversableContainer<Data>::PostOrderFold(FoldFun<Ac
 template <typename Data>
 template <typename Accumulator>
 inline Accumulator InOrderTraversableContainer<Data>::InOrderFold(FoldFun<Accumulator> funzione ,Accumulator acc) const noexcept{
-
-    InOrderTraverse(
-        //[] è il contesto, sono valore che passo da Exists a Traverse(default è copia)
-        [funzione, &acc](const Data& datoPassato){
+    InOrderTraverse([funzione, &acc](const Data& datoPassato)
+        {
             acc = funzione(datoPassato, acc);
         }
     );
@@ -69,10 +64,8 @@ inline Accumulator InOrderTraversableContainer<Data>::InOrderFold(FoldFun<Accumu
 template <typename Data>
 template <typename Accumulator>
 inline Accumulator BreadthTraversableContainer<Data>::BreadthOrderFold(FoldFun<Accumulator> funzione ,Accumulator acc) const noexcept{
-    
-    BreadthOrderTraverse(
-        //[] è il contesto, sono valore che passo da Exists a Traverse(default è copia)
-        [funzione, &acc](const Data& datoPassato){
+    BreadthOrderTraverse([funzione, &acc](const Data& datoPassato)   
+        {
             acc = funzione(datoPassato, acc);
         }
     );

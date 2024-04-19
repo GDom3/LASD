@@ -40,16 +40,12 @@ public:
 
   // Specific constructors
   // Vector(argument) specifiers; // A vector with a given initial dimension
-  Vector(const unsigned long & num ){
-    if(num != 0)
-      elementi = new Data[num];
-
-  }
+  Vector(const unsigned long & num ) noexcept;
   // Vector(argument) specifiers; // A vector obtained from a TraversableContainer
-  Vector(const TraversableContainer<Data> & );
+  Vector(const TraversableContainer<Data> & ) noexcept;
 
   // Vector(argument) specifiers; // A vector obtained from a MappableContainer
-  Vector(MappableContainer<Data> & );
+  Vector(MappableContainer<Data> && )noexcept;
   /* ************************************************************************ */
 
   // Copy constructor
@@ -59,16 +55,16 @@ public:
 
   // Move constructor
   // Vector(argument) specifiers;
-  Vector (Vector && );
+  Vector(Vector && ) noexcept;
 
   /* ************************************************************************ */
 
   // Destructor
   // ~Vector() specifiers;
   ~Vector(){
-    if(elementi != nullptr)
-      delete[] elementi;
-
+    delete[] elementi;
+    elementi = nullptr;
+    size = 0;
   }
   /* ************************************************************************ */
 
@@ -119,6 +115,53 @@ public:
   // type Back() specifiers; // Override (Mutable) LinearContainer member (must throw std::length_error when empty)
   inline Data& Back() override;
 
+
+  /*
+  using typename TraversableContainer<Data>::TraverseFun;
+
+  // type Traverse(argument) specifiers; // Override TraversableContainer member
+  inline void Traverse(TraverseFun) const noexcept override;
+  
+ 
+
+  // Specific member function (inherited from PreOrderTraversableContainer)
+
+  // type PreOrderTraverse(argument) specifiers; // Override PreOrderTraversableContainer member
+  
+  inline void PreOrderTraverse(TraverseFun ) const noexcept override;
+
+ 
+
+  // Specific member function (inherited from PostOrderTraversableContainer)
+
+  // type PostOrderTraverse(argument) specifiers; // Override PostOrderTraversableContainer member  
+  inline void PostOrderTraverse(TraverseFun ) const noexcept override;
+
+
+
+  // Specific member function (inherited from MappableContainer)
+
+  // using typename MappableContainer<Data>::MapFun;
+  using typename MappableContainer<Data>::MapFun;
+
+  // type Map(argument) specifiers; // Override MappableContainer member
+  inline void Map(MapFun) noexcept override;
+
+ 
+
+  // Specific member function (inherited from PreOrderMappableContainer)
+
+  // type PreOrderMap(argument) specifiers; // Override PreOrderMappableContainer member
+  inline void PreOrderMap(MapFun ) noexcept override;
+
+
+
+  // Specific member function (inherited from PostOrderMappableContainer)
+
+  // type PostOrderMap(argument) specifiers; // Override PostOrderMappableContainer member
+  inline void PostOrderMap(MapFun ) noexcept override;
+  */
+  inline void Stampa() const noexcept;
 protected:
 
   // Auxiliary functions, if necessary!
@@ -153,15 +196,16 @@ public:
   // Specific constructors
   // SortableVector(argument) specifiers; // A vector with a given initial dimension
   SortableVector(const unsigned long & num ){
-    if(num != 0)
+    if(num != 0){
       elementi = new Data[num];
-
+      size = num;
+    }
   }
   // SortableVector(argument) specifiers; // A vector obtained from a TraversableContainer
   SortableVector(const TraversableContainer<Data> & );
 
   // SortableVector(argument) specifiers; // A vector obtained from a MappableContainer
-  SortableVector(MappableContainer<Data> & );
+  SortableVector(MappableContainer<Data> && );
   /* ************************************************************************ */
 
   // Copy constructor
@@ -169,17 +213,19 @@ public:
   SortableVector(const SortableVector & );
   // Move constructor
   // SortableVector(argument) specifiers;
-  SortableVector (SortableVector && );
+  SortableVector (SortableVector && ) noexcept;
   /* ************************************************************************ */
 
   // Destructor
   // ~SortableVector() specifiers;
-  ~SortableVector(){
-    if(elementi != nullptr)
-      delete[] elementi;
-
-  }
+  ~SortableVector() = default;
   /* ************************************************************************ */
+
+
+  bool operator==(const SortableVector &) const noexcept;
+  
+  bool inline operator!=(const SortableVector &) const noexcept;
+
 
   // Copy assignment
   // type operator=(argument) specifiers;
@@ -189,20 +235,12 @@ public:
   // type operator=(argument) specifiers;
   SortableVector& operator=(SortableVector &&);
 
-protected:
-
-  // Auxiliary functions, if necessary!
-
-
-
-
   //Doppia dichiarazione : 
 
   // type operator[](argument) specifiers; // Override (NonMutable) LinearContainer member (must throw std::out_of_range when out of range)
   const Data & operator[](const unsigned long int) const override;
   // type operator[](argument) specifiers; // Override (Mutable) LinearContainer member (must throw std::out_of_range when out of range)
   Data & operator[](unsigned long int) override;
-
 
 
   using typename TraversableContainer<Data>::TraverseFun;
@@ -216,14 +254,14 @@ protected:
 
   // type PreOrderTraverse(argument) specifiers; // Override PreOrderTraversableContainer member
   
-  inline void PreOrderTraverse(TraverseFun ) const override;
+  inline void PreOrderTraverse(TraverseFun ) const noexcept override;
 
   /* ************************************************************************ */
 
   // Specific member function (inherited from PostOrderTraversableContainer)
 
   // type PostOrderTraverse(argument) specifiers; // Override PostOrderTraversableContainer member  
-  inline void PostOrderTraverse(TraverseFun ) const override;
+  inline void PostOrderTraverse(TraverseFun ) const noexcept override;
 
   /* ************************************************************************ */
 
@@ -233,22 +271,28 @@ protected:
   using typename MappableContainer<Data>::MapFun;
 
   // type Map(argument) specifiers; // Override MappableContainer member
-  inline void Map(MapFun) override;
+  inline void Map(MapFun) noexcept override;
 
   /* ************************************************************************ */
 
   // Specific member function (inherited from PreOrderMappableContainer)
 
   // type PreOrderMap(argument) specifiers; // Override PreOrderMappableContainer member
-  inline void PreOrderMap(MapFun ) override;
+  inline void PreOrderMap(MapFun ) noexcept override;
 
   /* ************************************************************************ */
 
   // Specific member function (inherited from PostOrderMappableContainer)
 
   // type PostOrderMap(argument) specifiers; // Override PostOrderMappableContainer member
-  inline void PostOrderMap(MapFun ) override;
+  inline void PostOrderMap(MapFun ) noexcept override;
 
+
+protected:
+
+  // Auxiliary functions, if necessary!
+
+  
 
 };
 

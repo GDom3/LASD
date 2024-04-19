@@ -132,7 +132,7 @@ public:
   // Specific member functions
 
   // type Resize(argument) specifiers;
-  virtual void Resize (const unsigned long  &) = 0;
+  virtual void Resize (const unsigned long &) = 0;
 
   /* ************************************************************************ */
 

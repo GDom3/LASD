@@ -144,6 +144,7 @@ void stestVectorString(uint & testnum, uint & testerr) {
 
     lasd::SortableVector<string> movvec(move(vec));
     FoldPreOrder(loctestnum, loctesterr, movvec, true, &FoldStringConcatenate, string("?"), string("?A B "));
+    
     movvec.Sort();
     FoldPreOrder(loctestnum, loctesterr, movvec, true, &FoldStringConcatenate, string("?"), string("?A B "));
     SetAt(loctestnum, loctesterr, vec, false, 1, string(""));
@@ -192,9 +193,10 @@ void stestListInt(uint & testnum, uint & testerr) {
     FoldPreOrder(loctestnum, loctesterr, lst, true, &FoldAdd<int>, 0, 0);
     FoldPostOrder(loctestnum, loctesterr, lst, true, &FoldAdd<int>, 0, 0);
 
-    RemoveFromFront(loctestnum, loctesterr, lst, false);
+    RemoveFromFront(loctestnum, loctesterr, lst, false); // 10
     FrontNRemove(loctestnum, loctesterr, lst, false, 0);
 
+   
     InsertAtBack(loctestnum, loctesterr, lst, true, 4);
     InsertAtFront(loctestnum, loctesterr, lst, true, 5);
     InsertAtFront(loctestnum, loctesterr, lst, true, 9);
@@ -204,7 +206,7 @@ void stestListInt(uint & testnum, uint & testerr) {
     GetFront(loctestnum, loctesterr, lst, true, 1);
     GetBack(loctestnum, loctesterr, lst, true, 2);
     SetFront(loctestnum, loctesterr, lst, true, 2);
-    SetBack(loctestnum, loctesterr, lst, true, 6);
+    SetBack(loctestnum, loctesterr, lst, true, 6); //20
 
     GetAt(loctestnum, loctesterr, lst, true, 3, 4);
     SetAt(loctestnum, loctesterr, lst, true, 3, 3);
@@ -215,10 +217,10 @@ void stestListInt(uint & testnum, uint & testerr) {
     TraversePostOrder(loctestnum, loctesterr, lst, true, &TraversePrint<int>);
     FoldPreOrder(loctestnum, loctesterr, lst, true, &FoldAdd<int>, 0, 25);
     FoldPostOrder(loctestnum, loctesterr, lst, true, &FoldMultiply<int>, 1, 1620);
-
-    RemoveFromFront(loctestnum, loctesterr, lst, true);
+    
+    RemoveFromFront(loctestnum, loctesterr, lst, true); // 28
     FrontNRemove(loctestnum, loctesterr, lst, true, 9);
-    FoldPostOrder(loctestnum, loctesterr, lst, true, &FoldMultiply<int>, 1, 90);
+    FoldPostOrder(loctestnum, loctesterr, lst, true, &FoldMultiply<int>, 1, 90); //30
 
     lasd::List<int> coplst(lst);
     EqualList(loctestnum, loctesterr, lst, coplst, true);
@@ -228,13 +230,14 @@ void stestListInt(uint & testnum, uint & testerr) {
     InsertAtFront(loctestnum, loctesterr, lst, true, 0);
     InsertAtBack(loctestnum, loctesterr, lst, true, 0);
     NonEqualList(loctestnum, loctesterr, lst, coplst, true);
-    coplst = lst;
+   
+    coplst = lst; 
     EqualList(loctestnum, loctesterr, lst, coplst, true);
 
     RemoveFromFront(loctestnum, loctesterr, coplst, true);
-    FrontNRemove(loctestnum, loctesterr, coplst, true, 6);
+    FrontNRemove(loctestnum, loctesterr, coplst, true, 6); 
     coplst = move(lst);
-    FoldPreOrder(loctestnum, loctesterr, lst, true, &FoldAdd<int>, 0, 11);
+    FoldPreOrder(loctestnum, loctesterr, lst, true, &FoldAdd<int>, 0, 11);//40
     FoldPreOrder(loctestnum, loctesterr, coplst, true, &FoldAdd<int>, 0, 17);
 
     lasd::List<int> movlst(move(lst));
@@ -242,14 +245,19 @@ void stestListInt(uint & testnum, uint & testerr) {
     FoldPreOrder(loctestnum, loctesterr, movlst, true, &FoldAdd<int>, 0, 14);
 
     InsertC(loctestnum, loctesterr, movlst, true, 6);
+    
     InsertC(loctestnum, loctesterr, movlst, false, 8);
+  
     Remove(loctestnum, loctesterr, movlst, true, 6);
     InsertC(loctestnum, loctesterr, movlst, true, 7);
     FoldPreOrder(loctestnum, loctesterr, movlst, true, &FoldAdd<int>, 1, 22);
-
+    
     movlst.Clear();
     Empty(loctestnum, loctesterr, movlst, true);
     Size(loctestnum, loctesterr, movlst, true, 0);
+   
+ 
+    
   }
   catch (...) {
     loctestnum++; loctesterr++;
@@ -372,6 +380,7 @@ void stestVectorListInt(uint & testnum, uint & testerr) {
     EqualLinear(loctestnum, loctesterr, vec, lst, true);
 
     lasd::SortableVector<int> copvec(lst);
+    
     EqualVector(loctestnum, loctesterr, vec, copvec, true);
     lasd::SortableVector<int> copvecx(vec);
     EqualVector(loctestnum, loctesterr, copvecx, copvec, true);
@@ -438,9 +447,9 @@ void stestVectorListString(uint & testnum, uint & testerr) {
     InsertAtFront(loctestnum, loctesterr, lst, true, string("B"));
     InsertAtBack(loctestnum, loctesterr, lst, true, string("C"));
     InsertAtFront(loctestnum, loctesterr, lst, true, string("A"));
-
+    
     EqualLinear(loctestnum, loctesterr, vec, lst, true);
-
+ 
     lasd::SortableVector<string> copvec(lst);
     EqualVector(loctestnum, loctesterr, vec, copvec, true);
     lasd::SortableVector<string> copvecx(vec);

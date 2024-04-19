@@ -86,14 +86,14 @@ public:
 
   // type PreOrderTraverse(argument) specifiers; // Override PreOrderTraversableContainer member
   
-  inline void PreOrderTraverse(TraverseFun ) const override;
+  inline void PreOrderTraverse(TraverseFun )  const noexcept override;
 
   /* ************************************************************************ */
 
   // Specific member function (inherited from PostOrderTraversableContainer)
 
   // type PostOrderTraverse(argument) specifiers; // Override PostOrderTraversableContainer member  
-  inline void PostOrderTraverse(TraverseFun ) const override;
+  inline void PostOrderTraverse(TraverseFun ) const noexcept override;
 
   /* ************************************************************************ */
 

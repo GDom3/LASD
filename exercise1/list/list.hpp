@@ -47,6 +47,7 @@ protected:
     // ...
     inline Node(const Data& dato){
       elemento = dato;
+      next = nullptr;
 
     }
 
@@ -54,14 +55,16 @@ protected:
     // ...
     inline Node(Data&& dato){
       elemento = std::move(dato);
-
+      next = nullptr;
     }
 
     /* ********************************************************************** */
 
     // Destructor
     // ...
-    ~Node() = default;
+    ~Node() {
+      delete next;
+    }
     /* ********************************************************************** */
 
     // Comparison operators
@@ -97,7 +100,7 @@ public:
   // List(argument) specifiers; // A list obtained from a TraversableContainer
   List(const TraversableContainer<Data> & );
   // List(argument) specifiers; // A list obtained from a MappableContainer
-  List(MappableContainer<Data> & );
+  List(MappableContainer<Data> && );
   /* ************************************************************************ */
 
   // Copy constructor
@@ -198,15 +201,15 @@ public:
 
   // type PreOrderTraverse(argument) specifiers; // Override PreOrderTraversableContainer member
   
-  inline void PreOrderTraverse(TraverseFun ) const override;
-
+  inline void PreOrderTraverse(TraverseFun ) const noexcept override;
+  inline void PreOrderTraverse(TraverseFun,Node* ) const noexcept ;
   /* ************************************************************************ */
 
   // Specific member function (inherited from PostOrderTraversableContainer)
 
   // type PostOrderTraverse(argument) specifiers; // Override PostOrderTraversableContainer member  
-  inline void PostOrderTraverse(TraverseFun ) const override;
-
+  inline void PostOrderTraverse(TraverseFun ) const noexcept override;
+  inline void PostOrderTraverse(TraverseFun,Node* ) const noexcept ;
   /* ************************************************************************ */
 
   // Specific member function (inherited from MappableContainer)
@@ -216,21 +219,21 @@ public:
 
   // type Map(argument) specifiers; // Override MappableContainer member
   inline void Map(MapFun) override;
-
+  
   /* ************************************************************************ */
 
   // Specific member function (inherited from PreOrderMappableContainer)
 
   // type PreOrderMap(argument) specifiers; // Override PreOrderMappableContainer member
   inline void PreOrderMap(MapFun ) override;
-
+  inline void PreOrderMap(MapFun ,Node*);
   /* ************************************************************************ */
 
   // Specific member function (inherited from PostOrderMappableContainer)
 
   // type PostOrderMap(argument) specifiers; // Override PostOrderMappableContainer member
   inline void PostOrderMap(MapFun ) override;
-
+  inline void PostOrderMap(MapFun ,Node*);
   /* ************************************************************************ */
 
   //Doppio uso : ambigua
@@ -238,9 +241,9 @@ public:
   inline bool Exists(const Data&) const noexcept override;
 
 
-protected:
+  inline void Stampa() const noexcept;
 
-  // Auxiliary functions, if necessary!
+protected:
 
 };
 
