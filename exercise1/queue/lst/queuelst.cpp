@@ -18,14 +18,14 @@ QueueLst<Data>::QueueLst(MappableContainer<Data> &struttura ){
 }
 
 template <typename Data>
-QueueLst<Data>::QueueLst(const QueueLst & stklist){
-    List<Data>::List((List<Data>) stklist);
+QueueLst<Data>::QueueLst(const QueueLst & quelist){
+    List<Data>::List((List<Data>) quelist);
 
 }
 
 template <typename Data>
-QueueLst<Data>::QueueLst(QueueLst && stklist){
-    List<Data>::List((List<Data>) stklist);
+QueueLst<Data>::QueueLst(QueueLst && quelist){
+    List<Data>::List((List<Data>) quelist);
 
 }
 
@@ -35,31 +35,31 @@ QueueLst<Data>::~QueueLst(){
 }
 
 template <typename Data>
-QueueLst<Data>& QueueLst<Data>::operator=(const QueueLst & stklist){
-    return List<Data>::operator=((List<Data>) stklist);
+QueueLst<Data>& QueueLst<Data>::operator=(const QueueLst & quelist){
+    return List<Data>::operator=((List<Data>) quelist);
 }
 
 template <typename Data>
-QueueLst<Data>& QueueLst<Data>::operator=(QueueLst && stklist){
-    return List<Data>::operator=((List<Data>) stklist);
+QueueLst<Data>& QueueLst<Data>::operator=(QueueLst && quelist){
+    return List<Data>::operator=((List<Data>) quelist);
 }
 
 template <typename Data>
-bool QueueLst<Data>::operator!=(const QueueLst & stklist) const noexcept{
-    return !operator==(stklist);
+bool QueueLst<Data>::operator!=(const QueueLst & quelist) const noexcept{
+    return !operator==(quelist);
 
 }
 
 template <typename Data>
-bool QueueLst<Data>::operator==(const QueueLst & stklist) const noexcept{
-    return List<Data>::operator==((List<Data>)stklist);
+bool QueueLst<Data>::operator==(const QueueLst & quelist) const noexcept{
+    return List<Data>::operator==((List<Data>)quelist);
 
 }
 
 template <typename Data>
 const Data& QueueLst<Data>::Head() const{
     if(head == nullptr)
-        throw std::length_error("Stack Vuota!");
+        throw std::length_error("Queue Vuota!");
 
     return head->elemento;
 }
@@ -67,7 +67,7 @@ const Data& QueueLst<Data>::Head() const{
 template <typename Data>
 Data& QueueLst<Data>::Head(){
     if(head == nullptr)
-        throw std::length_error("Stack Vuota!");
+        throw std::length_error("Queue Vuota!");
 
     return head->elemento;
 }

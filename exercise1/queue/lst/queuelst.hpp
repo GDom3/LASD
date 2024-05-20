@@ -28,6 +28,8 @@ protected:
   using List<Data>::head;
   // ...
 
+
+
 public:
 
   // Default constructor
