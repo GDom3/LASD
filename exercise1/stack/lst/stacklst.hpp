@@ -40,7 +40,7 @@ public:
   // StackLst(argument) specifiers; // A stack obtained from a TraversableContainer
   StackLst(const TraversableContainer<Data> & );
   // StackLst(argument) specifiers; // A stack obtained from a MappableContainer
-  StackLst(MappableContainer<Data> & );
+  StackLst(MappableContainer<Data> && );
   /* ************************************************************************ */
 
   // Copy constructor

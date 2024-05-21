@@ -46,7 +46,7 @@ public:
   // StackVec(argument) specifiers; // A stack obtained from a TraversableContainer
   StackVec(const TraversableContainer<Data> & );
   // StackVec(argument) specifiers; // A stack obtained from a MappableContainer
-  StackVec(MappableContainer<Data> & );
+  StackVec(MappableContainer<Data> && );
   /* ************************************************************************ */
 
   // Copy constructor

@@ -9,24 +9,43 @@ namespace lasd {
 
 template <typename Data>
 StackLst<Data>::StackLst(const TraversableContainer<Data> &struttura ){
-    List<Data>::List(struttura);
+    struttura.Traverse(
+        [this](const Data & dato){
+            Push(dato);
+        }
+
+    );
 }
 
 template <typename Data>
-StackLst<Data>::StackLst(MappableContainer<Data> &struttura ){
-    List<Data>::List(struttura);
+StackLst<Data>::StackLst(MappableContainer<Data> &&struttura ){
+   struttura.Traverse(
+        [this](const Data & dato){
+            Push(dato);
+        }
+
+    );
 }
 
 template <typename Data>
 StackLst<Data>::StackLst(const StackLst & stklist){
-    List<Data>::List((List<Data>) stklist);
+    stklist.Traverse(
+        [this](const Data & dato){
+            Push(dato);
+        }
+
+    );
 
 }
 
 template <typename Data>
 StackLst<Data>::StackLst(StackLst && stklist){
-    List<Data>::List((List<Data>) stklist);
+    stklist.Traverse(
+        [this](const Data & dato){
+            Push(dato);
+        }
 
+    );
 }
 
 template <typename Data>

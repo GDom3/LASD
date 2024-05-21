@@ -32,7 +32,7 @@ protected:
   unsigned long int testa = 0;
   unsigned long int coda = 0;
 
-  float indiceResizeEnq = 1.5;
+  float indiceResizeEnq = 2;
   float indiceDeq = 2;
   float indiceResizeDeq = 1 / indiceDeq;
 
@@ -47,7 +47,7 @@ public:
   // QueueVec(argument) specifiers; // A stack obtained from a TraversableContainer
   QueueVec(const TraversableContainer<Data> & );
   // QueueVec(argument) specifiers; // A stack obtained from a MappableContainer
-  QueueVec(MappableContainer<Data> & );
+  QueueVec(MappableContainer<Data> && );
 
   /* ************************************************************************ */
 
@@ -101,11 +101,11 @@ public:
   // Specific member functions (inherited from Container)
 
   // type Empty() specifiers; // Override Container member
-  inline virtual bool Empty() const noexcept{
+  inline virtual bool Empty() const noexcept override{
     return testa == coda;
   }
   // type Size() specifiers; // Override Container member
-  inline virtual unsigned long Size() const noexcept{
+  inline virtual unsigned long Size() const noexcept override{
       return ((coda - testa) + size)%size;
   }
   /* ************************************************************************ */
@@ -119,6 +119,7 @@ protected:
   // Auxiliary functions, if necessary!
   void Espandi();
   void Riduci();
+  void ScambioVettoriCircolari(QueueVec<Data> &coda);
 
 };
 

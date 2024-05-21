@@ -8,20 +8,37 @@ namespace lasd {
 /* ************************************************************************** */
 template <typename Data>
 StackVec<Data>::StackVec(const TraversableContainer<Data> &struttura ){
-    Vector<Data>::Vector(struttura);
+    struttura.Traverse(
+        [this](const Data & dato){
+            Push(dato);
+        }
+
+    );
+    
     ultimo = struttura.Size() - 1;
 }
 
 template <typename Data>
-StackVec<Data>::StackVec(MappableContainer<Data> &struttura ){
+StackVec<Data>::StackVec(MappableContainer<Data> && struttura ){
     ultimo = struttura.Size() - 1;
-    Vector<Data>::Vector(struttura);
+    
+    struttura.Traverse(
+        [this](const Data & dato){
+            Push(dato);
+        }
+
+    );
     
 }
 
 template <typename Data>
 StackVec<Data>::StackVec(const StackVec & stkvec){
-    Vector<Data>::Vector((Vector<Data>) stkvec);
+    stkvec.Traverse(
+        [this](const Data & dato){
+            Push(dato);
+        }
+
+    );
     ultimo = stkvec.Size() - 1;
 
 }
@@ -29,7 +46,12 @@ StackVec<Data>::StackVec(const StackVec & stkvec){
 template <typename Data>
 StackVec<Data>::StackVec(StackVec && stkvec){
     ultimo = stkvec.Size() - 1;
-    Vector<Data>::Vector((Vector<Data>) stkvec);
+    stkvec.Traverse(
+        [this](const Data & dato){
+            Push(dato);
+        }
+
+    );
     
 }
 
@@ -41,13 +63,13 @@ StackVec<Data>::~StackVec(){
 template <typename Data>
 StackVec<Data>& StackVec<Data>::operator=(const StackVec & stkvec){
     ultimo = stkvec.ultimo - 1;
-    return Vector<Data>::operator=((Vector<Data>) stkvec); 
+    return Vector<Data>::operator=((Vector<Data>) stkvec ); 
 }
 
 template <typename Data>
 StackVec<Data>& StackVec<Data>::operator=(StackVec && stkvec){
     std::swap(ultimo,stkvec.ultimo);
-    return Vector<Data>::operator=((Vector<Data>) stkvec);
+    return Vector<Data>::operator=((Vector<Data>)std::move(stkvec));
     
 }
 

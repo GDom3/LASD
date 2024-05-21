@@ -9,23 +9,43 @@ namespace lasd {
 
 template <typename Data>
 QueueLst<Data>::QueueLst(const TraversableContainer<Data> &struttura ){
-    List<Data>::List(struttura);
+    struttura.Traverse(
+        [this](const Data & dato){
+            Enqueue(dato);
+        }
+
+    );
 }
 
 template <typename Data>
 QueueLst<Data>::QueueLst(MappableContainer<Data> &struttura ){
-    List<Data>::List(struttura);
+    struttura.Traverse(
+        [this](const Data & dato){
+            Enqueue(dato);
+        }
+
+    );
 }
 
 template <typename Data>
 QueueLst<Data>::QueueLst(const QueueLst & quelist){
-    List<Data>::List((List<Data>) quelist);
+    quelist.Traverse(
+        [this](const Data & dato){
+            Enqueue(dato);
+        }
+
+    );
 
 }
 
 template <typename Data>
 QueueLst<Data>::QueueLst(QueueLst && quelist){
-    List<Data>::List((List<Data>) quelist);
+    quelist.Traverse(
+        [this](const Data & dato){
+            Enqueue(dato);
+        }
+
+    );
 
 }
 
