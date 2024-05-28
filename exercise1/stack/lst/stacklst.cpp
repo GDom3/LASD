@@ -8,44 +8,23 @@ namespace lasd {
 /* ************************************************************************** */
 
 template <typename Data>
-StackLst<Data>::StackLst(const TraversableContainer<Data> &struttura ){
-    struttura.Traverse(
-        [this](const Data & dato){
-            Push(dato);
-        }
-
-    );
+StackLst<Data>::StackLst(const TraversableContainer<Data> &struttura ):List<Data>(struttura){
+ 
 }
 
 template <typename Data>
-StackLst<Data>::StackLst(MappableContainer<Data> &&struttura ){
-   struttura.Traverse(
-        [this](const Data & dato){
-            Push(dato);
-        }
-
-    );
+StackLst<Data>::StackLst(MappableContainer<Data> &&struttura ):List<Data>(std::move(struttura)){
 }
 
 template <typename Data>
-StackLst<Data>::StackLst(const StackLst & stklist){
-    stklist.Traverse(
-        [this](const Data & dato){
-            Push(dato);
-        }
+StackLst<Data>::StackLst(const StackLst & stklist):List<Data>(stklist){
 
-    );
 
 }
 
 template <typename Data>
-StackLst<Data>::StackLst(StackLst && stklist){
-    stklist.Traverse(
-        [this](const Data & dato){
-            Push(dato);
-        }
+StackLst<Data>::StackLst(StackLst && stklist):List<Data>(std::move(stklist)){
 
-    );
 }
 
 template <typename Data>
@@ -55,12 +34,20 @@ StackLst<Data>::~StackLst(){
 
 template <typename Data>
 StackLst<Data>& StackLst<Data>::operator=(const StackLst & stklist){
-    return List<Data>::operator=((List<Data>) stklist);
+    List<Data>::operator=(stklist);
+   
+    return (*this);
 }
+
+
+
 
 template <typename Data>
 StackLst<Data>& StackLst<Data>::operator=(StackLst && stklist){
-    return List<Data>::operator=((List<Data>) stklist);
+    
+     List<Data>::operator=(std::move(stklist));
+
+    return (*this);
 }
 
 template <typename Data>
@@ -71,24 +58,18 @@ bool StackLst<Data>::operator!=(const StackLst & stklist) const noexcept{
 
 template <typename Data>
 bool StackLst<Data>::operator==(const StackLst & stklist) const noexcept{
-    return List<Data>::operator==((List<Data>)stklist);
+    return List<Data>::operator==(stklist);
 
 }
 
 template <typename Data>
 const Data& StackLst<Data>::Top() const{
-    if(head == nullptr)
-        throw std::length_error("Stack Vuota!");
-
-    return head->elemento;
+    return List<Data>::Front();
 }
 
 template <typename Data>
 Data& StackLst<Data>::Top(){
-    if(head == nullptr)
-        throw std::length_error("Stack Vuota!");
-
-    return head->elemento;
+    return List<Data>::Front();
 }
 
 template <typename Data>
@@ -99,9 +80,7 @@ inline void StackLst<Data>::Pop(){
 
 template <typename Data>
 Data StackLst<Data>::TopNPop(){
-    Data temp = head->elemento;
-    List<Data>::RemoveFromFront();
-    return temp;
+    return List<Data>::FrontNRemove();
 
 }
 

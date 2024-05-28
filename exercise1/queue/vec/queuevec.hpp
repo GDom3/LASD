@@ -32,9 +32,6 @@ protected:
   unsigned long int testa = 0;
   unsigned long int coda = 0;
 
-  float indiceResizeEnq = 2;
-  float indiceDeq = 2;
-  float indiceResizeDeq = 1 / indiceDeq;
 
 public:
 
@@ -106,20 +103,20 @@ public:
   }
   // type Size() specifiers; // Override Container member
   inline virtual unsigned long Size() const noexcept override{
-      return ((coda - testa) + size)%size;
+      return size==0?0:((size + coda) - testa) % size;
   }
   /* ************************************************************************ */
 
   // Specific member function (inherited from ClearableContainer)
 
   // type Clear() specifiers; // Override ClearableContainer member
-  void Clear();
+  void Clear() override;
 protected:
 
   // Auxiliary functions, if necessary!
   void Espandi();
   void Riduci();
-  void ScambioVettoriCircolari(QueueVec<Data> &coda);
+  void Resize(const unsigned long int nuovaSize, unsigned long int numeroElementi);
 
 };
 

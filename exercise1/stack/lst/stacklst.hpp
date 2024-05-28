@@ -25,7 +25,7 @@ private:
 protected:
 
   // using List<Data>::???;
-  using List<Data>::head;
+  using List<Data>::size;
 
   // ...
 

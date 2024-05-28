@@ -8,44 +8,22 @@ namespace lasd {
 /* ************************************************************************** */
 
 template <typename Data>
-QueueLst<Data>::QueueLst(const TraversableContainer<Data> &struttura ){
-    struttura.Traverse(
-        [this](const Data & dato){
-            Enqueue(dato);
-        }
-
-    );
-}
-
-template <typename Data>
-QueueLst<Data>::QueueLst(MappableContainer<Data> &struttura ){
-    struttura.Traverse(
-        [this](const Data & dato){
-            Enqueue(dato);
-        }
-
-    );
-}
-
-template <typename Data>
-QueueLst<Data>::QueueLst(const QueueLst & quelist){
-    quelist.Traverse(
-        [this](const Data & dato){
-            Enqueue(dato);
-        }
-
-    );
+QueueLst<Data>::QueueLst(const TraversableContainer<Data> &struttura ):List<Data>(struttura){
 
 }
 
 template <typename Data>
-QueueLst<Data>::QueueLst(QueueLst && quelist){
-    quelist.Traverse(
-        [this](const Data & dato){
-            Enqueue(dato);
-        }
+QueueLst<Data>::QueueLst(MappableContainer<Data> &struttura ):List<Data>(std::move(struttura)){
 
-    );
+}
+
+template <typename Data>
+QueueLst<Data>::QueueLst(const QueueLst & quelist):List<Data>(quelist){
+
+}
+
+template <typename Data>
+QueueLst<Data>::QueueLst(QueueLst && quelist):List<Data>(std::move(quelist)){
 
 }
 
@@ -56,12 +34,18 @@ QueueLst<Data>::~QueueLst(){
 
 template <typename Data>
 QueueLst<Data>& QueueLst<Data>::operator=(const QueueLst & quelist){
-    return List<Data>::operator=((List<Data>) quelist);
+
+    List<Data>::operator=(quelist);
+    return (*this);
+
+    
 }
 
 template <typename Data>
 QueueLst<Data>& QueueLst<Data>::operator=(QueueLst && quelist){
-    return List<Data>::operator=((List<Data>) quelist);
+    List<Data>::operator=(std::move(quelist));
+    return (*this);
+
 }
 
 template <typename Data>
@@ -72,24 +56,20 @@ bool QueueLst<Data>::operator!=(const QueueLst & quelist) const noexcept{
 
 template <typename Data>
 bool QueueLst<Data>::operator==(const QueueLst & quelist) const noexcept{
-    return List<Data>::operator==((List<Data>)quelist);
+    return List<Data>::operator==(quelist);
 
 }
 
 template <typename Data>
 const Data& QueueLst<Data>::Head() const{
-    if(head == nullptr)
-        throw std::length_error("Queue Vuota!");
+    return  List<Data>::Front();
 
-    return head->elemento;
+
 }
 
 template <typename Data>
 Data& QueueLst<Data>::Head(){
-    if(head == nullptr)
-        throw std::length_error("Queue Vuota!");
-
-    return head->elemento;
+    return  List<Data>::Front();
 }
 
 template <typename Data>
@@ -100,9 +80,7 @@ inline void QueueLst<Data>::Dequeue(){
 
 template <typename Data>
 Data QueueLst<Data>::HeadNDequeue(){
-    Data temp = head->elemento;
-    List<Data>::RemoveFromFront();
-    return temp;
+   return List<Data>::FrontNRemove();
 
 }
 
@@ -113,7 +91,7 @@ void QueueLst<Data>::Enqueue(const Data& elem) {
 
 template <typename Data>
 void QueueLst<Data>::Enqueue(Data&& elem) {
-    List<Data>::InsertAtBack(elem);
+    List<Data>::InsertAtBack(std::move(elem));
 }
 
 

@@ -8,63 +8,31 @@ namespace lasd {
 /* ************************************************************************** */
 
 template <typename Data>
-QueueVec<Data>::QueueVec(const TraversableContainer<Data> &struttura ){
-    
-    struttura.Traverse(
-        [this](const Data & dato){
-            Enqueue(dato);
-        }
+QueueVec<Data>::QueueVec(const TraversableContainer<Data> &struttura ): Vector<Data>(struttura){
+    coda = size;
+    Vector<Data>::Resize(size*2);
 
-    );
-
-    if(struttura.Size() > 0){
-        testa = 0;
-        coda = struttura.Size() - 1;
-            
-    }
 }
 
 template <typename Data>
-QueueVec<Data>::QueueVec(MappableContainer<Data> &&struttura ){
-    if(struttura.Size() > 0){
-        testa = 0;
-        coda = struttura.Size() - 1;
-    }
+QueueVec<Data>::QueueVec(MappableContainer<Data> &&struttura ):Vector<Data>(std::move(struttura)){
+    coda = size;
+    Vector<Data>::Resize(size*2);
 
-    struttura.Traverse(
-        [this](const Data & dato){
-            Enqueue(dato);
-        }
-
-    );
 }
 
 template <typename Data>
-QueueVec<Data>::QueueVec(const QueueVec & quevec){
-    coda = quevec.coda;
+QueueVec<Data>::QueueVec(const QueueVec & quevec):Vector<Data>(quevec){
     testa = quevec.testa;
-
-    quevec.Traverse(
-        [this](const Data & dato){
-            Enqueue(dato);
-        }
-
-    );
-
+    coda = quevec.coda;
 }
 
 template <typename Data>
-QueueVec<Data>::QueueVec(QueueVec && quevec){
-    std::swap(coda ,quevec.coda);
-    std::swap(testa ,quevec.testa);
-
-    quevec.Traverse(
-        [this](const Data & dato){
-            Enqueue(dato);
-        }
-
-    );
+QueueVec<Data>::QueueVec(QueueVec && quevec):Vector<Data>(std::move(quevec)){
+    std::swap(testa,quevec.testa);
+    std::swap(coda,quevec.coda);
 }
+
 
 template <typename Data>
 QueueVec<Data>::~QueueVec(){
@@ -75,16 +43,21 @@ QueueVec<Data>::~QueueVec(){
 
 template <typename Data>
 QueueVec<Data>& QueueVec<Data>::operator=(const QueueVec & quevec){
-    coda = quevec.coda;
+   Vector<Data>::operator=(quevec);
     testa = quevec.testa;
-    return Vector<Data>::operator=((Vector<Data>) quevec);
+    coda = quevec.coda;
+    return (*this);
+    
 }
 
 template <typename Data>
 QueueVec<Data>& QueueVec<Data>::operator=(QueueVec && quevec){
+    Vector<Data>::operator=(std::move(quevec));
     std::swap(coda ,quevec.coda);
     std::swap(testa ,quevec.testa);
-    return Vector<Data>::operator=((Vector<Data>) quevec);
+
+    return (*this);
+
 }
 
 template <typename Data>
@@ -95,17 +68,28 @@ bool QueueVec<Data>::operator!=(const QueueVec & quevec) const noexcept{
 
 template <typename Data>
 bool QueueVec<Data>::operator==(const QueueVec & quevec) const noexcept{
-    return Vector<Data>::operator==((Vector<Data>)quevec);
+    if(Size() != quevec.Size())
+        return false;
+
+    unsigned long int temp = testa;
+
+    while(temp != coda){
+        if(quevec.elementi[temp] != elementi[temp])
+            return false;
+        
+        temp++;
+        temp%=size;
+    }
+    return true;
 
 }
 
 template <typename Data>
 void QueueVec<Data>::Espandi(){
-    if(Size() == size - 1){
-        QueueVec<Data> *temp = new QueueVec<Data>();
-        temp->Resize(size * indiceResizeEnq);
-        ScambioVettoriCircolari(*temp);
-        delete temp;
+    if (size == 0)
+        Resize(10,0);
+    else if(Size() + 1 == size ){
+        Resize(size*2,Size());
     }
 
 
@@ -113,31 +97,44 @@ void QueueVec<Data>::Espandi(){
 
 template <typename Data>
 void QueueVec<Data>::Riduci(){
-    if(Size() <= size / (indiceResizeDeq * 2)){
-        QueueVec<Data> *temp = new QueueVec<Data>();
-        temp->Resize(size / indiceDeq);
-        ScambioVettoriCircolari(*temp);
-        delete temp;
+    if(Size() + 1 == size / 4){
+        Resize(size/2,Size());
     }
 
 
 }
 
 template <typename Data>
-void QueueVec<Data>::ScambioVettoriCircolari(QueueVec<Data> &q){
-    unsigned long int indice = 0;
-
-    for(unsigned long int i = testa; i != coda; i = ((i + 1)%size)){
-        std::swap(elementi[i],q.elementi[i]);
-        indice++;
+void QueueVec<Data>::Resize(const unsigned long int nuovaSize, unsigned long int numeroElementi){
+    
+    if(nuovaSize == 0){
+        Clear();
+        return;
     }
+    
+    unsigned long int min = nuovaSize;
+    if(min > numeroElementi)
+        min = numeroElementi;
 
-    q.testa = 0;
-    q.coda = indice;
-    std::swap(elementi,q.elementi);
-    std::swap(size,q.size);
-    std::swap(testa,q.testa);
-    std::swap(coda,q.coda);
+    if(nuovaSize != size){
+        Data * nuovo =new Data[nuovaSize]{};
+        unsigned long int
+            i = testa,
+            j = 0;
+        
+        while(i != coda && j < min){
+            std::swap(nuovo[j++],elementi[i++]);
+            i%=size;
+        }
+
+        size = nuovaSize;
+        std::swap(elementi,nuovo);
+        delete[] nuovo;
+        testa = 0;
+        coda = min;
+
+
+    }
 
 }
 
@@ -149,7 +146,7 @@ const Data& QueueVec<Data>::Head() const{
     }
     
 
-    return elementi[coda]; 
+    return elementi[testa]; 
 
 }
 
@@ -159,7 +156,7 @@ Data& QueueVec<Data>::Head(){
         throw std::length_error("Queue Vuota!");
     }
 
-    return elementi[coda]; 
+    return elementi[testa]; 
 
 }
 
@@ -169,14 +166,17 @@ inline void QueueVec<Data>::Dequeue(){
         throw std::length_error("Queue Vuota!");
 
     Riduci();
-    coda--;
+    testa++;
+    testa%=size;
 
+    if(testa == coda)
+        Clear();
 }
 
 template <typename Data>
 Data QueueVec<Data>::HeadNDequeue(){
-
-    Data elem = elementi[coda];
+    std::cout<<coda<<std::endl;
+    Data elem = Head();
     Dequeue();
     return elem;
 
@@ -185,15 +185,33 @@ Data QueueVec<Data>::HeadNDequeue(){
 template <typename Data>
 void QueueVec<Data>::Enqueue(const Data& elem) {
     Espandi();
+    
     elementi[coda] = elem;
     coda++;
+    coda%=size;
 }
 
 template <typename Data>
 void QueueVec<Data>::Enqueue(Data&& elem) {
     Espandi();
+    
     std::swap(elementi[coda],elem);
     coda++;
+    coda%=size;
+}
+
+template <typename Data>
+void QueueVec<Data>::Clear() {
+
+    testa = 0;
+    coda = 0;
+    size = 0;
+
+    delete[] elementi;
+    elementi = new Data[10]{};
+
+
+
 
 }
 

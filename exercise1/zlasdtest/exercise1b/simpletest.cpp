@@ -29,6 +29,7 @@ void stestStackInt(Stk & stk, uint & testnum, uint & testerr) {
 
     Top(loctestnum, loctesterr, stk, false, 0);
     TopNPop(loctestnum, loctesterr, stk, false, 0);
+    
 
     PushC(loctestnum, loctesterr, stk, 4);
     PushC(loctestnum, loctesterr, stk, 0);

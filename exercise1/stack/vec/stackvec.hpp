@@ -31,8 +31,6 @@ protected:
   
   unsigned long int ultimo = 0;
 
-  float indiceResizePush = 1.5;
-  float indiceResizePop = 2;
   // ...
 
 public:
@@ -96,19 +94,19 @@ public:
   // Specific member functions (inherited from Container)
 
   // type Empty() specifiers; // Override Container member
-  inline virtual bool Empty() const noexcept{
-    return size==0?true:ultimo==0;
+  inline virtual bool Empty() const noexcept override{
+    return ultimo==0;
   }
   // type Size() specifiers; // Override Container member
-  inline virtual unsigned long Size() const noexcept{
-    return size==0?0:ultimo;
+  inline virtual unsigned long Size() const noexcept override{
+    return ultimo;
   }
   /* ************************************************************************ */
 
   // Specific member function (inherited from ClearableContainer)
 
   // type Clear() specifiers; // Override ClearableContainer member
-  void Clear();
+  void Clear() override;
 
 protected:
 

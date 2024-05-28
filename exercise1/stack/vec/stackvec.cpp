@@ -7,51 +7,24 @@ namespace lasd {
 
 /* ************************************************************************** */
 template <typename Data>
-StackVec<Data>::StackVec(const TraversableContainer<Data> &struttura ){
-    struttura.Traverse(
-        [this](const Data & dato){
-            Push(dato);
-        }
-
-    );
-    
-    ultimo = struttura.Size() - 1;
+StackVec<Data>::StackVec(const TraversableContainer<Data> &struttura ):Vector<Data>(struttura){
+    ultimo = size;
 }
 
 template <typename Data>
-StackVec<Data>::StackVec(MappableContainer<Data> && struttura ){
-    ultimo = struttura.Size() - 1;
-    
-    struttura.Traverse(
-        [this](const Data & dato){
-            Push(dato);
-        }
-
-    );
-    
+StackVec<Data>::StackVec(MappableContainer<Data> && struttura ):Vector<Data>(std::move(struttura)){
+    ultimo = size;
 }
 
 template <typename Data>
-StackVec<Data>::StackVec(const StackVec & stkvec){
-    stkvec.Traverse(
-        [this](const Data & dato){
-            Push(dato);
-        }
-
-    );
-    ultimo = stkvec.Size() - 1;
+StackVec<Data>::StackVec(const StackVec & stkvec): Vector<Data>(stkvec){
+    ultimo = stkvec.ultimo;
 
 }
 
 template <typename Data>
-StackVec<Data>::StackVec(StackVec && stkvec){
-    ultimo = stkvec.Size() - 1;
-    stkvec.Traverse(
-        [this](const Data & dato){
-            Push(dato);
-        }
-
-    );
+StackVec<Data>::StackVec(StackVec && stkvec):Vector<Data>(std::move(stkvec)){
+    std::swap(ultimo,stkvec.ultimo);
     
 }
 
@@ -62,15 +35,20 @@ StackVec<Data>::~StackVec(){
 
 template <typename Data>
 StackVec<Data>& StackVec<Data>::operator=(const StackVec & stkvec){
-    ultimo = stkvec.ultimo - 1;
-    return Vector<Data>::operator=((Vector<Data>) stkvec ); 
+   Vector<Data>::operator=(stkvec);
+   ultimo = stkvec.ultimo;
+    
+    return (*this);
+
 }
 
 template <typename Data>
 StackVec<Data>& StackVec<Data>::operator=(StackVec && stkvec){
-    std::swap(ultimo,stkvec.ultimo);
-    return Vector<Data>::operator=((Vector<Data>)std::move(stkvec));
     
+    Vector<Data>::operator=(std::move(stkvec));
+    std::swap(ultimo,stkvec.ultimo);
+    
+    return (*this); 
 }
 
 template <typename Data>
@@ -81,60 +59,76 @@ bool StackVec<Data>::operator!=(const StackVec & stkvec) const noexcept{
 
 template <typename Data>
 bool StackVec<Data>::operator==(const StackVec & stkvec) const noexcept{
-    return Vector<Data>::operator==((Vector<Data>)stkvec);
+    if(stkvec.ultimo != ultimo)
+        return false;
+
+    for(unsigned long int i = 0; i < ultimo; i++)
+        if(elementi[i] != stkvec.elementi[i])
+            return false;
+
+    return true;
 
 }
 
 template <typename Data>
 inline void StackVec<Data>::Clear(){
-    Vector<Data>::Clear();
+    for(unsigned long int i = 0; i < ultimo; i++)
+        Pop();
     ultimo = 0;
 
 }
 
 template <typename Data>
 void StackVec<Data>::Espandi(){
-    if(ultimo == size)
-        Vector<Data>::Resize(size * indiceResizePush);
+    if(size == 0)
+        Vector<Data>::Resize(10);
+    else if(ultimo == size)
+        Vector<Data>::Resize(size*2);
 }
 
 template <typename Data>
 void StackVec<Data>::Riduci(){
-    if(ultimo <= size / (2 * indiceResizePop))
-        Vector<Data>::Resize(size / indiceResizePop);
+    if(ultimo == size/4)
+        Vector<Data>::Resize(size/2);
 }
 
 template <typename Data>
 const Data& StackVec<Data>::Top() const{
-    if(Empty())
+    if(ultimo == 0)
         throw std::length_error("Stack Vuota!");
-    else return elementi[ultimo];
+    else 
+        return elementi[ultimo-1];
 }
 
 template <typename Data>
 Data& StackVec<Data>::Top(){
-    if(Empty())
+    if(ultimo == 0){
         throw std::length_error("Stack Vuota!");
-    else return elementi[ultimo];
+    }else{
+
+        return elementi[ultimo-1];
+    } 
 }
 
 
 
 template <typename Data>
 inline void StackVec<Data>::Pop(){
-    if(Empty())
+    if(ultimo == 0)
         throw std::length_error("Stack Vuota!");
-   
-    Riduci();
+    
     ultimo--;
+    Riduci();
+    
 
 }
 
 template <typename Data>
 Data StackVec<Data>::TopNPop(){
-    if(Empty())
+    if(ultimo == 0)
         throw std::length_error("Stack Vuota!");
-    Data elem = elementi[ultimo];
+    
+    Data elem = elementi[ultimo-1];
     Pop();
 
     return elem;
