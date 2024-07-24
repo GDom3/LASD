@@ -1,4 +1,3 @@
-#include "traversable.hpp"
 
 namespace lasd {
 
@@ -31,7 +30,7 @@ namespace lasd {
 
     template <typename Data>
     template <typename Accumulator>
-    inline Accumulator PreOrderTraversableContainer<Data>::PreOrderFold(FoldFun<Accumulator> funzione, Accumulator acc) const noexcept{
+    inline Accumulator PreOrderTraversableContainer<Data>::PreOrderFold(FoldFun<Accumulator> funzione, Accumulator acc) const{
         PreOrderTraverse(
             [funzione, &acc](const Data& datoPassato){
                 acc = funzione(datoPassato, acc);
@@ -43,7 +42,7 @@ namespace lasd {
 
     template <typename Data>
     template <typename Accumulator>
-    inline Accumulator PostOrderTraversableContainer<Data>::PostOrderFold(FoldFun<Accumulator> funzione, Accumulator acc) const noexcept{
+    inline Accumulator PostOrderTraversableContainer<Data>::PostOrderFold(FoldFun<Accumulator> funzione, Accumulator acc) const{
         PostOrderTraverse(
             [funzione, &acc](const Data& datoPassato){
                 acc = funzione(datoPassato, acc);
@@ -54,7 +53,7 @@ namespace lasd {
 
     template <typename Data>
     template <typename Accumulator>
-    inline Accumulator InOrderTraversableContainer<Data>::InOrderFold(FoldFun<Accumulator> funzione ,Accumulator acc) const noexcept{
+    inline Accumulator InOrderTraversableContainer<Data>::InOrderFold(FoldFun<Accumulator> funzione ,Accumulator acc) const{
         InOrderTraverse(
             [funzione, &acc](const Data& datoPassato){
                 acc = funzione(datoPassato, acc);
@@ -65,7 +64,7 @@ namespace lasd {
 
     template <typename Data>
     template <typename Accumulator>
-    inline Accumulator BreadthTraversableContainer<Data>::BreadthOrderFold(FoldFun<Accumulator> funzione ,Accumulator acc) const noexcept{
+    inline Accumulator BreadthTraversableContainer<Data>::BreadthOrderFold(FoldFun<Accumulator> funzione ,Accumulator acc) const{
         BreadthOrderTraverse(
             [funzione, &acc](const Data& datoPassato){
                 acc = funzione(datoPassato, acc);
@@ -77,22 +76,22 @@ namespace lasd {
     //Traverse:
 
     template <typename Data>
-    inline void PreOrderTraversableContainer<Data>::Traverse(TraverseFun funzione) const noexcept{
+    inline void PreOrderTraversableContainer<Data>::Traverse(TraverseFun funzione) const {
         PreOrderTraverse(funzione);
     }
 
     template <typename Data>
-    inline void PostOrderTraversableContainer<Data>::Traverse(TraverseFun funzione) const noexcept{
+    inline void PostOrderTraversableContainer<Data>::Traverse(TraverseFun funzione) const {
         PostOrderTraverse(funzione);
     }
 
     template <typename Data>
-    inline void InOrderTraversableContainer<Data>::Traverse(TraverseFun funzione) const noexcept{
+    inline void InOrderTraversableContainer<Data>::Traverse(TraverseFun funzione) const {
         InOrderTraverse(funzione);
     }
 
     template <typename Data>
-    inline void BreadthTraversableContainer<Data>::Traverse(TraverseFun funzione) const noexcept{
+    inline void BreadthTraversableContainer<Data>::Traverse(TraverseFun funzione) const {
         BreadthOrderTraverse(funzione);
     }
 

@@ -23,29 +23,35 @@ private:
 protected:
 
   // ...
-  DictionaryContainer() = default;
   
 public:
 
   // Destructor
   // ~DictionaryContainer() specifiers
-  ~DictionaryContainer() = default;
+  virtual ~DictionaryContainer() = default;
   /* ************************************************************************ */
 
   // Copy assignment
-  // type operator=(argument); // Copy assignment of abstract types is not possible.
+  // type operator=(argument); 
+  // Copy assignment of abstract types is not possible.
   DictionaryContainer& operator=(const DictionaryContainer &) = delete;
+
   // Move assignment
-  // type operator=(argument); // Move assignment of abstract types is not possible.
+  // type operator=(argument); 
+  // Move assignment of abstract types is not possible.
   DictionaryContainer& operator=(DictionaryContainer &&) noexcept = delete;
 
   /* ************************************************************************ */
 
   // Comparison operators
-  // type operator==(argument) specifiers; // Comparison of abstract types is not possible.
+  // type operator==(argument) specifiers; 
+  // Comparison of abstract types is not possible.
   bool operator==(const DictionaryContainer &) const noexcept = delete;
-  // type operator!=(argument) specifiers; // Comparison of abstract types is not possible.
+
+  // type operator!=(argument) specifiers; 
+  // Comparison of abstract types is not possible.
   bool operator!=(const DictionaryContainer &) const noexcept = delete;
+  
   /* ************************************************************************ */
 
   // Specific member functions

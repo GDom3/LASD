@@ -33,24 +33,31 @@ public:
 
   // Destructor
   // ~MappableContainer() specifiers
-  virtual ~MappableContainer() = default;
+  virtual ~MappableContainer() noexcept = default;
   /* ************************************************************************ */
 
   // Copy assignment
-  // type operator=(argument); // Copy assignment of abstract types is not possible.
+  // type operator=(argument); 
+  // Copy assignment of abstract types is not possible.
   MappableContainer& operator=(const MappableContainer &) = delete;
+
   // Move assignment
-  // type operator=(argument); // Move assignment of abstract types is not possible.
+  // type operator=(argument); 
+  // Move assignment of abstract types is not possible.
   MappableContainer& operator=(MappableContainer &&) noexcept = delete;
 
 
   /* ************************************************************************ */
 
   // Comparison operators
-  // type operator==(argument) specifiers; // Comparison of abstract types is not possible.
-  bool operator==(const MappableContainer &) const = delete;
-  // type operator!=(argument) specifiers; // Comparison of abstract types is not possible.
-  bool operator!=(const MappableContainer &) const = delete; 
+  // type operator==(argument) specifiers; 
+  // Comparison of abstract types is not possible.
+  bool operator==(const MappableContainer &) const noexcept = delete;
+
+  // type operator!=(argument) specifiers; 
+  // Comparison of abstract types is not possible.
+  bool operator!=(const MappableContainer &) const noexcept = delete; 
+
   /* ************************************************************************ */
 
   // Specific member function
@@ -60,7 +67,7 @@ public:
 
 
   // type Map(argument) specifiers;
-  virtual void Map(MapFun) = 0;
+  inline virtual void Map(MapFun) = 0;
 
 };
 
@@ -87,20 +94,25 @@ public:
   /* ************************************************************************ */
 
   // Copy assignment
-  // type operator=(argument); // Copy assignment of abstract types is not possible.
+  // type operator=(argument); 
+  // Copy assignment of abstract types is not possible.
   PreOrderMappableContainer& operator=(const PreOrderMappableContainer &) = delete;
 
  
   // Move assignment
-  // type operator=(argument); // Move assignment of abstract types is not possible.
-  PreOrderMappableContainer& operator=(PreOrderMappableContainer &&) noexcept = delete;
+  // type operator=(argument); 
+  // Move assignment of abstract types is not possible.
+  PreOrderMappableContainer& operator=(PreOrderMappableContainer &&) = delete;
   /* ************************************************************************ */
 
   // Comparison operators
-  // type operator==(argument) specifiers; // Comparison of abstract types is not possible.
-  // type operator!=(argument) specifiers; // Comparison of abstract types is not possible.
-  bool operator==(const PreOrderMappableContainer &) const = delete;
-  bool operator!=(const PreOrderMappableContainer &) const = delete;
+  // type operator==(argument) specifiers; 
+  // Comparison of abstract types is not possible.
+  bool operator==(const PreOrderMappableContainer &) const noexcept = delete;
+
+  // type operator!=(argument) specifiers; 
+  // Comparison of abstract types is not possible.
+  bool operator!=(const PreOrderMappableContainer &) const noexcept = delete;
 
   /* ************************************************************************ */
 
@@ -111,15 +123,15 @@ public:
 
   // type PreOrderMap(argument) specifiers;
   virtual void PreOrderMap(MapFun) = 0;
+
   /* ************************************************************************ */
 
   // Specific member function (inherited from MappableContainer)
 
   // type Map(argument) specifiers; // Override MappableContainer member
   virtual void Map(MapFun) override;
-  /* ************************************************************************ */
 
-  inline bool Exists(const Data&) const noexcept override;
+  /* ************************************************************************ */
 
 };
 
@@ -146,28 +158,35 @@ public:
   /* ************************************************************************ */
 
   // Copy assignment
-  // type operator=(argument); // Copy assignment of abstract types is not possible.
+  // type operator=(argument); 
+  // Copy assignment of abstract types is not possible.
   PostOrderMappableContainer& operator=(const PostOrderMappableContainer &) = delete;
 
   // Move assignment
-  // type operator=(argument); // Move assignment of abstract types is not possible.
+  // type operator=(argument); 
+  // Move assignment of abstract types is not possible.
   PostOrderMappableContainer& operator=(PostOrderMappableContainer &&) noexcept = delete;
 
   /* ************************************************************************ */
 
   // Comparison operators
-  // type operator==(argument) specifiers; // Comparison of abstract types is not possible.
-  // type operator!=(argument) specifiers; // Comparison of abstract types is not possible.
-  bool operator==(const PostOrderMappableContainer &) const = delete;
-  bool operator!=(const PostOrderMappableContainer &) const = delete; 
+  // type operator==(argument) specifiers; 
+  // Comparison of abstract types is not possible.
+  bool operator==(const PostOrderMappableContainer &) const noexcept = delete;
+  
+  // type operator!=(argument) specifiers; 
+  // Comparison of abstract types is not possible.
+  bool operator!=(const PostOrderMappableContainer &) const noexcept = delete; 
   /* ************************************************************************ */
 
   // Specific member function
 
   // using typename MappableContainer<Data>::MapFun;
   using typename MappableContainer<Data>::MapFun;
+  
   // type PostOrderMap(argument) specifiers;
   virtual void PostOrderMap(MapFun) = 0;
+  
   /* ************************************************************************ */
 
   // Specific member function (inherited from MappableContainer)
@@ -176,7 +195,6 @@ public:
   virtual inline void Map(MapFun) override;
 
 
-  inline bool Exists(const Data&) const noexcept override;
 };
 
 /* ************************************************************************** */
@@ -202,27 +220,31 @@ public:
   /* ************************************************************************ */
 
   // Copy assignment
-  // type operator=(argument); // Copy assignment of abstract types is not possible.
+  // type operator=(argument); 
+  // Copy assignment of abstract types is not possible.
   InOrderMappableContainer& operator=(const InOrderMappableContainer &) = delete;
+
   // Move assignment
-  // type operator=(argument); // Move assignment of abstract types is not possible.
+  // type operator=(argument); 
+  // Move assignment of abstract types is not possible.
   InOrderMappableContainer& operator=(InOrderMappableContainer &&) noexcept = delete;
-
-
 
   /* ************************************************************************ */
 
   // Comparison operators
   // type operator==(argument) specifiers; // Comparison of abstract types is not possible.
+  bool operator==(const InOrderMappableContainer &) const noexcept = delete;
+
   // type operator!=(argument) specifiers; // Comparison of abstract types is not possible.
-  bool operator==(const InOrderMappableContainer &) const = delete;
-  bool operator!=(const InOrderMappableContainer &) const = delete; 
+  bool operator!=(const InOrderMappableContainer &) const noexcept = delete; 
+
   /* ************************************************************************ */
 
   // Specific member function
 
   // using typename MappableContainer<Data>::MapFun;
   using typename MappableContainer<Data>::MapFun;
+
   // type InOrderMap(argument) specifiers;
   virtual void InOrderMap(MapFun) = 0;
 
@@ -233,8 +255,6 @@ public:
   // type Map(argument) specifiers; // Override MappableContainer member
   virtual inline void Map(MapFun) override;
 
-
-  inline bool Exists(const Data&) const noexcept override;
 };
 
 /* ************************************************************************** */
@@ -260,20 +280,26 @@ public:
   /* ************************************************************************ */
 
   // Copy assignment
-  // type operator=(argument); // Copy assignment of abstract types is not possible.
+  // type operator=(argument); 
+  // Copy assignment of abstract types is not possible.
   BreadthMappableContainer& operator=(const BreadthMappableContainer &) = delete;
+
   // Move assignment
-  // type operator=(argument); // Move assignment of abstract types is not possible.
+  // type operator=(argument);
+  // Move assignment of abstract types is not possible.
   BreadthMappableContainer& operator=(BreadthMappableContainer &&) noexcept = delete;
 
 
   /* ************************************************************************ */
 
   // Comparison operators
-  // type operator==(argument) specifiers; // Comparison of abstract types is not possible.
-  // type operator!=(argument) specifiers; // Comparison of abstract types is not possible.
-  bool operator==(const BreadthMappableContainer &) const = delete;
-  bool operator!=(const BreadthMappableContainer &) const = delete; 
+  // type operator==(argument) specifiers; 
+  // Comparison of abstract types is not possible.
+  bool operator==(const BreadthMappableContainer &) const noexcept = delete;
+
+  // type operator!=(argument) specifiers; 
+  // Comparison of abstract types is not possible.
+  bool operator!=(const BreadthMappableContainer &) const noexcept = delete; 
 
   /* ************************************************************************ */
 
@@ -281,6 +307,7 @@ public:
 
   // using typename MappableContainer<Data>::MapFun;
   using typename MappableContainer<Data>::MapFun;
+
   // type BreadthMap(argument) specifiers;
   virtual void BreadthMap(MapFun) = 0;
   /* ************************************************************************ */
@@ -290,8 +317,6 @@ public:
   // type Map(argument) specifiers; // Override MappableContainer member
   virtual inline void Map(MapFun) override;
 
-
-  inline bool Exists(const Data&) const noexcept override;
 };
 
 /* ************************************************************************** */

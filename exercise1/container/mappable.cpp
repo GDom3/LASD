@@ -1,13 +1,6 @@
 
-
 namespace lasd {
 
-/* ************************************************************************** */
-
-// ...
-
-/* ************************************************************************** */
-   
     template <typename Data>
     inline void PreOrderMappableContainer<Data>::Map(MapFun funz) {
         PreOrderMap(funz);
@@ -27,26 +20,5 @@ namespace lasd {
     inline void BreadthMappableContainer<Data>::Map(MapFun funz) {
         BreadthOrderMap(funz);
     }
-
-    template <typename Data>
-    inline bool PreOrderMappableContainer<Data>::Exists(const Data& dato) const noexcept{
-        return MappableContainer<Data>::Exists(dato);
-    }
-
-    template <typename Data>
-    inline bool PostOrderMappableContainer<Data>::Exists(const Data& dato) const noexcept{
-       return MappableContainer<Data>::Exists(dato);
-    }
-
-    template <typename Data>
-    inline bool InOrderMappableContainer<Data>::Exists(const Data& dato) const noexcept{ 
-        return MappableContainer<Data>::Exists(dato);
-    }
-    
-    template <typename Data>
-    inline bool BreadthMappableContainer<Data>::Exists(const Data& dato) const noexcept{
-        return MappableContainer<Data>::Exists(dato);
-    }
-
 
 }

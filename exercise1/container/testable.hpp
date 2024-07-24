@@ -35,7 +35,7 @@ public:
   // Move assignment
   // type operator=(argument); 
   // Move assignment of abstract types is not possible.
-  virtual TestableContainer& operator=(TestableContainer &&) = delete;
+  virtual TestableContainer& operator=(TestableContainer &&) noexcept = delete;
 
   /* ************************************************************************ */
 

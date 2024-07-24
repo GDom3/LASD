@@ -53,23 +53,36 @@ public:
 
   // Specific member functions
 
-  // type operator[](argument) specifiers; // (non-mutable version; concrete function must throw std::out_of_range when out of range)
+  // type operator[](argument) specifiers; 
+  // (non-mutable version; 
+  // concrete function must throw std::out_of_range when out of range)
   virtual const Data & operator[](const unsigned long int ) const = 0;
-  // type operator[](argument) specifiers; // (mutable version; concrete function must throw std::out_of_range when out of range)
-  virtual Data & operator[](unsigned long int ) = 0;
+  
+  // type operator[](argument) specifiers; 
+  // (mutable version; 
+  // concrete function must throw std::out_of_range when out of range)
+  virtual Data & operator[](const unsigned long int ) = 0;
 
-
-  // type Front() specifiers; // (non-mutable version; concrete function must throw std::length_error when empty)
+  // type Front() specifiers; 
+  // (non-mutable version; 
+  // concrete function must throw std::length_error when empty)
   inline virtual const Data& Front() const;
 
-  // type Front() specifiers; // (mutable version; concrete function must throw std::length_error when empty)
+  // type Front() specifiers; 
+  // (mutable version; 
+  // concrete function must throw std::length_error when empty)
   inline virtual Data& Front();
  
-  // type Back() specifiers; // (non-mutable version; concrete function must throw std::length_error when empty)
+  // type Back() specifiers; 
+  // (non-mutable version; 
+  // concrete function must throw std::length_error when empty)
   inline virtual const Data& Back() const;
 
-  // type Back() specifiers; // (mutable version; concrete function must throw std::length_error when empty)
+  // type Back() specifiers; 
+  // (mutable version; 
+  // concrete function must throw std::length_error when empty)
   inline virtual Data& Back();
+
   /* ************************************************************************ */
 
   // Specific member function (inherited from TraversableContainer)
@@ -78,7 +91,7 @@ public:
   using typename TraversableContainer<Data>::TraverseFun;
 
   // type Traverse(argument) specifiers; // Override TraversableContainer member
-  inline void Traverse(TraverseFun) const noexcept;
+  inline void Traverse(TraverseFun) const override;
   
   /* ************************************************************************ */
 
@@ -86,14 +99,14 @@ public:
 
   // type PreOrderTraverse(argument) specifiers; // Override PreOrderTraversableContainer member
   
-  inline void PreOrderTraverse(TraverseFun )  const noexcept override;
+  inline void PreOrderTraverse(TraverseFun ) const override;
 
   /* ************************************************************************ */
 
   // Specific member function (inherited from PostOrderTraversableContainer)
 
   // type PostOrderTraverse(argument) specifiers; // Override PostOrderTraversableContainer member  
-  inline void PostOrderTraverse(TraverseFun ) const noexcept override;
+  inline void PostOrderTraverse(TraverseFun ) const override;
 
   /* ************************************************************************ */
 
@@ -110,7 +123,7 @@ public:
   // Specific member function (inherited from PreOrderMappableContainer)
 
   // type PreOrderMap(argument) specifiers; // Override PreOrderMappableContainer member
-  inline void PreOrderMap(MapFun ) override;
+  inline void PreOrderMap(MapFun) override;
 
   /* ************************************************************************ */
 
@@ -119,7 +132,6 @@ public:
   // type PostOrderMap(argument) specifiers; // Override PostOrderMappableContainer member
   inline void PostOrderMap(MapFun ) override;
 
-  inline bool Exists(const Data&) const noexcept override;
 
 };
 
@@ -135,14 +147,13 @@ private:
 
 protected:
   using Container::size;
-  using LinearContainer<Data>::operator[];
-  
+ 
 
 public:
 
   // Destructor
   // ~SortableLinearContainer() specifiers
-  ~SortableLinearContainer() = default;
+  virtual ~SortableLinearContainer() = default;
 
   /* ************************************************************************ */
 
