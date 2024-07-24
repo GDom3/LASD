@@ -33,7 +33,7 @@ protected:
 
     // Data
     // ...
-    Data elemento;
+    Data elemento{};
     Node * next = nullptr;
 
     /* ********************************************************************** */
@@ -45,17 +45,12 @@ protected:
 
     // Copy constructor
     // ...
-    inline Node(const Data& dato){
-      elemento = dato;
-      next = nullptr;
-
-    }
+    inline Node(const Data& dato) : elemento{dato} {}
 
     // Move constructor
     // ...
-    inline Node(Data&& dato){
-      elemento = std::move(dato);
-      next = nullptr;
+    inline Node(Data&& dato) noexcept{
+      std::swap(elemento,dato);
     }
 
     /* ********************************************************************** */
@@ -70,7 +65,7 @@ protected:
     // Comparison operators
     // ...
     inline bool operator==(const Node & nodo) const noexcept{
-      return elemento == nodo.elemento && next = nodo.next;
+      return elemento == nodo.elemento;
     }
     inline bool operator!=(const Node & nodo) const noexcept{
       return !operator==(nodo);
@@ -119,17 +114,17 @@ public:
 
   // Copy assignment
   // type operator=(argument) specifiers;
-  List& operator=(const List &);
+  inline List& operator=(const List &);
 
   // Move assignment
   // type operator=(argument) specifiers;
-  List& operator=(List &&);
+  inline List& operator=(List &&) noexcept;
 
   /* ************************************************************************ */
 
   // Comparison operators
   // type operator==(argument) specifiers;
-  bool operator==(const List &) const noexcept;
+  inline bool operator==(const List &) const noexcept;
   // type operator!=(argument) specifiers;
   bool inline operator!=(const List &) const noexcept;
   /* ************************************************************************ */
@@ -163,9 +158,9 @@ public:
   // Specific member functions (inherited from DictionaryContainer)
 
   // type Insert(argument) specifier; // Copy of the value
-  bool Insert(const Data &) override;
+  inline bool Insert(const Data &) override;
   // type Insert(argument) specifier; // Move of the value
-  bool Insert(Data &&) override;
+  inline bool Insert(Data &&) override;
   // type Remove(argument) specifier;
   bool Remove(const Data &) override;
   /* ************************************************************************ */
@@ -173,9 +168,9 @@ public:
   // Specific member functions (inherited from LinearContainer)
 
   // type operator[](argument) specifiers; // Override (NonMutable) LinearContainer member (must throw std::out_of_range when out of range)
-  const Data & operator[](const unsigned long int) const override;
+  inline const Data & operator[](unsigned long int) const override;
   // type operator[](argument) specifiers; // Override (Mutable) LinearContainer member (must throw std::out_of_range when out of range)
-  Data & operator[](unsigned long int) override;
+  inline Data & operator[](unsigned long int) override;
 
   // type Front() specifiers; // Override (NonMutable) LinearContainer member (must throw std::length_error when empty)
   inline const Data& Front() const override;
@@ -193,7 +188,7 @@ public:
   using typename TraversableContainer<Data>::TraverseFun;
 
   // type Traverse(argument) specifiers; // Override TraversableContainer member
-  inline void Traverse(TraverseFun) const noexcept override;
+  inline void Traverse(TraverseFun) const override;
   
   /* ************************************************************************ */
 
@@ -201,15 +196,15 @@ public:
 
   // type PreOrderTraverse(argument) specifiers; // Override PreOrderTraversableContainer member
   
-  inline void PreOrderTraverse(TraverseFun ) const noexcept override;
-  inline void PreOrderTraverse(TraverseFun,Node* ) const noexcept ;
+  inline void PreOrderTraverse(TraverseFun ) const override;
+ 
   /* ************************************************************************ */
 
   // Specific member function (inherited from PostOrderTraversableContainer)
 
   // type PostOrderTraverse(argument) specifiers; // Override PostOrderTraversableContainer member  
-  inline void PostOrderTraverse(TraverseFun ) const noexcept override;
-  inline void PostOrderTraverse(TraverseFun,Node* ) const noexcept ;
+  inline void PostOrderTraverse(TraverseFun ) const override;
+  
   /* ************************************************************************ */
 
   // Specific member function (inherited from MappableContainer)
@@ -226,25 +221,27 @@ public:
 
   // type PreOrderMap(argument) specifiers; // Override PreOrderMappableContainer member
   inline void PreOrderMap(MapFun ) override;
-  inline void PreOrderMap(MapFun ,Node*);
+  
   /* ************************************************************************ */
 
   // Specific member function (inherited from PostOrderMappableContainer)
 
   // type PostOrderMap(argument) specifiers; // Override PostOrderMappableContainer member
   inline void PostOrderMap(MapFun ) override;
-  inline void PostOrderMap(MapFun ,Node*);
+  
   /* ************************************************************************ */
 
   //Doppio uso : ambigua
 
-  inline bool Exists(const Data&) const noexcept override;
-
+  using TestableContainer<Data>::Exists;
 
   inline void Stampa() const noexcept;
 
 protected:
-
+  inline void PreOrderTraverse(TraverseFun,Node* ) const ;
+  inline void PostOrderTraverse(TraverseFun,Node* ) const ;
+  inline void PreOrderMap(MapFun ,Node*);
+  inline void PostOrderMap(MapFun ,Node*);
 };
 
 /* ************************************************************************** */
