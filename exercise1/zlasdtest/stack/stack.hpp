@@ -85,7 +85,6 @@ void PushC(uint & testnum, uint & testerr, lasd::Stack<Data> & stk, const Data &
   bool tst = true;
   try {
     std::cout << " " << testnum << " (" << testerr << ") Push on the stack of the value \"" << val << "\": ";
-  
     stk.Push(val);
     std::cout << "Correct!" << std::endl;
   }

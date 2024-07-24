@@ -99,7 +99,6 @@ void NonEqualList(uint & testnum, uint & testerr, const lasd::List<Data> & lst1,
     std::cout << "\"" << exc.what() << "\": " << ((tst = !chk) ? "Correct" : "Error") << "!" << std::endl;
   }
   testerr += (1 - (uint) tst);
-  
 }
 
 /* ************************************************************************** */
