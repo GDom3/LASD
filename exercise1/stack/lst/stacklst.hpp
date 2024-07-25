@@ -37,54 +37,73 @@ public:
   /* ************************************************************************ */
 
   // Specific constructor
-  // StackLst(argument) specifiers; // A stack obtained from a TraversableContainer
+  // StackLst(argument) specifiers; 
+  // A stack obtained from a TraversableContainer
   StackLst(const TraversableContainer<Data> & );
-  // StackLst(argument) specifiers; // A stack obtained from a MappableContainer
+  
+  // StackLst(argument) specifiers; 
+  // A stack obtained from a MappableContainer
   StackLst(MappableContainer<Data> && );
+  
   /* ************************************************************************ */
 
   // Copy constructor
   // StackLst(argument);
-  StackLst(const StackLst & );
+  inline StackLst(const StackLst & );
+  
   // Move constructor
   // StackLst(argument);
-  StackLst(StackLst && );
+  inline StackLst(StackLst && );
+  
   /* ************************************************************************ */
 
   // Destructor
   // ~StackLst() specifier;
-  ~StackLst();
+  virtual ~StackLst() = default;
   /* ************************************************************************ */
 
   // Copy assignment
   // type operator=(argument);
   StackLst& operator=(const StackLst &);
+
   // Move assignment
   // type operator=(argument);
-  StackLst& operator=(StackLst && stklist);
+  StackLst& operator=(StackLst &&) noexcept;
   /* ************************************************************************ */
 
   // Comparison operators
   // type operator==(argument) specifiers;
-  bool operator==(const StackLst &) const noexcept;
+  bool inline operator==(const StackLst &) const noexcept;
   // type operator!=(argument) specifiers;
   bool inline operator!=(const StackLst &) const noexcept;
   /* ************************************************************************ */
 
   // Specific member functions (inherited from Stack)
 
-  // type Top() specifiers; // Override Stack member (non-mutable version; must throw std::length_error when empty)
-  const Data& Top() const override;
-  // type Top() specifiers; // Override Stack member (non-mutable version; must throw std::length_error when empty)
-  Data& Top() override;
-  // type Pop() specifiers; // Override Stack member (must throw std::length_error when empty)
-  void Pop() override;
-  // type TopNPop() specifiers; // Override Stack member (must throw std::length_error when empty)
-  Data TopNPop() override;
-  // type Push(argument) specifiers; // Override Stack member (copy of the value)
-  void Push(const Data&) override;
-  // type Push(argument) specifiers; // Override Stack member (move of the value)
-  void Push(Data&&) override;
+  // type Top() specifiers; 
+  // Override Stack member (non-mutable version; must throw std::length_error when empty)
+  inline const Data& Top() const override;
+  
+  // type Top() specifiers; 
+  // Override Stack member (non-mutable version; must throw std::length_error when empty)
+  inline Data& Top() override;
+  
+  // type Pop() specifiers; 
+  // Override Stack member (must throw std::length_error when empty)
+  inline void Pop() override;
+  
+  // type TopNPop() specifiers; 
+  // Override Stack member (must throw std::length_error when empty)
+  inline Data TopNPop() override;
+  
+  // type Push(argument) specifiers; 
+  // Override Stack member (copy of the value)
+  inline void Push(const Data&) override;
+  
+  // type Push(argument) specifiers; 
+  // Override Stack member (move of the value)
+  inline void Push(Data&&) override;
+  
   /* ************************************************************************ */
 
   // Specific member function (inherited from ClearableContainer)

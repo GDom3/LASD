@@ -41,7 +41,7 @@ public:
   // Specific constructors
   // Vector(argument) specifiers; 
   // A vector with a given initial dimension
-  Vector(const unsigned long num ){
+  Vector(unsigned long int num ){
       size = num;
       elementi = new Data[num]();
   };
@@ -101,7 +101,7 @@ public:
   // Specific member function (inherited from ResizableContainer)
 
   // type Resize(argument) specifiers; // Override ResizableContainer member
-  void Resize (unsigned long ) override;
+  void Resize (unsigned long  int) override;
 
   /* ************************************************************************ */
 

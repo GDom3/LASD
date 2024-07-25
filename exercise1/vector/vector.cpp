@@ -74,7 +74,7 @@ void Vector<Data>::Clear(){
 }
 
 template <typename Data>
-void Vector<Data>::Resize (unsigned long  newSize){
+void Vector<Data>::Resize (unsigned long int newSize){
     
     if(newSize == 0){
         Clear();

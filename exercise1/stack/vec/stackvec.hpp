@@ -9,6 +9,10 @@
 
 /* ************************************************************************** */
 
+#define GRANDEZZA_INIZIALE 16
+#define TASSO_RIDUZIONE 2
+#define TASSO_Espanzione 2
+
 namespace lasd {
 
 /* ************************************************************************** */
@@ -21,15 +25,19 @@ class StackVec : virtual public Stack<Data>, virtual protected Vector<Data> {
 private:
 
   // ...
+  
+
 
 protected:
 
   // using Vector<Data>::???;
   using Vector<Data>::elementi;
-  using Vector<Data>::size;
+  using Container::size;
   
   
   unsigned long int ultimo = 0;
+
+  
 
   // ...
 
@@ -37,7 +45,8 @@ public:
 
   // Default constructor
   // StackVec() specifier;
-  StackVec() = default;
+  StackVec(): Vector<Data>::Vector(GRANDEZZA_INIZIALE){std::cout<<"\nArrivato\n";};
+  
   /* ************************************************************************ */
 
   // Specific constructor
@@ -52,52 +61,69 @@ public:
   StackVec(const StackVec & );
   // Move constructor
   // StackVec(argument);
-  StackVec(StackVec && );
+  StackVec(StackVec && ) noexcept;
   /* ************************************************************************ */
 
   // Destructor
   // ~StackVec() specifier;
-  ~StackVec();
+  virtual ~StackVec() = default;
   /* ************************************************************************ */
 
   // Copy assignment
   // type operator=(argument);
   StackVec& operator=(const StackVec &);
+
   // Move assignment
   // type operator=(argument);
-  StackVec& operator=(StackVec && stklist);
+  StackVec& operator=(StackVec && stklist) noexcept;
+  
   /* ************************************************************************ */
 
   // Comparison operators
   // type operator==(argument) specifiers;
-  bool operator==(const StackVec &) const noexcept;
+  inline bool operator==(const StackVec &) const noexcept;
   // type operator!=(argument) specifiers;
   bool inline operator!=(const StackVec &) const noexcept;
   /* ************************************************************************ */
 
   // Specific member functions (inherited from Stack)
 
-  // type Top() specifiers; // Override Stack member (non-mutable version; must throw std::length_error when empty)
-  const Data& Top() const override;
-  // type Top() specifiers; // Override Stack member (non-mutable version; must throw std::length_error when empty)
-  Data& Top() override;
-  // type Pop() specifiers; // Override Stack member (must throw std::length_error when empty)
-  void Pop() override;
-  // type TopNPop() specifiers; // Override Stack member (must throw std::length_error when empty)
-  Data TopNPop() override;
-  // type Push(argument) specifiers; // Override Stack member (copy of the value)
-  void Push(const Data&) override;
-  // type Push(argument) specifiers; // Override Stack member (move of the value)
-  void Push(Data&&) override;
+  // type Top() specifiers; 
+  // Override Stack member (non-mutable version; must throw std::length_error when empty)
+  inline const Data& Top() const override;
+  
+  // type Top() specifiers; 
+  // Override Stack member (non-mutable version; must throw std::length_error when empty)
+  inline Data& Top() override;
+  
+  // type Pop() specifiers; 
+  // Override Stack member (must throw std::length_error when empty)
+  inline void Pop() override;
+  
+  // type TopNPop() specifiers; 
+  // Override Stack member (must throw std::length_error when empty)
+  inline Data TopNPop() override;
+  
+  // type Push(argument) specifiers; 
+  // Override Stack member (copy of the value)
+  inline void Push(const Data&) override;
+  
+  // type Push(argument) specifiers; 
+  // Override Stack member (move of the value)
+  inline void Push(Data&&) override;
+  
   /* ************************************************************************ */
 
   // Specific member functions (inherited from Container)
 
-  // type Empty() specifiers; // Override Container member
+  // type Empty() specifiers; 
+  // Override Container member
   inline virtual bool Empty() const noexcept override{
     return ultimo==0;
   }
-  // type Size() specifiers; // Override Container member
+
+  // type Size() specifiers; 
+  // Override Container member
   inline virtual unsigned long Size() const noexcept override{
     return ultimo;
   }
@@ -105,14 +131,17 @@ public:
 
   // Specific member function (inherited from ClearableContainer)
 
-  // type Clear() specifiers; // Override ClearableContainer member
+  // type Clear() specifiers; 
+  // Override ClearableContainer member
   void Clear() override;
+
+  inline void Resize(unsigned long int ) override;
 
 protected:
 
   // Auxiliary functions, if necessary!
-  void Espandi();
-  void Riduci();
+  //void Espandi();
+  //void Riduci();
 
 };
 

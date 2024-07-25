@@ -6,31 +6,27 @@ namespace lasd {
 // ...
 
 /* ************************************************************************** */
+
 template <typename Data>
-StackVec<Data>::StackVec(const TraversableContainer<Data> &struttura ):Vector<Data>(struttura){
+StackVec<Data>::StackVec(const TraversableContainer<Data> &struttura ):Vector<Data>::Vector(struttura){
     ultimo = size;
 }
 
 template <typename Data>
-StackVec<Data>::StackVec(MappableContainer<Data> && struttura ):Vector<Data>(std::move(struttura)){
+StackVec<Data>::StackVec(MappableContainer<Data> && struttura ):Vector<Data>::Vector(std::move(struttura)){
     ultimo = size;
 }
 
 template <typename Data>
-StackVec<Data>::StackVec(const StackVec & stkvec): Vector<Data>(stkvec){
+StackVec<Data>::StackVec(const StackVec & stkvec): Vector<Data>::Vector(stkvec){
     ultimo = stkvec.ultimo;
 
 }
 
 template <typename Data>
-StackVec<Data>::StackVec(StackVec && stkvec):Vector<Data>(std::move(stkvec)){
+StackVec<Data>::StackVec(StackVec && stkvec) noexcept :Vector<Data>::Vector(std::move(stkvec)) {
     std::swap(ultimo,stkvec.ultimo);
     
-}
-
-template <typename Data>
-StackVec<Data>::~StackVec(){
-    Vector<Data>::Clear();
 }
 
 template <typename Data>
@@ -43,7 +39,7 @@ StackVec<Data>& StackVec<Data>::operator=(const StackVec & stkvec){
 }
 
 template <typename Data>
-StackVec<Data>& StackVec<Data>::operator=(StackVec && stkvec){
+StackVec<Data>& StackVec<Data>::operator=(StackVec && stkvec) noexcept{
     
     Vector<Data>::operator=(std::move(stkvec));
     std::swap(ultimo,stkvec.ultimo);
@@ -72,28 +68,13 @@ bool StackVec<Data>::operator==(const StackVec & stkvec) const noexcept{
 
 template <typename Data>
 inline void StackVec<Data>::Clear(){
-    for(unsigned long int i = 0; i < ultimo; i++)
-        Pop();
+    Resize(GRANDEZZA_INIZIALE);
     ultimo = 0;
 
 }
 
 template <typename Data>
-void StackVec<Data>::Espandi(){
-    if(size == 0)
-        Vector<Data>::Resize(10);
-    else if(ultimo == size)
-        Vector<Data>::Resize(size*2);
-}
-
-template <typename Data>
-void StackVec<Data>::Riduci(){
-    if(ultimo == size/4)
-        Vector<Data>::Resize(size/2);
-}
-
-template <typename Data>
-const Data& StackVec<Data>::Top() const{
+inline const Data& StackVec<Data>::Top() const{
     if(ultimo == 0)
         throw std::length_error("Stack Vuota!");
     else 
@@ -101,7 +82,7 @@ const Data& StackVec<Data>::Top() const{
 }
 
 template <typename Data>
-Data& StackVec<Data>::Top(){
+inline Data& StackVec<Data>::Top(){
     if(ultimo == 0){
         throw std::length_error("Stack Vuota!");
     }else{
@@ -118,17 +99,16 @@ inline void StackVec<Data>::Pop(){
         throw std::length_error("Stack Vuota!");
     
     ultimo--;
-    Riduci();
+    if(ultimo < (size / (TASSO_RIDUZIONE * TASSO_RIDUZIONE)))
+        Resize(size / TASSO_RIDUZIONE);
     
 
 }
 
 template <typename Data>
-Data StackVec<Data>::TopNPop(){
-    if(ultimo == 0)
-        throw std::length_error("Stack Vuota!");
-    
-    Data elem = elementi[ultimo-1];
+inline Data StackVec<Data>::TopNPop(){
+
+    Data elem = Top();
     Pop();
 
     return elem;
@@ -136,16 +116,26 @@ Data StackVec<Data>::TopNPop(){
 }
 
 template <typename Data>
-void StackVec<Data>::Push(const Data& elem) {
-    Espandi();
+inline void StackVec<Data>::Push(const Data& elem) {
+    if(ultimo == size)
+        Resize(size * TASSO_Espanzione);
+    
     elementi[ultimo++] = elem;
 }
 
 template <typename Data>
-void StackVec<Data>::Push(Data&& elem) {
-    Espandi();
+inline void StackVec<Data>::Push(Data&& elem) {
+    if(ultimo == size)
+        Resize(size * TASSO_Espanzione);
+    
     elementi[ultimo++] = std::move(elem);
  
+}
+
+template <typename Data>
+inline void StackVec<Data>::Resize(unsigned long int newSize){
+    if(newSize >= GRANDEZZA_INIZIALE)
+        Vector<Data>::Resize(newSize);
 }
 
 }
