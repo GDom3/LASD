@@ -118,7 +118,7 @@ inline Data StackVec<Data>::TopNPop(){
 template <typename Data>
 inline void StackVec<Data>::Push(const Data& elem) {
     if(ultimo == size)
-        Resize(size * TASSO_Espanzione);
+        Resize(size * TASSO_ESPANZIONE);
     
     elementi[ultimo++] = elem;
 }
@@ -126,7 +126,7 @@ inline void StackVec<Data>::Push(const Data& elem) {
 template <typename Data>
 inline void StackVec<Data>::Push(Data&& elem) {
     if(ultimo == size)
-        Resize(size * TASSO_Espanzione);
+        Resize(size * TASSO_ESPANZIONE);
     
     elementi[ultimo++] = std::move(elem);
  

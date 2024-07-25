@@ -77,7 +77,6 @@ void stestStackInt(Stk & stk, uint & testnum, uint & testerr) {
 }
 void stestStackInt(uint & testnum, uint & testerr) {
   uint loctestnum = 0, loctesterr = 0;
-  
   lasd::StackVec<int> stkvec;
   cout << endl << "Begin of StackVec<int> Test:" << endl;
   stestStackInt(stkvec, loctestnum, loctesterr);

@@ -13,9 +13,9 @@ using namespace std;
 void lasdtest() {
   cout << endl << "~*~#~*~ Welcome to the LASD Test Suite ~*~#~*~ " << endl;
 
-  uint loctestnum, loctesterr;
-  uint stestnum = 0, stesterr = 0;
-  uint ftestnum = 0, ftesterr = 0;
+  unsigned int loctestnum, loctesterr;
+  unsigned int stestnum = 0, stesterr = 0;
+  unsigned int ftestnum = 0, ftesterr = 0;
 
   loctestnum = 0; loctesterr = 0;
   testSimpleExercise1A(loctestnum, loctesterr);

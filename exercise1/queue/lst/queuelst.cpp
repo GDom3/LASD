@@ -8,28 +8,23 @@ namespace lasd {
 /* ************************************************************************** */
 
 template <typename Data>
-QueueLst<Data>::QueueLst(const TraversableContainer<Data> &struttura ):List<Data>(struttura){
+QueueLst<Data>::QueueLst(const TraversableContainer<Data> &struttura ):List<Data>::List(struttura){
 
 }
 
 template <typename Data>
-QueueLst<Data>::QueueLst(MappableContainer<Data> &struttura ):List<Data>(std::move(struttura)){
+QueueLst<Data>::QueueLst(MappableContainer<Data> &&struttura ) :List<Data>::List(std::move(struttura)){
 
 }
 
 template <typename Data>
-QueueLst<Data>::QueueLst(const QueueLst & quelist):List<Data>(quelist){
+QueueLst<Data>::QueueLst(const QueueLst & quelist):List<Data>::List(quelist){
 
 }
 
 template <typename Data>
-QueueLst<Data>::QueueLst(QueueLst && quelist):List<Data>(std::move(quelist)){
+QueueLst<Data>::QueueLst(QueueLst && quelist) noexcept : List<Data>::List(std::move(quelist)){
 
-}
-
-template <typename Data>
-QueueLst<Data>::~QueueLst(){
-    List<Data>::Clear();
 }
 
 template <typename Data>
@@ -42,7 +37,7 @@ QueueLst<Data>& QueueLst<Data>::operator=(const QueueLst & quelist){
 }
 
 template <typename Data>
-QueueLst<Data>& QueueLst<Data>::operator=(QueueLst && quelist){
+QueueLst<Data>& QueueLst<Data>::operator=(QueueLst && quelist) noexcept{
     List<Data>::operator=(std::move(quelist));
     return (*this);
 
@@ -61,37 +56,49 @@ bool QueueLst<Data>::operator==(const QueueLst & quelist) const noexcept{
 }
 
 template <typename Data>
-const Data& QueueLst<Data>::Head() const{
+inline const Data& QueueLst<Data>::Head() const{
+    if(size == 0)
+        throw std::length_error("Coda Vuota !");
+
     return  List<Data>::Front();
 
 
 }
 
 template <typename Data>
-Data& QueueLst<Data>::Head(){
+inline Data& QueueLst<Data>::Head(){
+    if(size == 0)
+        throw std::length_error("Coda Vuota !");
+
     return  List<Data>::Front();
 }
 
 template <typename Data>
 inline void QueueLst<Data>::Dequeue(){
-    List<Data>::RemoveFromFront();
+    if(size == 0)
+        throw std::length_error("Coda Vuota !");
+    
+    return List<Data>::RemoveFromFront();
 
 }
 
 template <typename Data>
-Data QueueLst<Data>::HeadNDequeue(){
+inline Data QueueLst<Data>::HeadNDequeue(){
+    if(size == 0)
+        throw std::length_error("Coda Vuota !");
+
    return List<Data>::FrontNRemove();
 
 }
 
 template <typename Data>
-void QueueLst<Data>::Enqueue(const Data& elem) {
-    List<Data>::InsertAtBack(elem);
+inline void QueueLst<Data>::Enqueue(const Data& elem) {
+    return List<Data>::InsertAtBack(elem);
 }
 
 template <typename Data>
-void QueueLst<Data>::Enqueue(Data&& elem) {
-    List<Data>::InsertAtBack(std::move(elem));
+inline void QueueLst<Data>::Enqueue(Data&& elem) {
+    return List<Data>::InsertAtBack(std::move(elem));
 }
 
 

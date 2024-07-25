@@ -11,7 +11,7 @@
 
 #define GRANDEZZA_INIZIALE 16
 #define TASSO_RIDUZIONE 2
-#define TASSO_Espanzione 2
+#define TASSO_ESPANZIONE 2
 
 namespace lasd {
 
@@ -140,8 +140,6 @@ public:
 protected:
 
   // Auxiliary functions, if necessary!
-  //void Espandi();
-  //void Riduci();
 
 };
 

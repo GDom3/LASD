@@ -1,11 +1,7 @@
 
-#include "zmytest/test.hpp"
-
-#include "zmytest/test.hpp"
-
 #include "zlasdtest/test.hpp"
 
-#include "zlasdtest/test.hpp"
+#include "zmytest/test.hpp"
 
 /* ************************************************************************** */
 
@@ -15,24 +11,36 @@
 
 int main() {
   std::cout << "Lasd Libraries 2024" << std::endl;
-  unsigned int scelta = 0;
-  std::cout << "Inserire Test Da Eseguire : \n 1) Domenico Gagliotti Test;\n 2) Prof Test;\n Inserire ---> ";
-  std::cin>>scelta;
   
-  switch (scelta){
-    case 1:
-      mytest();
-    break;
+  unsigned short int scelta = 1;
+
+  while(scelta){
+    std::cout << "Inserisci La Scelta Desiderata : \n 0) Esci ; \n 1) Prof Test ; \n 2) Domenico Gagliotti Test ; \nRisposta ----> ";
+    std::cin>>scelta;
+
+    switch (scelta){
+      case 0:
+        std::cout<<"\nArrivederci :) \n";
+      break;
       
-    case 2:
-      lasdtest();
-    break;
+      case 1:
+        lasdtest();
+      break;
 
-    default:
-      std::cout<<"Devi Inserire Un Numero Tra 1 e 2;\n";
-    break;
+      case 2:
+        mytest();
+      break;
+
+      default:
+        std::cout<<"\nInserisci Un Numero Compreso Tra 0 , 1 e 2 , I Quali Corrispondono Alle Azioni Trascritte Sopra!\n";
+      break;
+    }
+
+
   }
-
+  
+  
+  
   
   return 0;
 }

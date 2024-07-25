@@ -28,24 +28,28 @@ public:
 
   // Destructor
   // ~Queue() specifiers
-  ~Queue() = default;
+  virtual ~Queue() = default;
 
   /* ************************************************************************ */
 
   // Copy assignment
   // type operator=(argument); // Copy assignment of abstract types is not possible.
   Queue& operator=(const Queue &) = delete;
+
   // Move assignment
   // type operator=(argument); // Move assignment of abstract types is not possible.
   Queue& operator=(Queue &&) = delete;
+
   /* ************************************************************************ */
 
   // Comparison operators
-  // type operator==(argument) specifiers; // Comparison of abstract types is not possible.
-  bool operator==(const Queue &) const noexcept = delete;
-  // type operator!=(argument) specifiers; // Comparison of abstract types is not possible.
-  bool inline operator!=(const Queue &) const noexcept = delete;
+  // type operator==(argument) specifiers; 
+  // Comparison of abstract types is not possible.
+  bool inline operator==(const Queue &) const noexcept = delete;
   
+  // type operator!=(argument) specifiers; 
+  // Comparison of abstract types is not possible.
+  bool inline operator!=(const Queue &) const noexcept = delete;
   
   /* ************************************************************************ */
 

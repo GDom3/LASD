@@ -41,7 +41,7 @@ public:
   // QueueLst(argument) specifiers; // A QueueLst obtained from a TraversableContainer
   QueueLst(const TraversableContainer<Data> & );
   // QueueLst(argument) specifiers; // A QueueLst obtained from a MappableContainer
-  QueueLst(MappableContainer<Data> & );
+  QueueLst(MappableContainer<Data> && );
   /* ************************************************************************ */
 
   // Copy constructor
@@ -49,43 +49,54 @@ public:
   QueueLst(const QueueLst & );
   // Move constructor
   // QueueLst(argument);
-  QueueLst(QueueLst && );
+  QueueLst(QueueLst && ) noexcept;
   /* ************************************************************************ */
 
   // Destructor
   // ~QueueLst() specifier;
-  ~QueueLst();
+  virtual ~QueueLst() = default;
   /* ************************************************************************ */
 
   // Copy assignment
   // type operator=(argument);
-  QueueLst& operator=(const QueueLst &);
+  inline QueueLst& operator=(const QueueLst &);
   // Move assignment
   // type operator=(argument);
-  QueueLst& operator=(QueueLst && stklist);
+  inline QueueLst& operator=(QueueLst && stklist) noexcept;
   /* ************************************************************************ */
 
   // Comparison operators
   // type operator==(argument) specifiers;
-  bool operator==(const QueueLst &) const noexcept;
+  inline bool operator==(const QueueLst &) const noexcept;
   // type operator!=(argument) specifiers;
   bool inline operator!=(const QueueLst &) const noexcept;
   /* ************************************************************************ */
 
   // Specific member functions (inherited from Queue)
 
-  // type Head() specifiers; // Override Queue member (non-mutable version; must throw std::length_error when empty)
-  const Data& Head() const override;
-  // type Head() specifiers; // Override Queue member (mutable version; must throw std::length_error when empty)
-  Data& Head() override;
-  // type Dequeue() specifiers; // Override Queue member (must throw std::length_error when empty)
-  void Dequeue() override;
-  // type HeadNDequeue() specifiers; // Override Queue member (must throw std::length_error when empty)
-  Data HeadNDequeue() override;
-  // type Enqueue(argument) specifiers; // Override Queue member (copy of the value)
-  void Enqueue(const Data&) override;
-  // type Enqueue(argument) specifiers; // Override Queue member (move of the value)
-  void Enqueue(Data&&) override;
+  // type Head() specifiers; 
+  // Override Queue member (non-mutable version; must throw std::length_error when empty)
+  inline const Data& Head() const override;
+  
+  // type Head() specifiers; 
+  // Override Queue member (mutable version; must throw std::length_error when empty)
+  inline Data& Head() override;
+  
+  // type Dequeue() specifiers; 
+  // Override Queue member (must throw std::length_error when empty)
+  inline void Dequeue() override;
+  
+  // type HeadNDequeue() specifiers; 
+  // Override Queue member (must throw std::length_error when empty)
+  inline Data HeadNDequeue() override;
+  
+  // type Enqueue(argument) specifiers; 
+  // Override Queue member (copy of the value)
+  inline void Enqueue(const Data&) override;
+  
+  // type Enqueue(argument) specifiers; 
+  // Override Queue member (move of the value)
+  inline void Enqueue(Data&&) override;
   
   
   /* ************************************************************************ */

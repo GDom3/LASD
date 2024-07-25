@@ -9,6 +9,11 @@
 
 /* ************************************************************************** */
 
+#define GRANDEZZA_INIZIALE 16
+#define TASSO_RIDUZIONE 2
+#define TASSO_ESPANZIONE 2
+
+
 namespace lasd {
 
 /* ************************************************************************** */
@@ -26,7 +31,7 @@ protected:
 
   // using Vector<Data>::???;
   using Vector<Data>::elementi;
-  using Vector<Data>::size;
+  using Container::size;
   
   
   unsigned long int testa = 0;
@@ -37,7 +42,7 @@ public:
 
   // Default constructor
   // QueueVec() specifier;
-  QueueVec() = default;
+  QueueVec();
   /* ************************************************************************ */
 
   // Specific constructor
@@ -54,12 +59,12 @@ public:
 
   // Move constructor
   // QueueVec(argument);
-  QueueVec(QueueVec && );
+  QueueVec(QueueVec && ) noexcept;
   /* ************************************************************************ */
 
   // Destructor
   // ~QueueVec() specifier;
-  ~QueueVec();
+  virtual ~QueueVec() = default;
   /* ************************************************************************ */
 
   // Copy assignment
@@ -67,12 +72,12 @@ public:
   QueueVec& operator=(const QueueVec &);
   // Move assignment
   // type operator=(argument);
-  QueueVec& operator=(QueueVec && stklist);
+  QueueVec& operator=(QueueVec &&) noexcept;
   /* ************************************************************************ */
 
   // Comparison operators
   // type operator==(argument) specifiers;
-  bool operator==(const QueueVec &) const noexcept;
+  bool inline operator==(const QueueVec &) const noexcept;
   // type operator!=(argument) specifiers;
   bool inline operator!=(const QueueVec &) const noexcept;
 
@@ -80,43 +85,57 @@ public:
 
   // Specific member functions (inherited from Queue)
 
-  // type Head() specifiers; // Override Queue member (non-mutable version; must throw std::length_error when empty)
-  const Data& Head() const override;
-  // type Head() specifiers; // Override Queue member (mutable version; must throw std::length_error when empty)
-  Data& Head() override;
-  // type Dequeue() specifiers; // Override Queue member (must throw std::length_error when empty)
-  void Dequeue() override;
-  // type HeadNDequeue() specifiers; // Override Queue member (must throw std::length_error when empty)
-  Data HeadNDequeue() override;
-  // type Enqueue(argument) specifiers; // Override Queue member (copy of the value)
-  void Enqueue(const Data&) override;
-  // type Enqueue(argument) specifiers; // Override Queue member (move of the value)
-  void Enqueue(Data&&) override;
+  // type Head() specifiers; 
+  // Override Queue member (non-mutable version; must throw std::length_error when empty)
+  inline const Data& Head() const override;
+  
+  // type Head() specifiers; 
+  // Override Queue member (mutable version; must throw std::length_error when empty)
+  inline Data& Head() override;
+  
+  // type Dequeue() specifiers; 
+  // Override Queue member (must throw std::length_error when empty)
+  inline void Dequeue() override;
+  
+  // type HeadNDequeue() specifiers; 
+  // Override Queue member (must throw std::length_error when empty)
+  inline Data HeadNDequeue() override;
+  
+  // type Enqueue(argument) specifiers; 
+  // Override Queue member (copy of the value)
+  inline void Enqueue(const Data&) override;
+  
+  // type Enqueue(argument) specifiers; 
+  // Override Queue member (move of the value)
+  inline void Enqueue(Data&&) override;
   
   /* ************************************************************************ */
 
   // Specific member functions (inherited from Container)
 
   // type Empty() specifiers; // Override Container member
-  inline virtual bool Empty() const noexcept override{
+  inline bool Empty() const noexcept override{
     return testa == coda;
   }
   // type Size() specifiers; // Override Container member
-  inline virtual unsigned long Size() const noexcept override{
-      return size==0?0:((size + coda) - testa) % size;
+  inline unsigned long Size() const noexcept override{
+      return abs(coda - testa);
+      
   }
   /* ************************************************************************ */
 
   // Specific member function (inherited from ClearableContainer)
 
   // type Clear() specifiers; // Override ClearableContainer member
-  void Clear() override;
+  inline void Clear() override;
+
+  void Resize(unsigned long int) override;
+
+  void Stampa() const;
+
 protected:
 
   // Auxiliary functions, if necessary!
-  void Espandi();
-  void Riduci();
-  void Resize(const unsigned long int nuovaSize, unsigned long int numeroElementi);
 
 };
 

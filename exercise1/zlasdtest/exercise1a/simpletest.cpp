@@ -126,47 +126,26 @@ void stestVectorString(uint & testnum, uint & testerr) {
     GetBack(loctestnum, loctesterr, vec, true, string("B"));
 
     Exists(loctestnum, loctesterr, vec, true, string("A"));
-    vec.Stampa();
+
     MapPreOrder(loctestnum, loctesterr, vec, true, [](string & str) { MapStringAppend(str, string(" ")); });
-    vec.Stampa();
     TraversePreOrder(loctestnum, loctesterr, vec, true, &TraversePrint<string>);
     FoldPreOrder(loctestnum, loctesterr, vec, true, &FoldStringConcatenate, string("X"), string("XA B "));
-    vec.Stampa();
     FoldPostOrder(loctestnum, loctesterr, vec, true, &FoldStringConcatenate, string("X"), string("XB A "));
-    vec.Stampa(); 
 
     Exists(loctestnum, loctesterr, vec, false, string("A"));
 
     lasd::SortableVector<string> copvec(vec);
-    vec.Stampa();
-    copvec.Stampa();
-
     EqualVector(loctestnum, loctesterr, vec, copvec, true);
     MapPreOrder(loctestnum, loctesterr, vec, true, [](string & str) { MapStringAppend(str, string("!")); });
-    vec.Stampa();
-    copvec.Stampa();
     NonEqualVector(loctestnum, loctesterr, vec, copvec, true);
-     
 
     copvec = move(vec);
-    vec.Stampa();
-    copvec.Stampa();
-     
     FoldPreOrder(loctestnum, loctesterr, copvec, true, &FoldStringConcatenate, string("?"), string("?A !B !"));
 
-    
-    
     lasd::SortableVector<string> movvec(move(vec));
-    vec.Stampa();
-    copvec.Stampa();
-    movvec.Stampa();
-    
     FoldPreOrder(loctestnum, loctesterr, movvec, true, &FoldStringConcatenate, string("?"), string("?A B "));
-    
     movvec.Sort();
-    
     FoldPreOrder(loctestnum, loctesterr, movvec, true, &FoldStringConcatenate, string("?"), string("?A B "));
-    
     SetAt(loctestnum, loctesterr, vec, false, 1, string(""));
     vec.Resize(1);
     SetAt(loctestnum, loctesterr, vec, true, 0, string("X"));
