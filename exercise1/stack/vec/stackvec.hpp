@@ -45,7 +45,7 @@ public:
 
   // Default constructor
   // StackVec() specifier;
-  StackVec(): Vector<Data>::Vector(GRANDEZZA_INIZIALE){std::cout<<"\nArrivato\n";};
+  StackVec(): Vector<Data>::Vector(GRANDEZZA_INIZIALE){};
   
   /* ************************************************************************ */
 

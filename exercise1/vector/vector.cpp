@@ -80,9 +80,9 @@ void Vector<Data>::Resize (unsigned long int newSize){
         Clear();
     }else if (newSize != size){
         
-        unsigned long minimo = newSize <= size ? newSize : size ;
+        unsigned long minimo = newSize < size ? newSize : size ;
 
-        Data * newElementi =  new Data[newSize]{};
+        Data * newElementi =  new Data[newSize]();
 
         for(unsigned long int i = 0; i < minimo; i++)
             std::swap(newElementi[i],elementi[i]);

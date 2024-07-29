@@ -36,6 +36,7 @@ protected:
   
   unsigned long int testa = 0;
   unsigned long int coda = 0;
+  unsigned long int numeroElementi = 0;
 
 
 public:
@@ -115,11 +116,11 @@ public:
 
   // type Empty() specifiers; // Override Container member
   inline bool Empty() const noexcept override{
-    return testa == coda;
+    return numeroElementi == 0;
   }
   // type Size() specifiers; // Override Container member
   inline unsigned long Size() const noexcept override{
-      return abs(coda - testa);
+      return numeroElementi;
       
   }
   /* ************************************************************************ */
@@ -136,6 +137,9 @@ public:
 protected:
 
   // Auxiliary functions, if necessary!
+
+  unsigned long int next(unsigned long indice) const { return (testa + indice) % size; }
+  unsigned long int next() const { return next(1);}
 
 };
 
