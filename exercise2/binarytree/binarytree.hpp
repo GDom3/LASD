@@ -42,9 +42,12 @@ public:
   protected:
 
     // Comparison operators
-    // type operator==(argument) specifiers; // Comparison of abstract types is possible, but is not visible.
+    
+    // type operator==(argument) specifiers; 
+    // Comparison of abstract types is possible, but is not visible.
     virtual inline bool operator== (const Node& ) const noexcept;
-    // type operator!=(argument) specifiers; // Comparison of abstract types is possible, but is not visible.
+    // type operator!=(argument) specifiers; 
+    // Comparison of abstract types is possible, but is not visible.
     virtual inline bool operator!= (const Node& ) const noexcept;
 
   public:
