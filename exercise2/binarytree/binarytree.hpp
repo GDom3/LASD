@@ -10,9 +10,9 @@
 #include "../iterator/iterator.hpp"
 
 #include "../stack/vec/stackvec.hpp"
-// #include "../stack/lst/stacklst.hpp"
+#include "../stack/lst/stacklst.hpp"
 #include "../queue/vec/queuevec.hpp"
-// #include "../queue/lst/queuelst.hpp"
+#include "../queue/lst/queuelst.hpp"
 
 /* ************************************************************************** */
 
@@ -36,6 +36,8 @@ protected:
   // ...
 
 public:
+  using Container::Empty;
+  using Container::Size;
 
   struct Node {
 
@@ -85,9 +87,9 @@ public:
     virtual inline bool HasRightChild() const noexcept = 0;
 
     // type LeftChild() specifiers; // (concrete function must throw std::out_of_range when not existent)
-    virtual inline Node& LeftChild() const = 0;
+    virtual inline const Node& LeftChild() const = 0;
     // type RightChild() specifiers; // (concrete function must throw std::out_of_range when not existent)
-    virtual inline Node& RightChild() const = 0;
+    virtual inline const Node& RightChild() const = 0;
   };
 
   /* ************************************************************************ */
@@ -158,7 +160,7 @@ public:
 
   // type InOrderTraverse(arguments) specifiers; 
   // Override InOrderTraversableContainer member
-  inline void InOrderTraversableContainer(TraverseFun ) const override;
+  inline void InOrderTraverse(TraverseFun ) const override;
 
   /* ************************************************************************ */
 
@@ -166,14 +168,14 @@ public:
 
   // type BreadthTraverse(arguments) specifiers; 
   // Override BreadthTraversableContainer member
-  inline void BreadthTraversableContainer(TraverseFun ) const override;
+  inline void BreadthTraverse(TraverseFun ) const override;
 
 protected:
 
   // Auxiliary functions, if necessary!
-  inline void PreOrderTraverse(TraverseFun , const Node& ) const override;
-  inline void PostOrderTraverse(TraverseFun , const Node& ) const override;
-  inline void InOrderTraversableContainer(TraverseFun , const Node& ) const override;
+  inline void PreOrderTraverse(TraverseFun , const Node& ) const;
+  inline void PostOrderTraverse(TraverseFun , const Node& ) const;
+  inline void InOrderTraverse(TraverseFun , const Node& ) const;
   
 };
 
@@ -198,9 +200,10 @@ protected:
 
 public:
 
-  struct MutableNode : virtual public BinaryTree::Node {
+  struct MutableNode : virtual public BinaryTree<Data>::Node {
     // Must extend Node
-
+  
+  public:
     // friend class MutableBinaryTree<Data>;
     friend class MutableBinaryTree<Data>;
 
@@ -260,7 +263,7 @@ public:
   // Specific member functions
 
   // type Root() specifiers; // (concrete function must throw std::length_error when empty)
-  virtual const Node& Root() const = 0;
+  virtual MutableNode& Root() = 0;
 
   /* ************************************************************************ */
 
@@ -292,7 +295,7 @@ public:
 
   // type InOrderMap(arguments) specifiers; 
   // Override InOrderMappableContainer member
-  inline void InOrderMappableContainer(MapFun ) override;
+  inline void InOrderMap(MapFun ) override;
 
   /* ************************************************************************ */
 
@@ -300,14 +303,14 @@ public:
 
   // type BreadthMap(arguments) specifiers; 
   // Override BreadthMappableContainer member
-  inline void BreadthMappableContainer(MapFun ) override;
+  inline void BreadthMap(MapFun ) override;
 
 protected:
 
   // Auxiliary functions, if necessary!
-  inline void PreOrderMap(MapFun , MutableNode& ) override;
-  inline void PostOrderMap(MapFun , MutableNode& ) override;
-  inline void InOrderMappableContainer(MapFun , MutableNode& ) override;
+  inline void PreOrderMap(MapFun , MutableNode& );
+  inline void PostOrderMap(MapFun , MutableNode& );
+  inline void InOrderMap(MapFun , MutableNode& );
 
 };
 

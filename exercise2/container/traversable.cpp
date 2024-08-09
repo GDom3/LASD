@@ -64,8 +64,8 @@ namespace lasd {
 
     template <typename Data>
     template <typename Accumulator>
-    inline Accumulator BreadthTraversableContainer<Data>::BreadthOrderFold(FoldFun<Accumulator> funzione ,Accumulator acc) const{
-        BreadthOrderTraverse(
+    inline Accumulator BreadthTraversableContainer<Data>::BreadthFold(FoldFun<Accumulator> funzione ,Accumulator acc) const{
+        BreadthTraverse(
             [funzione, &acc](const Data& datoPassato){
                 acc = funzione(datoPassato, acc);
             }
@@ -92,7 +92,7 @@ namespace lasd {
 
     template <typename Data>
     inline void BreadthTraversableContainer<Data>::Traverse(TraverseFun funzione) const {
-        BreadthOrderTraverse(funzione);
+        BreadthTraverse(funzione);
     }
 
 }

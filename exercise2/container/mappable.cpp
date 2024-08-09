@@ -18,7 +18,7 @@ namespace lasd {
     
     template <typename Data>
     inline void BreadthMappableContainer<Data>::Map(MapFun funz) {
-        BreadthOrderMap(funz);
+        BreadthMap(funz);
     }
 
 }
