@@ -39,16 +39,17 @@ protected:
   protected:
 
     // ...
-
+        
+    Data elemento{};
+    NodeLnk * figlioSinistro = nullptr;
+    NodeLnk * figlioDestro = nullptr;
+  
 
   public:
 
     
 
-    Data elemento{};
-    Node * figlioSinistro = nullptr;
-    Node * figlioDestro = nullptr;
-  
+
     friend class BinaryTreeLnk<Data>;
     
     // ...
@@ -71,17 +72,17 @@ protected:
 
     inline NodeLnk& operator=(const NodeLnk&);
 
-    NodeLnk& operator=(NodeLnk&& nodo) noexcept;
+    NodeLnk& operator=(NodeLnk&&) noexcept;
 
     // Comparison operators
     
     // type operator==(argument) specifiers; 
     // Comparison of abstract types is possible, but is not visible.
-    bool operator== (const NodeLnk& nodo ) const noexcept;
+    bool operator== (const NodeLnk& ) const noexcept;
     
     // type operator!=(argument) specifiers; 
     // Comparison of abstract types is possible, but is not visible.
-    inline bool operator!= (const NodeLnk& nodo ) const noexcept;
+    inline bool operator!= (const NodeLnk& ) const noexcept;
 
     //Da Node :
     
@@ -124,7 +125,7 @@ public:
 
   // BinaryTreeLnk(argument) specifiers; 
   // A binary tree obtained from a MappableContainer
-  BinaryTreeLnk(TraversableContainer<Data>&&); 
+  BinaryTreeLnk(MappableContainer<Data>&&); 
   /* ************************************************************************ */
 
   // Copy constructor

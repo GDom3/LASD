@@ -21,9 +21,9 @@ inline BinaryTreeLnk<Data>::NodeLnk::NodeLnk(Data&& elem ){
 template <typename Data>
 inline BinaryTreeLnk<Data>::NodeLnk::NodeLnk(const NodeLnk& nodo ) : NodeLnk(nodo.elemento){
     if(nodo.HasLeftChild())
-        figlioSinistro = new NodeLnk(nodo.figlioSinistro);
+        figlioSinistro = new NodeLnk( * nodo.figlioSinistro);
     if(nodo.HasRightChild())
-        figlioDestro = new NodeLnk(nodo.figlioDestro);  
+        figlioDestro = new NodeLnk( * nodo.figlioDestro);  
 }
 
 template <typename Data>
@@ -114,20 +114,63 @@ inline BinaryTreeLnk<Data>::MutableNode& BinaryTreeLnk<Data>::NodeLnk::RightChil
 
 
 template <typename Data>
-BinaryTreeLnk<Data>::BinaryTreeLnk(const TraversableContainer<Data>&){
+BinaryTreeLnk<Data>::BinaryTreeLnk(const TraversableContainer<Data>& struttura){
+  
+  QueueVec<BinaryTreeLnk<Data>::NodeLnk *> coda{};
 
+  struttura.Traverse([&coda, this](const Data &dato) {
+    NodeLnk * nodo = new NodeLnk(dato);
+    
+    coda.Enqueue(nodo);
+    
+    size++;
+    if(size - 1 == 0){
+        radice = coda.Head();
+    }else{
+        if(size %  2 == 0){
+            coda.Head()->figlioSinistro = nodo;
+        }else{
+            coda.HeadNDequeue()->figlioDestro = nodo; //al terzo figlio lo levo
+        }
+    }
+
+  });
 
 }
 
 
 template <typename Data>
-BinaryTreeLnk<Data>::BinaryTreeLnk(TraversableContainer<Data>&&){
+BinaryTreeLnk<Data>::BinaryTreeLnk(MappableContainer<Data>&& struttura){
+    QueueVec<BinaryTreeLnk<Data>::NodeLnk *> coda{};
+
+    struttura.Map([&coda, this](const Data &&dato) {
+        NodeLnk * nodo = new NodeLnk(std::move(dato));
+    
+        coda.Enqueue(nodo);
+    
+        size++;
+        if(size - 1 == 0){
+            radice = coda.Head();
+        }else{
+            if(size %  2 == 0){
+                coda.Head()->figlioSinistro = nodo;
+            }else{
+                coda.HeadNDequeue()->figlioDestro = nodo; //al terzo figlio lo levo
+            }
+        }
+
+    });
 
 }
 
 
 template <typename Data>
-inline BinaryTreeLnk<Data>::BinaryTreeLnk(const BinaryTreeLnk&){
+inline BinaryTreeLnk<Data>::BinaryTreeLnk(const BinaryTreeLnk& alb){    
+
+    if(alb.size > 0){
+        size = alb.size;
+        radice = new NodeLnk(*alb.radice); //Sfrutto la ricorsività
+    }
 
 
 }
@@ -135,8 +178,9 @@ inline BinaryTreeLnk<Data>::BinaryTreeLnk(const BinaryTreeLnk&){
 
 
 template <typename Data>
-inline BinaryTreeLnk<Data>::BinaryTreeLnk(BinaryTreeLnk&&) noexcept{
-
+inline BinaryTreeLnk<Data>::BinaryTreeLnk(BinaryTreeLnk&& alb) noexcept{
+    std::swap(alb.radice,radice);
+    std::swap(alb.size,size);
 
 }
 

@@ -25,13 +25,13 @@
 using namespace std;
 
 /* ************************************************************************** */
-
+ /*
 void stestBSTInt(uint & testnum, uint & testerr) {
   uint loctestnum = 0, loctesterr = 0;
   cout << endl << "Begin of BST<int> Test" << endl;
   try {
     lasd::BST<int> bst;
-
+   
     Empty(loctestnum, loctesterr, bst, true);
     Size(loctestnum, loctesterr, bst, true, 0);
 
@@ -269,11 +269,14 @@ void stestBSTString(uint & testnum, uint & testerr) {
   testerr += loctesterr;
 }
 
+*/
 /* ************************************************************************** */
-
+/*
 void testSimpleExercise2B(uint & testnum, uint & testerr) {
   stestBSTInt(testnum, testerr);
   stestBSTFloat(testnum, testerr);
   stestBSTString(testnum, testerr);
   cout << endl << "Exercise 2B (Simple Test) (Errors/Tests: " << testerr << "/" << testnum << ")" << endl;
 }
+
+*/

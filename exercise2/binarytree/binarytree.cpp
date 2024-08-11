@@ -9,12 +9,14 @@ namespace lasd {
 
 template <typename Data>
 bool BinaryTree<Data>::Node::operator== (const Node& altroNodo) const noexcept{
-    bool ret = this->Element() == altroNodo.Element(); // Se hanno lo stesso valore
-    ret &= this->HasLeftChild() == altroNodo.HasLeftChild(); // Se hanno entrambi un filgio sinistro o no
-    ret &= this->HasRightChild() == altroNodo.HasRightChild(); // Se hanno entrambi un filgio destro o no
-    ret &= this->HasLeftChild() && this->LeftChild() == this->LeftChild(); // Se hanno figlio sinistro deve essere uguale
-    ret &= this->HasRightChild() && this->RightChild() == this->RightChild(); // Se hanno figlio detro deve essere uguale
  
+    
+    bool ret = Element() == altroNodo.Element(); // Se hanno lo stesso valore
+
+    //Se entrambi non hanno figli oppure sono uguali
+    ret &= !HasLeftChild() && !altroNodo.HasLeftChild() || HasLeftChild() && altroNodo.HasLeftChild() && LeftChild() == altroNodo.LeftChild(); 
+    ret &= !HasRightChild() && !altroNodo.HasRightChild() || HasRightChild() && altroNodo.HasRightChild() && RightChild() == altroNodo.RightChild(); 
+
     return ret;
 }
 
@@ -107,11 +109,11 @@ template <typename Data>
 inline void BinaryTree<Data>::BreadthTraverse(TraverseFun fun) const {
     if(Empty())
         return;
-
+    
     QueueLst<const Node*> coda{};
     coda.Enqueue(&Root());
-
-    while(coda.Empty() == true){
+    
+    while(coda.Empty() == false){
         
         const Node& nodo = *(coda.HeadNDequeue());
 
@@ -199,7 +201,7 @@ inline void MutableBinaryTree<Data>::BreadthMap(MapFun fun) {
     QueueLst<MutableNode*> coda{};
     coda.Enqueue(&Root());
 
-    while(coda.Empty() == true){
+    while(coda.Empty() == false){
         
         MutableNode& nodo = *(coda.HeadNDequeue());
 
