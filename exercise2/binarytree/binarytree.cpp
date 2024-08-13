@@ -14,8 +14,8 @@ bool BinaryTree<Data>::Node::operator== (const Node& altroNodo) const noexcept{
     bool ret = Element() == altroNodo.Element(); // Se hanno lo stesso valore
 
     //Se entrambi non hanno figli oppure sono uguali
-    ret &= !HasLeftChild() && !altroNodo.HasLeftChild() || HasLeftChild() && altroNodo.HasLeftChild() && LeftChild() == altroNodo.LeftChild(); 
-    ret &= !HasRightChild() && !altroNodo.HasRightChild() || HasRightChild() && altroNodo.HasRightChild() && RightChild() == altroNodo.RightChild(); 
+    ret &= (!HasLeftChild() && !altroNodo.HasLeftChild()) || (HasLeftChild() && altroNodo.HasLeftChild() && LeftChild() == altroNodo.LeftChild()); 
+    ret &= (!HasRightChild() && !altroNodo.HasRightChild()) || (HasRightChild() && altroNodo.HasRightChild() && RightChild() == altroNodo.RightChild()); 
 
     return ret;
 }

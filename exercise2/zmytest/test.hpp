@@ -27,6 +27,16 @@ void testQueueVecStringMio(unsigned int &, unsigned int &);
 void testQueueLstIntMio(unsigned int &, unsigned int &);
 void testQueueLstStringMio(unsigned int &, unsigned int &);
 
+void testAlberoMio(unsigned int &, unsigned int &);
+void testAlberoIntMio(unsigned int &, unsigned int &);
+void testAlberoDoubleMio(unsigned int &, unsigned int &);
+template <typename Albero>
+void testAlberoGenericoIntMio(unsigned int &, unsigned int &);
+void testAmbedueAlberoIntMio(unsigned int &, unsigned int &);
+template <typename Albero>
+void testAlberoGenericoDoubleMio(unsigned int &, unsigned int &);
+void testAmbedueAlberoDoubleMio(unsigned int &, unsigned int &);
+
 /* ************************************************************************** */
 
 #endif

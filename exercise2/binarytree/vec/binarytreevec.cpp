@@ -113,7 +113,7 @@ BinaryTreeVec<Data>::BinaryTreeVec(const TraversableContainer<Data>& struttura){
         }
     );
     
-    for(unsigned long int i = 0, left = 1, right = 2; i < size/2 ; i++, left = (2*i)+1, right = 2*(i+1)+2 ){
+    for(unsigned long int i = 0, left = 1, right = 2; i < size/2 ; i++, left = (2*i)+1, right = (2*i)+2 ){
         if(left < size)
             vettore[i]->figlioSinistro = vettore[left];
         if(right < size)
@@ -128,15 +128,18 @@ BinaryTreeVec<Data>::BinaryTreeVec(MappableContainer<Data>&& struttura){
     size = vettore.Size();
 
     unsigned long int i = 0;
-    struttura.Traverse(
-        [&i,this](Data && dato){
-            vettore[i++] = new NodeVec(std::move(dato),nullptr,nullptr,i);
+    struttura.Map(
+        [&i,this](Data & dato){
+            vettore[i] = new NodeVec(std::move(dato),nullptr,nullptr,i);
+            i++;
         }
     );
 
-    for(unsigned long int i = 0; i < size/2 ; i++){
-        vettore[i]->figlioSinistro = vettore[2*(i+1)];
-        vettore[i]->figlioDestro = vettore[2*(i+1)+1];
+    for(unsigned long int i = 0, left = 1 , right = 2; i < size/2 ; i++, left = (2*i)+1, right = (2*i)+2){
+        if(left < size)
+            vettore[i]->figlioSinistro = vettore[left];
+        if(right < size)
+            vettore[i]->figlioDestro = vettore[right];
     }
 }
 
@@ -145,9 +148,18 @@ inline BinaryTreeVec<Data>::BinaryTreeVec(const BinaryTreeVec& alb){
     vettore.Resize(alb.size);
     size = alb.size;
     
-    for(unsigned long int i = 0; i < size; i++){
-        vettore[i] = new NodeVec(*alb.vettore[i]);
+    unsigned long int i = size - 1;
+    while(i >= 0 && i < size){
+        vettore[i] = new NodeVec(alb.vettore[i]->elemento,nullptr,nullptr,i);
+        if(alb.vettore[i]->HasLeftChild())
+            vettore[i]->figlioSinistro = vettore[ alb.vettore[i]->figlioSinistro->indice ];
+  
+        if(alb.vettore[i]->HasRightChild())
+            vettore[i]->figlioDestro = vettore[ alb.vettore[i]->figlioDestro->indice ];
+            
+        --i;
     }
+    
 }
 
 template <typename Data> 
@@ -172,8 +184,19 @@ BinaryTreeVec<Data>& BinaryTreeVec<Data>::operator=(const BinaryTreeVec<Data>& a
     size = alb.size;
     vettore.Resize(size);
 
-    for(unsigned long int i = 0; i < size; i++)
-        vettore[i] = new NodeVec(alb.vettore[i]->elemento,alb.vettore[i]->figlioSinistro,alb.vettore[i]->figlioDestro,i);
+    
+    unsigned long int i = size - 1;
+    while(i >= 0 && i < size){
+        vettore[i] = new NodeVec(alb.vettore[i]->elemento,nullptr,nullptr,i);
+        if(alb.vettore[i]->HasLeftChild())
+            vettore[i]->figlioSinistro = vettore[ alb.vettore[i]->figlioSinistro->indice ];
+
+        if(alb.vettore[i]->HasRightChild())
+            vettore[i]->figlioDestro = vettore[ alb.vettore[i]->figlioDestro->indice ];
+
+
+        --i;
+    }
     
     return *this;
 }

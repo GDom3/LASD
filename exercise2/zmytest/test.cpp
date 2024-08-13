@@ -11,6 +11,8 @@
 #include "../zlasdtest/vector/vector.hpp"
 #include "../zlasdtest/stack/stack.hpp"
 #include "../zlasdtest/queue/queue.hpp"
+#include "../zlasdtest/binarytree/binarytree.hpp"
+
 
 #include "../list/list.hpp"
 #include "../stack/lst/stacklst.hpp"
@@ -18,6 +20,8 @@
 #include "../queue/lst/queuelst.hpp"
 #include "../queue/vec/queuevec.hpp"
 #include "../vector/vector.hpp"
+#include "../binarytree/lnk/binarytreelnk.hpp"
+#include "../binarytree/vec/binarytreevec.hpp"
 
 #include "test.hpp"
 
@@ -49,8 +53,16 @@ void mytest() {
   testQueueMio(numeroLocaleTest, numeroLocaleErrori);
   stestnum += numeroLocaleTest; stesterr += numeroLocaleErrori;
   
+  numeroLocaleTest = 0; numeroLocaleErrori = 0;
+  testAlberoMio(numeroLocaleTest, numeroLocaleErrori);
+  stestnum += numeroLocaleTest; stesterr += numeroLocaleErrori;
   
   cout << endl << "Risultati Test (Errors/Tests: " << stesterr << "/" << stestnum << ")\n\n";
+}
+
+void testAlberoMio(unsigned int & numeroTest, unsigned int & numeroErrori){
+  testAlberoIntMio(numeroTest,numeroErrori);
+  testAlberoDoubleMio(numeroTest,numeroErrori);
 }
 
 void testVettoreMio(unsigned int & numeroTest, unsigned int & numeroErrori){
@@ -2263,5 +2275,884 @@ void testQueueLstStringMio(unsigned int &numeroTest, unsigned int &numeroErrori)
   cout << "Fine QueueLst<String> Test DG : (Errors/Tests: " << numeroLocaleErrori << "/" << numeroLocaleTest << ")" << endl;
   numeroTest += numeroLocaleTest;
   numeroErrori += numeroLocaleErrori;
+}
+
+void testAlberoIntMio(unsigned int & numeroTest, unsigned int & numeroErrori){
+  unsigned int numeroLocaleTest = 0;
+  unsigned int numeroLocaleErrori = 0;
+
+  unsigned int albTest = 0;
+  unsigned int albErr = 0;
+
+  cout << endl << "Inizio Albero<Int> Test DG :" << endl;
+  
+  cout << endl << "Inizio Albero(Vettore)<Int> Test DG :" << endl;
+  testAlberoGenericoIntMio<lasd::BinaryTreeVec<int>>(albTest,albErr);
+  cout<<"Fine Albero(Vettore)<Int> Test DG : (Errors/Tests: "<<albErr<<"/"<<albTest<<")"<<endl;
+
+  numeroLocaleTest += albTest;
+  numeroLocaleErrori += albErr;
+  albTest = 0;
+  albErr = 0;
+
+  cout << endl << "Inizio Albero(Lista)<Int> Test DG :" << endl;
+  testAlberoGenericoIntMio<lasd::BinaryTreeLnk<int>>(albTest,albErr);
+  cout<<"Fine Albero(Lista)<Int> Test DG : (Errors/Tests: "<<albErr<<"/"<<albTest<<")"<<endl;
+
+  numeroLocaleTest += albTest;
+  numeroLocaleErrori += albErr;
+  albTest = 0;
+  albErr = 0;
+
+  cout << endl << "Inizio Albero(Ambedue)<Int> Test DG :" << endl;
+  testAmbedueAlberoIntMio(albTest,albErr);
+  cout<<"Fine Albero(Ambedue)<Int> Test DG : (Errors/Tests: "<<albErr<<"/"<<albTest<<")"<<endl;
+
+  numeroLocaleTest += albTest;
+  numeroLocaleErrori += albErr;
+  albTest = 0;
+  albErr = 0;
+
+  cout<<"Fine Albero<Int> Test DG : (Errors/Tests: "<<numeroLocaleErrori<<"/"<<numeroLocaleTest<<")"<<endl;
+        
+  numeroTest += numeroLocaleTest;
+  numeroErrori += numeroLocaleErrori;
+}
+
+template <typename Albero>
+void testAlberoGenericoIntMio(unsigned int & numeroTest, unsigned int & numeroErrori){
+  lasd::List<int> lista{};
+  for(int i = 1; i <= 7 ; i++)
+    lista.InsertAtBack(i);
+
+  //Provo Il Traverse Costruttore
+  Albero alberoOrdinato{lista};
+  Empty(numeroTest,numeroErrori,alberoOrdinato,false);
+  Size(numeroTest,numeroErrori,alberoOrdinato,true,7);
+
+  //Controllo se sia Breath>> 1 2 3 4 5 6 7
+  Root(numeroTest,numeroErrori,alberoOrdinato,true,1);
+  HasLeftChild<int>(numeroTest,numeroErrori,alberoOrdinato.Root(),true);
+  HasRightChild<int>(numeroTest,numeroErrori,alberoOrdinato.Root(),true);
+  GetElement(numeroTest,numeroErrori,alberoOrdinato.Root().LeftChild(),true,2);
+  HasLeftChild<int>(numeroTest,numeroErrori,alberoOrdinato.Root().LeftChild(),true);
+  HasRightChild<int>(numeroTest,numeroErrori,alberoOrdinato.Root().LeftChild(),true);
+  GetElement(numeroTest,numeroErrori,alberoOrdinato.Root().RightChild(),true,3);
+  HasLeftChild<int>(numeroTest,numeroErrori,alberoOrdinato.Root().RightChild(),true);
+  HasRightChild<int>(numeroTest,numeroErrori,alberoOrdinato.Root().RightChild(),true);
+  GetElement(numeroTest,numeroErrori,alberoOrdinato.Root().LeftChild().LeftChild(),true,4);
+  HasLeftChild<int>(numeroTest,numeroErrori,alberoOrdinato.Root().LeftChild().LeftChild(),false);
+  HasRightChild<int>(numeroTest,numeroErrori,alberoOrdinato.Root().LeftChild().LeftChild(),false);
+  GetElement(numeroTest,numeroErrori,alberoOrdinato.Root().LeftChild().RightChild(),true,5);
+  HasLeftChild<int>(numeroTest,numeroErrori,alberoOrdinato.Root().LeftChild().RightChild(),false);
+  HasRightChild<int>(numeroTest,numeroErrori,alberoOrdinato.Root().LeftChild().RightChild(),false);
+  GetElement(numeroTest,numeroErrori,alberoOrdinato.Root().RightChild().LeftChild(),true,6);
+  HasLeftChild<int>(numeroTest,numeroErrori,alberoOrdinato.Root().RightChild().LeftChild(),false);
+  HasRightChild<int>(numeroTest,numeroErrori,alberoOrdinato.Root().RightChild().LeftChild(),false);
+  GetElement(numeroTest,numeroErrori,alberoOrdinato.Root().RightChild().RightChild(),true,7);
+  HasLeftChild<int>(numeroTest,numeroErrori,alberoOrdinato.Root().RightChild().RightChild(),false);
+  HasRightChild<int>(numeroTest,numeroErrori,alberoOrdinato.Root().RightChild().RightChild(),false);
+
+  IsLeaf<int>(numeroTest,numeroErrori,alberoOrdinato.Root().LeftChild().LeftChild(),true);
+  IsLeaf<int>(numeroTest,numeroErrori,alberoOrdinato.Root().LeftChild().RightChild(),true);
+  IsLeaf<int>(numeroTest,numeroErrori,alberoOrdinato.Root().RightChild().LeftChild(),true);
+  IsLeaf<int>(numeroTest,numeroErrori,alberoOrdinato.Root().RightChild().RightChild(),true);
+
+
+  lista.Clear();
+  for(int i = 1; i <= 7 ; i++)
+    lista.InsertAtFront(i);
+  
+  //Provo Il Map Costruttore
+  Albero alberoDeOrdinato{std::move(lista)};
+  Empty(numeroTest,numeroErrori,alberoDeOrdinato,false);
+  Size(numeroTest,numeroErrori,alberoDeOrdinato,true,7);
+
+  //Controllo se sia Breath>> 7 6 5 4 3 2 1
+  HasLeftChild<int>(numeroTest,numeroErrori,alberoDeOrdinato.Root(),true);
+  HasRightChild<int>(numeroTest,numeroErrori,alberoDeOrdinato.Root(),true);
+  HasLeftChild<int>(numeroTest,numeroErrori,alberoDeOrdinato.Root().LeftChild(),true);
+  HasRightChild<int>(numeroTest,numeroErrori,alberoDeOrdinato.Root().LeftChild(),true);
+  HasLeftChild<int>(numeroTest,numeroErrori,alberoDeOrdinato.Root().RightChild(),true);
+  HasRightChild<int>(numeroTest,numeroErrori,alberoDeOrdinato.Root().RightChild(),true);
+  HasLeftChild<int>(numeroTest,numeroErrori,alberoDeOrdinato.Root().LeftChild().LeftChild(),false);
+  HasRightChild<int>(numeroTest,numeroErrori,alberoDeOrdinato.Root().LeftChild().LeftChild(),false);
+  HasLeftChild<int>(numeroTest,numeroErrori,alberoDeOrdinato.Root().LeftChild().RightChild(),false);
+  HasRightChild<int>(numeroTest,numeroErrori,alberoDeOrdinato.Root().LeftChild().RightChild(),false);
+  HasLeftChild<int>(numeroTest,numeroErrori,alberoDeOrdinato.Root().RightChild().LeftChild(),false);
+  HasRightChild<int>(numeroTest,numeroErrori,alberoDeOrdinato.Root().RightChild().LeftChild(),false); 
+  HasLeftChild<int>(numeroTest,numeroErrori,alberoDeOrdinato.Root().RightChild().RightChild(),false);
+  HasRightChild<int>(numeroTest,numeroErrori,alberoDeOrdinato.Root().RightChild().RightChild(),false);
+  Root(numeroTest,numeroErrori,alberoDeOrdinato,true,7);
+  GetElement(numeroTest,numeroErrori,alberoDeOrdinato.Root().LeftChild(),true,6);
+  GetElement(numeroTest,numeroErrori,alberoDeOrdinato.Root().RightChild(),true,5);
+  GetElement(numeroTest,numeroErrori,alberoDeOrdinato.Root().LeftChild().LeftChild(),true,4);
+  GetElement(numeroTest,numeroErrori,alberoDeOrdinato.Root().LeftChild().RightChild(),true,3);
+  GetElement(numeroTest,numeroErrori,alberoDeOrdinato.Root().RightChild().LeftChild(),true,2);
+  GetElement(numeroTest,numeroErrori,alberoDeOrdinato.Root().RightChild().RightChild(),true,1);
+
+
+  IsLeaf<int>(numeroTest,numeroErrori,alberoDeOrdinato.Root().LeftChild().LeftChild(),true);
+  IsLeaf<int>(numeroTest,numeroErrori,alberoDeOrdinato.Root().LeftChild().RightChild(),true);
+  IsLeaf<int>(numeroTest,numeroErrori,alberoDeOrdinato.Root().RightChild().LeftChild(),true);
+  IsLeaf<int>(numeroTest,numeroErrori,alberoDeOrdinato.Root().RightChild().RightChild(),true);
+
+  //Provo la Copia di Alberi
+  Albero alberoCopia{alberoDeOrdinato};
+  Empty(numeroTest,numeroErrori,alberoDeOrdinato,false);
+  Empty(numeroTest,numeroErrori,alberoDeOrdinato,false);
+  Size(numeroTest,numeroErrori,alberoCopia,true,7);
+
+  //Controllo se sia Breath>> 7 6 5 4 3 2 1
+  HasLeftChild<int>(numeroTest,numeroErrori,alberoCopia.Root(),true);
+  HasRightChild<int>(numeroTest,numeroErrori,alberoCopia.Root(),true);
+  HasLeftChild<int>(numeroTest,numeroErrori,alberoCopia.Root().LeftChild(),true);
+  HasRightChild<int>(numeroTest,numeroErrori,alberoCopia.Root().LeftChild(),true);
+  HasLeftChild<int>(numeroTest,numeroErrori,alberoCopia.Root().RightChild(),true);
+  HasRightChild<int>(numeroTest,numeroErrori,alberoCopia.Root().RightChild(),true);
+  HasLeftChild<int>(numeroTest,numeroErrori,alberoCopia.Root().LeftChild().LeftChild(),false);
+  HasRightChild<int>(numeroTest,numeroErrori,alberoCopia.Root().LeftChild().LeftChild(),false);
+  HasLeftChild<int>(numeroTest,numeroErrori,alberoCopia.Root().LeftChild().RightChild(),false);
+  HasRightChild<int>(numeroTest,numeroErrori,alberoCopia.Root().LeftChild().RightChild(),false);
+  HasLeftChild<int>(numeroTest,numeroErrori,alberoCopia.Root().RightChild().LeftChild(),false);
+  HasRightChild<int>(numeroTest,numeroErrori,alberoCopia.Root().RightChild().LeftChild(),false); 
+  HasLeftChild<int>(numeroTest,numeroErrori,alberoCopia.Root().RightChild().RightChild(),false);
+  HasRightChild<int>(numeroTest,numeroErrori,alberoCopia.Root().RightChild().RightChild(),false);
+
+  Root(numeroTest,numeroErrori,alberoCopia,true,7);
+  GetElement(numeroTest,numeroErrori,alberoCopia.Root().LeftChild(),true,6);
+  GetElement(numeroTest,numeroErrori,alberoCopia.Root().RightChild(),true,5);
+  GetElement(numeroTest,numeroErrori,alberoCopia.Root().LeftChild().LeftChild(),true,4);
+  GetElement(numeroTest,numeroErrori,alberoCopia.Root().LeftChild().RightChild(),true,3);
+  GetElement(numeroTest,numeroErrori,alberoCopia.Root().RightChild().LeftChild(),true,2);
+  GetElement(numeroTest,numeroErrori,alberoCopia.Root().RightChild().RightChild(),true,1);
+
+
+  IsLeaf<int>(numeroTest,numeroErrori,alberoCopia.Root().LeftChild().LeftChild(),true);
+  IsLeaf<int>(numeroTest,numeroErrori,alberoCopia.Root().LeftChild().RightChild(),true);
+  IsLeaf<int>(numeroTest,numeroErrori,alberoCopia.Root().RightChild().LeftChild(),true);
+  IsLeaf<int>(numeroTest,numeroErrori,alberoCopia.Root().RightChild().RightChild(),true);
+  
+
+  //Provo Le uguaglianze
+  NonEqualBT(numeroTest,numeroErrori,alberoOrdinato,alberoDeOrdinato);
+  NonEqualBT(numeroTest,numeroErrori,alberoOrdinato,alberoCopia);
+  EqualBT(numeroTest,numeroErrori,alberoDeOrdinato,alberoCopia);
+
+
+  //Faccio diventare alberoCopia Breath>> 1 2 3 4 5 6 7
+  SetElement(numeroTest,numeroErrori,alberoCopia.Root(),true,1);
+  SetElement(numeroTest,numeroErrori,alberoCopia.Root().LeftChild(),true,2);
+  SetElement(numeroTest,numeroErrori,alberoCopia.Root().RightChild(),true,3);
+  SetElement(numeroTest,numeroErrori,alberoCopia.Root().LeftChild().LeftChild(),true,4);
+  SetElement(numeroTest,numeroErrori,alberoCopia.Root().LeftChild().RightChild(),true,5);
+  SetElement(numeroTest,numeroErrori,alberoCopia.Root().RightChild().LeftChild(),true,6);
+  SetElement(numeroTest,numeroErrori,alberoCopia.Root().RightChild().RightChild(),true,7);
+
+  IsLeaf<int>(numeroTest,numeroErrori,alberoCopia.Root().LeftChild().LeftChild(),true);
+  IsLeaf<int>(numeroTest,numeroErrori,alberoCopia.Root().LeftChild().RightChild(),true);
+  IsLeaf<int>(numeroTest,numeroErrori,alberoCopia.Root().RightChild().LeftChild(),true);
+  IsLeaf<int>(numeroTest,numeroErrori,alberoCopia.Root().RightChild().RightChild(),true);
+
+  //Provo Le uguaglianze
+  NonEqualBT(numeroTest,numeroErrori,alberoOrdinato,alberoDeOrdinato);
+  EqualBT(numeroTest,numeroErrori,alberoOrdinato,alberoCopia);
+  NonEqualBT(numeroTest,numeroErrori,alberoDeOrdinato,alberoCopia);
+
+  //Provo la move
+  Albero alberoMove{std::move(alberoCopia)};
+  Empty(numeroTest,numeroErrori,alberoCopia,true);
+  Empty(numeroTest,numeroErrori,alberoMove,false);
+  Size(numeroTest,numeroErrori,alberoMove,true,7);
+  Size(numeroTest,numeroErrori,alberoCopia,true,0);
+
+  HasLeftChild<int>(numeroTest,numeroErrori,alberoMove.Root(),true);
+  HasRightChild<int>(numeroTest,numeroErrori,alberoMove.Root(),true);
+  HasLeftChild<int>(numeroTest,numeroErrori,alberoMove.Root().LeftChild(),true);
+  HasRightChild<int>(numeroTest,numeroErrori,alberoMove.Root().LeftChild(),true);
+  HasLeftChild<int>(numeroTest,numeroErrori,alberoMove.Root().RightChild(),true);
+  HasRightChild<int>(numeroTest,numeroErrori,alberoMove.Root().RightChild(),true);
+  HasLeftChild<int>(numeroTest,numeroErrori,alberoMove.Root().LeftChild().LeftChild(),false);
+  HasRightChild<int>(numeroTest,numeroErrori,alberoMove.Root().LeftChild().LeftChild(),false);
+  HasLeftChild<int>(numeroTest,numeroErrori,alberoMove.Root().LeftChild().RightChild(),false);
+  HasRightChild<int>(numeroTest,numeroErrori,alberoMove.Root().LeftChild().RightChild(),false);
+  HasLeftChild<int>(numeroTest,numeroErrori,alberoMove.Root().RightChild().LeftChild(),false);
+  HasRightChild<int>(numeroTest,numeroErrori,alberoMove.Root().RightChild().LeftChild(),false); 
+  HasLeftChild<int>(numeroTest,numeroErrori,alberoMove.Root().RightChild().RightChild(),false);
+  HasRightChild<int>(numeroTest,numeroErrori,alberoMove.Root().RightChild().RightChild(),false);
+  Root(numeroTest,numeroErrori,alberoMove,true,1);
+  GetElement(numeroTest,numeroErrori,alberoMove.Root().LeftChild(),true,2);
+  GetElement(numeroTest,numeroErrori,alberoMove.Root().RightChild(),true,3);
+  GetElement(numeroTest,numeroErrori,alberoMove.Root().LeftChild().LeftChild(),true,4);
+  GetElement(numeroTest,numeroErrori,alberoMove.Root().LeftChild().RightChild(),true,5);
+  GetElement(numeroTest,numeroErrori,alberoMove.Root().RightChild().LeftChild(),true,6);
+  GetElement(numeroTest,numeroErrori,alberoMove.Root().RightChild().RightChild(),true,7);
+
+  IsLeaf<int>(numeroTest,numeroErrori,alberoMove.Root().LeftChild().LeftChild(),true);
+  IsLeaf<int>(numeroTest,numeroErrori,alberoMove.Root().LeftChild().RightChild(),true);
+  IsLeaf<int>(numeroTest,numeroErrori,alberoMove.Root().RightChild().LeftChild(),true);
+  IsLeaf<int>(numeroTest,numeroErrori,alberoMove.Root().RightChild().RightChild(),true);
+  
+  //Provo Le uguaglianze
+  NonEqualBT(numeroTest,numeroErrori,alberoMove,alberoDeOrdinato);
+  NonEqualBT(numeroTest,numeroErrori,alberoMove,alberoCopia);
+  EqualBT(numeroTest,numeroErrori,alberoMove,alberoOrdinato);
+
+  //Provo la clear su un albero già pulito
+  alberoCopia.Clear();
+  
+  //Provo = copy
+  alberoCopia = alberoDeOrdinato;
+  Empty(numeroTest,numeroErrori,alberoCopia,false);
+  Size(numeroTest,numeroErrori,alberoCopia,true,7);
+  
+  //Controllo se sia Breath>> 7 6 5 4 3 2 1
+  HasLeftChild<int>(numeroTest,numeroErrori,alberoCopia.Root(),true);
+  HasRightChild<int>(numeroTest,numeroErrori,alberoCopia.Root(),true);
+  HasLeftChild<int>(numeroTest,numeroErrori,alberoCopia.Root().LeftChild(),true);
+  HasRightChild<int>(numeroTest,numeroErrori,alberoCopia.Root().LeftChild(),true);
+  HasLeftChild<int>(numeroTest,numeroErrori,alberoCopia.Root().RightChild(),true);
+  HasRightChild<int>(numeroTest,numeroErrori,alberoCopia.Root().RightChild(),true);
+  HasLeftChild<int>(numeroTest,numeroErrori,alberoCopia.Root().LeftChild().LeftChild(),false);
+  HasRightChild<int>(numeroTest,numeroErrori,alberoCopia.Root().LeftChild().LeftChild(),false);
+  HasLeftChild<int>(numeroTest,numeroErrori,alberoCopia.Root().LeftChild().RightChild(),false);
+  HasRightChild<int>(numeroTest,numeroErrori,alberoCopia.Root().LeftChild().RightChild(),false);
+  HasLeftChild<int>(numeroTest,numeroErrori,alberoCopia.Root().RightChild().LeftChild(),false);
+  HasRightChild<int>(numeroTest,numeroErrori,alberoCopia.Root().RightChild().LeftChild(),false); 
+  HasLeftChild<int>(numeroTest,numeroErrori,alberoCopia.Root().RightChild().RightChild(),false);
+  HasRightChild<int>(numeroTest,numeroErrori,alberoCopia.Root().RightChild().RightChild(),false);
+  Root(numeroTest,numeroErrori,alberoCopia,true,7);
+  GetElement(numeroTest,numeroErrori,alberoCopia.Root().LeftChild(),true,6);
+  GetElement(numeroTest,numeroErrori,alberoCopia.Root().RightChild(),true,5);
+  GetElement(numeroTest,numeroErrori,alberoCopia.Root().LeftChild().LeftChild(),true,4);
+  GetElement(numeroTest,numeroErrori,alberoCopia.Root().LeftChild().RightChild(),true,3);
+  GetElement(numeroTest,numeroErrori,alberoCopia.Root().RightChild().LeftChild(),true,2);
+  GetElement(numeroTest,numeroErrori,alberoCopia.Root().RightChild().RightChild(),true,1);
+
+
+  IsLeaf<int>(numeroTest,numeroErrori,alberoCopia.Root().LeftChild().LeftChild(),true);
+  IsLeaf<int>(numeroTest,numeroErrori,alberoCopia.Root().LeftChild().RightChild(),true);
+  IsLeaf<int>(numeroTest,numeroErrori,alberoCopia.Root().RightChild().LeftChild(),true);
+  IsLeaf<int>(numeroTest,numeroErrori,alberoCopia.Root().RightChild().RightChild(),true);
+
+  //Provo Le uguaglianze
+  EqualBT(numeroTest,numeroErrori,alberoCopia,alberoDeOrdinato);
+  NonEqualBT(numeroTest,numeroErrori,alberoMove,alberoCopia);
+  NonEqualBT(numeroTest,numeroErrori,alberoCopia,alberoOrdinato);
+  
+  //Provo = move
+  alberoMove.Clear();
+  alberoMove = std::move(alberoCopia);
+  Empty(numeroTest,numeroErrori,alberoMove,false);
+  Empty(numeroTest,numeroErrori,alberoCopia,true);
+  Size(numeroTest,numeroErrori,alberoMove,true,7);
+  
+  //Controllo se sia Breath>> 7 6 5 4 3 2 1
+  HasLeftChild<int>(numeroTest,numeroErrori,alberoMove.Root(),true);
+  HasRightChild<int>(numeroTest,numeroErrori,alberoMove.Root(),true);
+  HasLeftChild<int>(numeroTest,numeroErrori,alberoMove.Root().LeftChild(),true);
+  HasRightChild<int>(numeroTest,numeroErrori,alberoMove.Root().LeftChild(),true);
+  HasLeftChild<int>(numeroTest,numeroErrori,alberoMove.Root().RightChild(),true);
+  HasRightChild<int>(numeroTest,numeroErrori,alberoMove.Root().RightChild(),true);
+  HasLeftChild<int>(numeroTest,numeroErrori,alberoMove.Root().LeftChild().LeftChild(),false);
+  HasRightChild<int>(numeroTest,numeroErrori,alberoMove.Root().LeftChild().LeftChild(),false);
+  HasLeftChild<int>(numeroTest,numeroErrori,alberoMove.Root().LeftChild().RightChild(),false);
+  HasRightChild<int>(numeroTest,numeroErrori,alberoMove.Root().LeftChild().RightChild(),false);
+  HasLeftChild<int>(numeroTest,numeroErrori,alberoMove.Root().RightChild().LeftChild(),false);
+  HasRightChild<int>(numeroTest,numeroErrori,alberoMove.Root().RightChild().LeftChild(),false); 
+  HasLeftChild<int>(numeroTest,numeroErrori,alberoMove.Root().RightChild().RightChild(),false);
+  HasRightChild<int>(numeroTest,numeroErrori,alberoMove.Root().RightChild().RightChild(),false);
+  Root(numeroTest,numeroErrori,alberoMove,true,7);
+  GetElement(numeroTest,numeroErrori,alberoMove.Root().LeftChild(),true,6);
+  GetElement(numeroTest,numeroErrori,alberoMove.Root().RightChild(),true,5);
+  GetElement(numeroTest,numeroErrori,alberoMove.Root().LeftChild().LeftChild(),true,4);
+  GetElement(numeroTest,numeroErrori,alberoMove.Root().LeftChild().RightChild(),true,3);
+  GetElement(numeroTest,numeroErrori,alberoMove.Root().RightChild().LeftChild(),true,2);
+  GetElement(numeroTest,numeroErrori,alberoMove.Root().RightChild().RightChild(),true,1);
+
+
+  IsLeaf<int>(numeroTest,numeroErrori,alberoMove.Root().LeftChild().LeftChild(),true);
+  IsLeaf<int>(numeroTest,numeroErrori,alberoMove.Root().LeftChild().RightChild(),true);
+  IsLeaf<int>(numeroTest,numeroErrori,alberoMove.Root().RightChild().LeftChild(),true);
+  IsLeaf<int>(numeroTest,numeroErrori,alberoMove.Root().RightChild().RightChild(),true);
+
+  //Provo Le uguaglianze
+  EqualBT(numeroTest,numeroErrori,alberoMove,alberoDeOrdinato);
+  NonEqualBT(numeroTest,numeroErrori,alberoMove,alberoCopia);
+  NonEqualBT(numeroTest,numeroErrori,alberoMove,alberoOrdinato);
+
+
+  // Moltiptico Per 32 Tutti i numeri
+  alberoCopia = alberoOrdinato;
+  Map(numeroTest, numeroErrori, alberoCopia, true, MapDouble<int>);
+  MapBreadth(numeroTest, numeroErrori, alberoCopia, true, MapDouble<int>);
+  MapPreOrder(numeroTest, numeroErrori, alberoCopia, true, MapDouble<int>);
+  MapPostOrder(numeroTest, numeroErrori, alberoCopia, true, MapDouble<int>);
+  MapInOrder(numeroTest, numeroErrori, alberoCopia, true, MapDouble<int>);
+
+  Root(numeroTest,numeroErrori,alberoCopia,true,32);
+  GetElement(numeroTest,numeroErrori,alberoCopia.Root().LeftChild(),true,64);
+  GetElement(numeroTest,numeroErrori,alberoCopia.Root().RightChild(),true,96);
+  GetElement(numeroTest,numeroErrori,alberoCopia.Root().LeftChild().LeftChild(),true,128);
+  GetElement(numeroTest,numeroErrori,alberoCopia.Root().LeftChild().RightChild(),true,160);
+  GetElement(numeroTest,numeroErrori,alberoCopia.Root().RightChild().LeftChild(),true,192);
+  GetElement(numeroTest,numeroErrori,alberoCopia.Root().RightChild().RightChild(),true,224);
+
+  alberoCopia = alberoDeOrdinato;
+
+    int inc = 0;
+    // 0*7 + 1*6 + 2*5 + 3*4 + 4*3 + 5*2 + 6*1 = 56
+    FoldBreadth(numeroTest, numeroErrori, alberoCopia, true,
+        [&inc](const int &d, const int &res) { 
+          return res + d * (inc++); 
+        }, 
+        0, 56);
+    
+    // 0*7 + 1*6 + 2*4 + 3*3 + 4*5 + 5*2 + 6*1 = 59 
+    inc = 0;
+    FoldPreOrder(numeroTest, numeroErrori, alberoCopia, true,
+        [&inc](const int &d, const int &res) { 
+          return res + d * (inc++); 
+        }, 
+        0, 59);
+
+    // 0*4 + 1*3 + 2*6 + 3*2 + 4*1 + 5*5 + 6*7 = 92 
+    inc = 0;
+    FoldPostOrder(numeroTest, numeroErrori, alberoCopia, true,
+        [&inc](const int &d, const int &res) { 
+          return res + d * (inc++); 
+          }, 
+          0, 92);
+    
+    // 0*4 + 1*6 + 2*3 + 3*7 + 4*2 + 5*5 + 6*1 = 72
+    inc = 0;
+    FoldInOrder(numeroTest, numeroErrori, alberoCopia, true,
+        [&inc](const int &d, const int &res) { 
+          return res + d * (inc++); 
+        }, 
+        0, 72);
+}
+
+void testAmbedueAlberoIntMio(unsigned int & numeroTest, unsigned int & numeroErrori){
+  lasd::List<int> lista{};
+  for(int i = 1; i <= 7 ; i++)
+    lista.InsertAtBack(i);
+
+  //Creo Albero
+  lasd::BinaryTreeLnk<int> AlberoLista{lista};
+  lasd::BinaryTreeVec<int> AlberoVettore{lista};
+
+  //Controllo Uguaglianza
+  EqualBT(numeroTest, numeroErrori, AlberoLista, AlberoVettore);
+
+  //Modifico e controllo che siano diverse
+  SetElement<int>(numeroTest, numeroErrori, AlberoLista.Root(), true, 12);
+  NonEqualBT(numeroTest, numeroErrori, AlberoLista, AlberoVettore);
+
+  //Provo il = Copy
+  AlberoVettore = AlberoLista;
+  AlberoLista = AlberoVettore;
+
+  Root<int>(numeroTest,numeroErrori,AlberoLista,true,12);
+  GetElement<int>(numeroTest,numeroErrori,AlberoLista.Root().LeftChild(),true,2);
+  GetElement<int>(numeroTest,numeroErrori,AlberoLista.Root().RightChild(),true,3);
+  GetElement<int>(numeroTest,numeroErrori,AlberoLista.Root().LeftChild().LeftChild(),true,4);
+  GetElement<int>(numeroTest,numeroErrori,AlberoLista.Root().LeftChild().RightChild(),true,5);
+  GetElement<int>(numeroTest,numeroErrori,AlberoLista.Root().RightChild().LeftChild(),true,6);
+  GetElement<int>(numeroTest,numeroErrori,AlberoLista.Root().RightChild().RightChild(),true,7);
+
+  Root<int>(numeroTest,numeroErrori,AlberoVettore,true,12);
+  GetElement<int>(numeroTest,numeroErrori,AlberoVettore.Root().LeftChild(),true,2);
+  GetElement<int>(numeroTest,numeroErrori,AlberoVettore.Root().RightChild(),true,3);
+  GetElement<int>(numeroTest,numeroErrori,AlberoVettore.Root().LeftChild().LeftChild(),true,4);
+  GetElement<int>(numeroTest,numeroErrori,AlberoVettore.Root().LeftChild().RightChild(),true,5);
+  GetElement<int>(numeroTest,numeroErrori,AlberoVettore.Root().RightChild().LeftChild(),true,6);
+  GetElement<int>(numeroTest,numeroErrori,AlberoVettore.Root().RightChild().RightChild(),true,7);
+
+  EqualBT(numeroTest, numeroErrori, AlberoLista, AlberoVettore);
+
+  //Provo i costruttori
+  lasd::BinaryTreeLnk<int> AlberoLista2{AlberoVettore};
+  lasd::BinaryTreeVec<int> AlberoVettore2{AlberoLista};
+
+  Root<int>(numeroTest,numeroErrori,AlberoLista2,true,12);
+  GetElement<int>(numeroTest,numeroErrori,AlberoLista2.Root().LeftChild(),true,2);
+  GetElement<int>(numeroTest,numeroErrori,AlberoLista2.Root().RightChild(),true,3);
+  GetElement<int>(numeroTest,numeroErrori,AlberoLista2.Root().LeftChild().LeftChild(),true,4);
+  GetElement<int>(numeroTest,numeroErrori,AlberoLista2.Root().LeftChild().RightChild(),true,5);
+  GetElement<int>(numeroTest,numeroErrori,AlberoLista2.Root().RightChild().LeftChild(),true,6);
+  GetElement<int>(numeroTest,numeroErrori,AlberoLista2.Root().RightChild().RightChild(),true,7);
+
+  Root<int>(numeroTest,numeroErrori,AlberoVettore2,true,12);
+  GetElement<int>(numeroTest,numeroErrori,AlberoVettore2.Root().LeftChild(),true,2);
+  GetElement<int>(numeroTest,numeroErrori,AlberoVettore2.Root().RightChild(),true,3);
+  GetElement<int>(numeroTest,numeroErrori,AlberoVettore2.Root().LeftChild().LeftChild(),true,4);
+  GetElement<int>(numeroTest,numeroErrori,AlberoVettore2.Root().LeftChild().RightChild(),true,5);
+  GetElement<int>(numeroTest,numeroErrori,AlberoVettore2.Root().RightChild().LeftChild(),true,6);
+  GetElement<int>(numeroTest,numeroErrori,AlberoVettore2.Root().RightChild().RightChild(),true,7);
+
+  EqualBT(numeroTest, numeroErrori, AlberoLista2, AlberoVettore2);
+
+  //Provo Cotruttore copi e move
+  lasd::BinaryTreeLnk<int> AlberoLista3{AlberoLista2};
+  lasd::BinaryTreeVec<int> AlberoVettore4{std::move(AlberoLista3)};
+
+  AlberoVettore.Clear();
+  Empty(numeroTest, numeroErrori, AlberoVettore, true);
+
+  // Provo il = move
+  AlberoVettore = std::move(AlberoLista2);
+
+  //Verifico Uguaglianze
+  NonEqualBT(numeroTest, numeroErrori, AlberoLista2, AlberoVettore);
+  Empty(numeroTest, numeroErrori, AlberoLista2, false);
+  NonEqualBT(numeroTest, numeroErrori, AlberoLista2, AlberoVettore2);
+  EqualBT(numeroTest, numeroErrori, AlberoVettore, AlberoVettore2);
+  EqualBT(numeroTest, numeroErrori, AlberoLista3, AlberoLista2);
+
+  //Provo il move construct
+  lasd::BinaryTreeVec<int> AlberoVettore3{std::move(AlberoLista)};
+  Empty(numeroTest, numeroErrori, AlberoLista, false);
+}
+
+void testAlberoDoubleMio(unsigned int & numeroTest, unsigned int & numeroErrori){
+  unsigned int numeroLocaleTest = 0;
+  unsigned int numeroLocaleErrori = 0;
+
+  unsigned int albTest = 0;
+  unsigned int albErr = 0;
+
+  cout << endl << "Inizio Albero<Double> Test DG :" << endl;
+  cout << endl << "Inizio Albero(Vettore)<Double> Test DG :" << endl;
+  testAlberoGenericoDoubleMio<lasd::BinaryTreeVec<double>>(albTest,albErr);
+  cout<<"Fine Albero(Vettore)<Double> Test DG : (Errors/Tests: "<<albErr<<"/"<<albTest<<")"<<endl;
+
+  numeroLocaleTest += albTest;
+  numeroLocaleErrori += albErr;
+  albTest = 0;
+  albErr = 0;
+
+  cout << endl << "Inizio Albero(Lista)<Double> Test DG :" << endl;
+  testAlberoGenericoDoubleMio<lasd::BinaryTreeLnk<double>>(albTest,albErr);
+  cout<<"Fine Albero(Lista)<Double> Test DG : (Errors/Tests: "<<albErr<<"/"<<albTest<<")"<<endl;
+
+  numeroLocaleTest += albTest;
+  numeroLocaleErrori += albErr;
+  albTest = 0;
+  albErr = 0;
+
+  cout << endl << "Inizio Albero(Ambedue)<Double> Test DG :" << endl;
+  testAmbedueAlberoDoubleMio(albTest,albErr);
+  cout<<"Fine Albero(Ambedue)<Double> Test DG : (Errors/Tests: "<<albErr<<"/"<<albTest<<")"<<endl;
+
+  numeroLocaleTest += albTest;
+  numeroLocaleErrori += albErr;
+  albTest = 0;
+  albErr = 0;
+
+  cout<<"Fine Albero<Double> Test DG : (Errors/Tests: "<<numeroLocaleErrori<<"/"<<numeroLocaleTest<<")"<<endl;
+        
+  numeroTest += numeroLocaleTest;
+  numeroErrori += numeroLocaleErrori;
+}
+
+template <typename Albero>
+void testAlberoGenericoDoubleMio(unsigned int & numeroTest, unsigned int & numeroErrori){
+ lasd::List<double> lista{};
+  for(double i = 1; i <= 7 ; i++)
+    lista.InsertAtBack(i);
+
+  //Provo Il Traverse Costruttore
+  Albero alberoOrdinato{lista};
+  Empty(numeroTest,numeroErrori,alberoOrdinato,false);
+  Size(numeroTest,numeroErrori,alberoOrdinato,true,7);
+
+  //Controllo se sia Breath>> 1 2 3 4 5 6 7
+  Root<double>(numeroTest,numeroErrori,alberoOrdinato,true,1);
+  HasLeftChild<double>(numeroTest,numeroErrori,alberoOrdinato.Root(),true);
+  HasRightChild<double>(numeroTest,numeroErrori,alberoOrdinato.Root(),true);
+  GetElement<double>(numeroTest,numeroErrori,alberoOrdinato.Root().LeftChild(),true,2);
+  HasLeftChild<double>(numeroTest,numeroErrori,alberoOrdinato.Root().LeftChild(),true);
+  HasRightChild<double>(numeroTest,numeroErrori,alberoOrdinato.Root().LeftChild(),true);
+  GetElement<double>(numeroTest,numeroErrori,alberoOrdinato.Root().RightChild(),true,3);
+  HasLeftChild<double>(numeroTest,numeroErrori,alberoOrdinato.Root().RightChild(),true);
+  HasRightChild<double>(numeroTest,numeroErrori,alberoOrdinato.Root().RightChild(),true);
+  GetElement<double>(numeroTest,numeroErrori,alberoOrdinato.Root().LeftChild().LeftChild(),true,4);
+  HasLeftChild<double>(numeroTest,numeroErrori,alberoOrdinato.Root().LeftChild().LeftChild(),false);
+  HasRightChild<double>(numeroTest,numeroErrori,alberoOrdinato.Root().LeftChild().LeftChild(),false);
+  GetElement<double>(numeroTest,numeroErrori,alberoOrdinato.Root().LeftChild().RightChild(),true,5);
+  HasLeftChild<double>(numeroTest,numeroErrori,alberoOrdinato.Root().LeftChild().RightChild(),false);
+  HasRightChild<double>(numeroTest,numeroErrori,alberoOrdinato.Root().LeftChild().RightChild(),false);
+  GetElement<double>(numeroTest,numeroErrori,alberoOrdinato.Root().RightChild().LeftChild(),true,6);
+  HasLeftChild<double>(numeroTest,numeroErrori,alberoOrdinato.Root().RightChild().LeftChild(),false);
+  HasRightChild<double>(numeroTest,numeroErrori,alberoOrdinato.Root().RightChild().LeftChild(),false);
+  GetElement<double>(numeroTest,numeroErrori,alberoOrdinato.Root().RightChild().RightChild(),true,7);
+  HasLeftChild<double>(numeroTest,numeroErrori,alberoOrdinato.Root().RightChild().RightChild(),false);
+  HasRightChild<double>(numeroTest,numeroErrori,alberoOrdinato.Root().RightChild().RightChild(),false);
+
+  IsLeaf<double>(numeroTest,numeroErrori,alberoOrdinato.Root().LeftChild().LeftChild(),true);
+  IsLeaf<double>(numeroTest,numeroErrori,alberoOrdinato.Root().LeftChild().RightChild(),true);
+  IsLeaf<double>(numeroTest,numeroErrori,alberoOrdinato.Root().RightChild().LeftChild(),true);
+  IsLeaf<double>(numeroTest,numeroErrori,alberoOrdinato.Root().RightChild().RightChild(),true);
+
+
+  lista.Clear();
+  for(double i = 1; i <= 7 ; i++)
+    lista.InsertAtFront(i);
+  
+  //Provo Il Map Costruttore
+  Albero alberoDeOrdinato{std::move(lista)};
+  Empty(numeroTest,numeroErrori,alberoDeOrdinato,false);
+  Size(numeroTest,numeroErrori,alberoDeOrdinato,true,7);
+
+  //Controllo se sia Breath>> 7 6 5 4 3 2 1
+  HasLeftChild<double>(numeroTest,numeroErrori,alberoDeOrdinato.Root(),true);
+  HasRightChild<double>(numeroTest,numeroErrori,alberoDeOrdinato.Root(),true);
+  HasLeftChild<double>(numeroTest,numeroErrori,alberoDeOrdinato.Root().LeftChild(),true);
+  HasRightChild<double>(numeroTest,numeroErrori,alberoDeOrdinato.Root().LeftChild(),true);
+  HasLeftChild<double>(numeroTest,numeroErrori,alberoDeOrdinato.Root().RightChild(),true);
+  HasRightChild<double>(numeroTest,numeroErrori,alberoDeOrdinato.Root().RightChild(),true);
+  HasLeftChild<double>(numeroTest,numeroErrori,alberoDeOrdinato.Root().LeftChild().LeftChild(),false);
+  HasRightChild<double>(numeroTest,numeroErrori,alberoDeOrdinato.Root().LeftChild().LeftChild(),false);
+  HasLeftChild<double>(numeroTest,numeroErrori,alberoDeOrdinato.Root().LeftChild().RightChild(),false);
+  HasRightChild<double>(numeroTest,numeroErrori,alberoDeOrdinato.Root().LeftChild().RightChild(),false);
+  HasLeftChild<double>(numeroTest,numeroErrori,alberoDeOrdinato.Root().RightChild().LeftChild(),false);
+  HasRightChild<double>(numeroTest,numeroErrori,alberoDeOrdinato.Root().RightChild().LeftChild(),false); 
+  HasLeftChild<double>(numeroTest,numeroErrori,alberoDeOrdinato.Root().RightChild().RightChild(),false);
+  HasRightChild<double>(numeroTest,numeroErrori,alberoDeOrdinato.Root().RightChild().RightChild(),false);
+  Root<double>(numeroTest,numeroErrori,alberoDeOrdinato,true,7);
+  GetElement<double>(numeroTest,numeroErrori,alberoDeOrdinato.Root().LeftChild(),true,6);
+  GetElement<double>(numeroTest,numeroErrori,alberoDeOrdinato.Root().RightChild(),true,5);
+  GetElement<double>(numeroTest,numeroErrori,alberoDeOrdinato.Root().LeftChild().LeftChild(),true,4);
+  GetElement<double>(numeroTest,numeroErrori,alberoDeOrdinato.Root().LeftChild().RightChild(),true,3);
+  GetElement<double>(numeroTest,numeroErrori,alberoDeOrdinato.Root().RightChild().LeftChild(),true,2);
+  GetElement<double>(numeroTest,numeroErrori,alberoDeOrdinato.Root().RightChild().RightChild(),true,1);
+
+
+  IsLeaf<double>(numeroTest,numeroErrori,alberoDeOrdinato.Root().LeftChild().LeftChild(),true);
+  IsLeaf<double>(numeroTest,numeroErrori,alberoDeOrdinato.Root().LeftChild().RightChild(),true);
+  IsLeaf<double>(numeroTest,numeroErrori,alberoDeOrdinato.Root().RightChild().LeftChild(),true);
+  IsLeaf<double>(numeroTest,numeroErrori,alberoDeOrdinato.Root().RightChild().RightChild(),true);
+
+  //Provo la Copia di Alberi
+  Albero alberoCopia{alberoDeOrdinato};
+  Empty(numeroTest,numeroErrori,alberoDeOrdinato,false);
+  Empty(numeroTest,numeroErrori,alberoDeOrdinato,false);
+  Size(numeroTest,numeroErrori,alberoCopia,true,7);
+
+  //Controllo se sia Breath>> 7 6 5 4 3 2 1
+  HasLeftChild<double>(numeroTest,numeroErrori,alberoCopia.Root(),true);
+  HasRightChild<double>(numeroTest,numeroErrori,alberoCopia.Root(),true);
+  HasLeftChild<double>(numeroTest,numeroErrori,alberoCopia.Root().LeftChild(),true);
+  HasRightChild<double>(numeroTest,numeroErrori,alberoCopia.Root().LeftChild(),true);
+  HasLeftChild<double>(numeroTest,numeroErrori,alberoCopia.Root().RightChild(),true);
+  HasRightChild<double>(numeroTest,numeroErrori,alberoCopia.Root().RightChild(),true);
+  HasLeftChild<double>(numeroTest,numeroErrori,alberoCopia.Root().LeftChild().LeftChild(),false);
+  HasRightChild<double>(numeroTest,numeroErrori,alberoCopia.Root().LeftChild().LeftChild(),false);
+  HasLeftChild<double>(numeroTest,numeroErrori,alberoCopia.Root().LeftChild().RightChild(),false);
+  HasRightChild<double>(numeroTest,numeroErrori,alberoCopia.Root().LeftChild().RightChild(),false);
+  HasLeftChild<double>(numeroTest,numeroErrori,alberoCopia.Root().RightChild().LeftChild(),false);
+  HasRightChild<double>(numeroTest,numeroErrori,alberoCopia.Root().RightChild().LeftChild(),false); 
+  HasLeftChild<double>(numeroTest,numeroErrori,alberoCopia.Root().RightChild().RightChild(),false);
+  HasRightChild<double>(numeroTest,numeroErrori,alberoCopia.Root().RightChild().RightChild(),false);
+
+  Root<double>(numeroTest,numeroErrori,alberoCopia,true,7);
+  GetElement<double>(numeroTest,numeroErrori,alberoCopia.Root().LeftChild(),true,6);
+  GetElement<double>(numeroTest,numeroErrori,alberoCopia.Root().RightChild(),true,5);
+  GetElement<double>(numeroTest,numeroErrori,alberoCopia.Root().LeftChild().LeftChild(),true,4);
+  GetElement<double>(numeroTest,numeroErrori,alberoCopia.Root().LeftChild().RightChild(),true,3);
+  GetElement<double>(numeroTest,numeroErrori,alberoCopia.Root().RightChild().LeftChild(),true,2);
+  GetElement<double>(numeroTest,numeroErrori,alberoCopia.Root().RightChild().RightChild(),true,1);
+
+
+  IsLeaf<double>(numeroTest,numeroErrori,alberoCopia.Root().LeftChild().LeftChild(),true);
+  IsLeaf<double>(numeroTest,numeroErrori,alberoCopia.Root().LeftChild().RightChild(),true);
+  IsLeaf<double>(numeroTest,numeroErrori,alberoCopia.Root().RightChild().LeftChild(),true);
+  IsLeaf<double>(numeroTest,numeroErrori,alberoCopia.Root().RightChild().RightChild(),true);
+  
+
+  //Provo Le uguaglianze
+  NonEqualBT(numeroTest,numeroErrori,alberoOrdinato,alberoDeOrdinato);
+  NonEqualBT(numeroTest,numeroErrori,alberoOrdinato,alberoCopia);
+  EqualBT(numeroTest,numeroErrori,alberoDeOrdinato,alberoCopia);
+
+
+  //Faccio diventare alberoCopia Breath>> 1 2 3 4 5 6 7
+  SetElement<double>(numeroTest,numeroErrori,alberoCopia.Root(),true,1);
+  SetElement<double>(numeroTest,numeroErrori,alberoCopia.Root().LeftChild(),true,2);
+  SetElement<double>(numeroTest,numeroErrori,alberoCopia.Root().RightChild(),true,3);
+  SetElement<double>(numeroTest,numeroErrori,alberoCopia.Root().LeftChild().LeftChild(),true,4);
+  SetElement<double>(numeroTest,numeroErrori,alberoCopia.Root().LeftChild().RightChild(),true,5);
+  SetElement<double>(numeroTest,numeroErrori,alberoCopia.Root().RightChild().LeftChild(),true,6);
+  SetElement<double>(numeroTest,numeroErrori,alberoCopia.Root().RightChild().RightChild(),true,7);
+
+  IsLeaf<double>(numeroTest,numeroErrori,alberoCopia.Root().LeftChild().LeftChild(),true);
+  IsLeaf<double>(numeroTest,numeroErrori,alberoCopia.Root().LeftChild().RightChild(),true);
+  IsLeaf<double>(numeroTest,numeroErrori,alberoCopia.Root().RightChild().LeftChild(),true);
+  IsLeaf<double>(numeroTest,numeroErrori,alberoCopia.Root().RightChild().RightChild(),true);
+
+  //Provo Le uguaglianze
+  NonEqualBT<double>(numeroTest,numeroErrori,alberoOrdinato,alberoDeOrdinato);
+  EqualBT<double>(numeroTest,numeroErrori,alberoOrdinato,alberoCopia);
+  NonEqualBT<double>(numeroTest,numeroErrori,alberoDeOrdinato,alberoCopia);
+
+  //Provo la move
+  Albero alberoMove{std::move(alberoCopia)};
+  Empty(numeroTest,numeroErrori,alberoCopia,true);
+  Empty(numeroTest,numeroErrori,alberoMove,false);
+  Size(numeroTest,numeroErrori,alberoMove,true,7);
+  Size(numeroTest,numeroErrori,alberoCopia,true,0);
+
+  HasLeftChild<double>(numeroTest,numeroErrori,alberoMove.Root(),true);
+  HasRightChild<double>(numeroTest,numeroErrori,alberoMove.Root(),true);
+  HasLeftChild<double>(numeroTest,numeroErrori,alberoMove.Root().LeftChild(),true);
+  HasRightChild<double>(numeroTest,numeroErrori,alberoMove.Root().LeftChild(),true);
+  HasLeftChild<double>(numeroTest,numeroErrori,alberoMove.Root().RightChild(),true);
+  HasRightChild<double>(numeroTest,numeroErrori,alberoMove.Root().RightChild(),true);
+  HasLeftChild<double>(numeroTest,numeroErrori,alberoMove.Root().LeftChild().LeftChild(),false);
+  HasRightChild<double>(numeroTest,numeroErrori,alberoMove.Root().LeftChild().LeftChild(),false);
+  HasLeftChild<double>(numeroTest,numeroErrori,alberoMove.Root().LeftChild().RightChild(),false);
+  HasRightChild<double>(numeroTest,numeroErrori,alberoMove.Root().LeftChild().RightChild(),false);
+  HasLeftChild<double>(numeroTest,numeroErrori,alberoMove.Root().RightChild().LeftChild(),false);
+  HasRightChild<double>(numeroTest,numeroErrori,alberoMove.Root().RightChild().LeftChild(),false); 
+  HasLeftChild<double>(numeroTest,numeroErrori,alberoMove.Root().RightChild().RightChild(),false);
+  HasRightChild<double>(numeroTest,numeroErrori,alberoMove.Root().RightChild().RightChild(),false);
+  Root<double>(numeroTest,numeroErrori,alberoMove,true,1);
+  GetElement<double>(numeroTest,numeroErrori,alberoMove.Root().LeftChild(),true,2);
+  GetElement<double>(numeroTest,numeroErrori,alberoMove.Root().RightChild(),true,3);
+  GetElement<double>(numeroTest,numeroErrori,alberoMove.Root().LeftChild().LeftChild(),true,4);
+  GetElement<double>(numeroTest,numeroErrori,alberoMove.Root().LeftChild().RightChild(),true,5);
+  GetElement<double>(numeroTest,numeroErrori,alberoMove.Root().RightChild().LeftChild(),true,6);
+  GetElement<double>(numeroTest,numeroErrori,alberoMove.Root().RightChild().RightChild(),true,7);
+
+  IsLeaf<double>(numeroTest,numeroErrori,alberoMove.Root().LeftChild().LeftChild(),true);
+  IsLeaf<double>(numeroTest,numeroErrori,alberoMove.Root().LeftChild().RightChild(),true);
+  IsLeaf<double>(numeroTest,numeroErrori,alberoMove.Root().RightChild().LeftChild(),true);
+  IsLeaf<double>(numeroTest,numeroErrori,alberoMove.Root().RightChild().RightChild(),true);
+  
+  //Provo Le uguaglianze
+  NonEqualBT<double>(numeroTest,numeroErrori,alberoMove,alberoDeOrdinato);
+  NonEqualBT<double>(numeroTest,numeroErrori,alberoMove,alberoCopia);
+  EqualBT<double>(numeroTest,numeroErrori,alberoMove,alberoOrdinato);
+
+  //Provo la clear su un albero già pulito
+  alberoCopia.Clear();
+  
+  //Provo = copy
+  alberoCopia = alberoDeOrdinato;
+  Empty(numeroTest,numeroErrori,alberoCopia,false);
+  Size(numeroTest,numeroErrori,alberoCopia,true,7);
+  
+  //Controllo se sia Breath>> 7 6 5 4 3 2 1
+  HasLeftChild<double>(numeroTest,numeroErrori,alberoCopia.Root(),true);
+  HasRightChild<double>(numeroTest,numeroErrori,alberoCopia.Root(),true);
+  HasLeftChild<double>(numeroTest,numeroErrori,alberoCopia.Root().LeftChild(),true);
+  HasRightChild<double>(numeroTest,numeroErrori,alberoCopia.Root().LeftChild(),true);
+  HasLeftChild<double>(numeroTest,numeroErrori,alberoCopia.Root().RightChild(),true);
+  HasRightChild<double>(numeroTest,numeroErrori,alberoCopia.Root().RightChild(),true);
+  HasLeftChild<double>(numeroTest,numeroErrori,alberoCopia.Root().LeftChild().LeftChild(),false);
+  HasRightChild<double>(numeroTest,numeroErrori,alberoCopia.Root().LeftChild().LeftChild(),false);
+  HasLeftChild<double>(numeroTest,numeroErrori,alberoCopia.Root().LeftChild().RightChild(),false);
+  HasRightChild<double>(numeroTest,numeroErrori,alberoCopia.Root().LeftChild().RightChild(),false);
+  HasLeftChild<double>(numeroTest,numeroErrori,alberoCopia.Root().RightChild().LeftChild(),false);
+  HasRightChild<double>(numeroTest,numeroErrori,alberoCopia.Root().RightChild().LeftChild(),false); 
+  HasLeftChild<double>(numeroTest,numeroErrori,alberoCopia.Root().RightChild().RightChild(),false);
+  HasRightChild<double>(numeroTest,numeroErrori,alberoCopia.Root().RightChild().RightChild(),false);
+  Root<double>(numeroTest,numeroErrori,alberoCopia,true,7);
+  GetElement<double>(numeroTest,numeroErrori,alberoCopia.Root().LeftChild(),true,6);
+  GetElement<double>(numeroTest,numeroErrori,alberoCopia.Root().RightChild(),true,5);
+  GetElement<double>(numeroTest,numeroErrori,alberoCopia.Root().LeftChild().LeftChild(),true,4);
+  GetElement<double>(numeroTest,numeroErrori,alberoCopia.Root().LeftChild().RightChild(),true,3);
+  GetElement<double>(numeroTest,numeroErrori,alberoCopia.Root().RightChild().LeftChild(),true,2);
+  GetElement<double>(numeroTest,numeroErrori,alberoCopia.Root().RightChild().RightChild(),true,1);
+
+
+  IsLeaf<double>(numeroTest,numeroErrori,alberoCopia.Root().LeftChild().LeftChild(),true);
+  IsLeaf<double>(numeroTest,numeroErrori,alberoCopia.Root().LeftChild().RightChild(),true);
+  IsLeaf<double>(numeroTest,numeroErrori,alberoCopia.Root().RightChild().LeftChild(),true);
+  IsLeaf<double>(numeroTest,numeroErrori,alberoCopia.Root().RightChild().RightChild(),true);
+
+  //Provo Le uguaglianze
+  EqualBT<double>(numeroTest,numeroErrori,alberoCopia,alberoDeOrdinato);
+  NonEqualBT<double>(numeroTest,numeroErrori,alberoMove,alberoCopia);
+  NonEqualBT<double>(numeroTest,numeroErrori,alberoCopia,alberoOrdinato);
+  
+  //Provo = move
+  alberoMove.Clear();
+  alberoMove = std::move(alberoCopia);
+  Empty(numeroTest,numeroErrori,alberoMove,false);
+  Empty(numeroTest,numeroErrori,alberoCopia,true);
+  Size(numeroTest,numeroErrori,alberoMove,true,7);
+  
+  //Controllo se sia Breath>> 7 6 5 4 3 2 1
+  HasLeftChild<double>(numeroTest,numeroErrori,alberoMove.Root(),true);
+  HasRightChild<double>(numeroTest,numeroErrori,alberoMove.Root(),true);
+  HasLeftChild<double>(numeroTest,numeroErrori,alberoMove.Root().LeftChild(),true);
+  HasRightChild<double>(numeroTest,numeroErrori,alberoMove.Root().LeftChild(),true);
+  HasLeftChild<double>(numeroTest,numeroErrori,alberoMove.Root().RightChild(),true);
+  HasRightChild<double>(numeroTest,numeroErrori,alberoMove.Root().RightChild(),true);
+  HasLeftChild<double>(numeroTest,numeroErrori,alberoMove.Root().LeftChild().LeftChild(),false);
+  HasRightChild<double>(numeroTest,numeroErrori,alberoMove.Root().LeftChild().LeftChild(),false);
+  HasLeftChild<double>(numeroTest,numeroErrori,alberoMove.Root().LeftChild().RightChild(),false);
+  HasRightChild<double>(numeroTest,numeroErrori,alberoMove.Root().LeftChild().RightChild(),false);
+  HasLeftChild<double>(numeroTest,numeroErrori,alberoMove.Root().RightChild().LeftChild(),false);
+  HasRightChild<double>(numeroTest,numeroErrori,alberoMove.Root().RightChild().LeftChild(),false); 
+  HasLeftChild<double>(numeroTest,numeroErrori,alberoMove.Root().RightChild().RightChild(),false);
+  HasRightChild<double>(numeroTest,numeroErrori,alberoMove.Root().RightChild().RightChild(),false);
+  Root<double>(numeroTest,numeroErrori,alberoMove,true,7);
+  GetElement<double>(numeroTest,numeroErrori,alberoMove.Root().LeftChild(),true,6);
+  GetElement<double>(numeroTest,numeroErrori,alberoMove.Root().RightChild(),true,5);
+  GetElement<double>(numeroTest,numeroErrori,alberoMove.Root().LeftChild().LeftChild(),true,4);
+  GetElement<double>(numeroTest,numeroErrori,alberoMove.Root().LeftChild().RightChild(),true,3);
+  GetElement<double>(numeroTest,numeroErrori,alberoMove.Root().RightChild().LeftChild(),true,2);
+  GetElement<double>(numeroTest,numeroErrori,alberoMove.Root().RightChild().RightChild(),true,1);
+
+
+  IsLeaf<double>(numeroTest,numeroErrori,alberoMove.Root().LeftChild().LeftChild(),true);
+  IsLeaf<double>(numeroTest,numeroErrori,alberoMove.Root().LeftChild().RightChild(),true);
+  IsLeaf<double>(numeroTest,numeroErrori,alberoMove.Root().RightChild().LeftChild(),true);
+  IsLeaf<double>(numeroTest,numeroErrori,alberoMove.Root().RightChild().RightChild(),true);
+
+  //Provo Le uguaglianze
+  EqualBT<double>(numeroTest,numeroErrori,alberoMove,alberoDeOrdinato);
+  NonEqualBT<double>(numeroTest,numeroErrori,alberoMove,alberoCopia);
+  NonEqualBT<double>(numeroTest,numeroErrori,alberoMove,alberoOrdinato);
+
+
+  // Moltiptico Per 32 Tutti i numeri
+  alberoCopia = alberoOrdinato;
+  Map<double>(numeroTest, numeroErrori, alberoCopia, true, MapDouble<double>);
+  MapBreadth<double>(numeroTest, numeroErrori, alberoCopia, true, MapDouble<double>);
+  MapPreOrder<double>(numeroTest, numeroErrori, alberoCopia, true, MapDouble<double>);
+  MapPostOrder<double>(numeroTest, numeroErrori, alberoCopia, true, MapDouble<double>);
+  MapInOrder<double>(numeroTest, numeroErrori, alberoCopia, true, MapDouble<double>);
+
+  Root<double>(numeroTest,numeroErrori,alberoCopia,true,32);
+  GetElement<double>(numeroTest,numeroErrori,alberoCopia.Root().LeftChild(),true,64);
+  GetElement<double>(numeroTest,numeroErrori,alberoCopia.Root().RightChild(),true,96);
+  GetElement<double>(numeroTest,numeroErrori,alberoCopia.Root().LeftChild().LeftChild(),true,128);
+  GetElement<double>(numeroTest,numeroErrori,alberoCopia.Root().LeftChild().RightChild(),true,160);
+  GetElement<double>(numeroTest,numeroErrori,alberoCopia.Root().RightChild().LeftChild(),true,192);
+  GetElement<double>(numeroTest,numeroErrori,alberoCopia.Root().RightChild().RightChild(),true,224);
+
+  alberoCopia = alberoDeOrdinato;
+
+    double inc = 0;
+    // 0*7 + 1*6 + 2*5 + 3*4 + 4*3 + 5*2 + 6*1 = 56
+    FoldBreadth(numeroTest, numeroErrori, alberoCopia, true,
+        [&inc](const int &d, const int &res) { 
+          return res + d * (inc++); 
+        }, 
+        0, 56);
+    
+    // 0*7 + 1*6 + 2*4 + 3*3 + 4*5 + 5*2 + 6*1 = 59 
+    inc = 0;
+    FoldPreOrder(numeroTest, numeroErrori, alberoCopia, true,
+        [&inc](const int &d, const int &res) { 
+          return res + d * (inc++); 
+        }, 
+        0, 59);
+
+    // 0*4 + 1*3 + 2*6 + 3*2 + 4*1 + 5*5 + 6*7 = 92 
+    inc = 0;
+    FoldPostOrder(numeroTest, numeroErrori, alberoCopia, true,
+        [&inc](const int &d, const int &res) { 
+          return res + d * (inc++); 
+          }, 
+          0, 92);
+    
+    // 0*4 + 1*6 + 2*3 + 3*7 + 4*2 + 5*5 + 6*1 = 72
+    inc = 0;
+    FoldInOrder(numeroTest, numeroErrori, alberoCopia, true,
+        [&inc](const int &d, const int &res) { 
+          return res + d * (inc++); 
+        }, 
+        0, 72);
+
+
+
+}
+
+void testAmbedueAlberoDoubleMio(unsigned int & numeroTest, unsigned int & numeroErrori){
+  lasd::List<double> lista{};
+  for(double i = 1; i <= 7 ; i++)
+    lista.InsertAtBack(i);
+
+  //Creo Albero
+  lasd::BinaryTreeLnk<double> AlberoLista{lista};
+  lasd::BinaryTreeVec<double> AlberoVettore{lista};
+
+  //Controllo Uguaglianza
+  EqualBT(numeroTest, numeroErrori, AlberoLista, AlberoVettore);
+
+  //Modifico e controllo che siano diverse
+  SetElement<double>(numeroTest, numeroErrori, AlberoLista.Root(), true, 12);
+  NonEqualBT(numeroTest, numeroErrori, AlberoLista, AlberoVettore);
+
+  //Provo il = Copy
+  AlberoVettore = AlberoLista;
+  AlberoLista = AlberoVettore;
+
+  Root<double>(numeroTest,numeroErrori,AlberoLista,true,12);
+  GetElement<double>(numeroTest,numeroErrori,AlberoLista.Root().LeftChild(),true,2);
+  GetElement<double>(numeroTest,numeroErrori,AlberoLista.Root().RightChild(),true,3);
+  GetElement<double>(numeroTest,numeroErrori,AlberoLista.Root().LeftChild().LeftChild(),true,4);
+  GetElement<double>(numeroTest,numeroErrori,AlberoLista.Root().LeftChild().RightChild(),true,5);
+  GetElement<double>(numeroTest,numeroErrori,AlberoLista.Root().RightChild().LeftChild(),true,6);
+  GetElement<double>(numeroTest,numeroErrori,AlberoLista.Root().RightChild().RightChild(),true,7);
+
+  Root<double>(numeroTest,numeroErrori,AlberoVettore,true,12);
+  GetElement<double>(numeroTest,numeroErrori,AlberoVettore.Root().LeftChild(),true,2);
+  GetElement<double>(numeroTest,numeroErrori,AlberoVettore.Root().RightChild(),true,3);
+  GetElement<double>(numeroTest,numeroErrori,AlberoVettore.Root().LeftChild().LeftChild(),true,4);
+  GetElement<double>(numeroTest,numeroErrori,AlberoVettore.Root().LeftChild().RightChild(),true,5);
+  GetElement<double>(numeroTest,numeroErrori,AlberoVettore.Root().RightChild().LeftChild(),true,6);
+  GetElement<double>(numeroTest,numeroErrori,AlberoVettore.Root().RightChild().RightChild(),true,7);
+
+  EqualBT(numeroTest, numeroErrori, AlberoLista, AlberoVettore);
+
+  //Provo i costruttori
+  lasd::BinaryTreeLnk<double> AlberoLista2{AlberoVettore};
+  lasd::BinaryTreeVec<double> AlberoVettore2{AlberoLista};
+
+  Root<double>(numeroTest,numeroErrori,AlberoLista2,true,12);
+  GetElement<double>(numeroTest,numeroErrori,AlberoLista2.Root().LeftChild(),true,2);
+  GetElement<double>(numeroTest,numeroErrori,AlberoLista2.Root().RightChild(),true,3);
+  GetElement<double>(numeroTest,numeroErrori,AlberoLista2.Root().LeftChild().LeftChild(),true,4);
+  GetElement<double>(numeroTest,numeroErrori,AlberoLista2.Root().LeftChild().RightChild(),true,5);
+  GetElement<double>(numeroTest,numeroErrori,AlberoLista2.Root().RightChild().LeftChild(),true,6);
+  GetElement<double>(numeroTest,numeroErrori,AlberoLista2.Root().RightChild().RightChild(),true,7);
+
+  Root<double>(numeroTest,numeroErrori,AlberoVettore2,true,12);
+  GetElement<double>(numeroTest,numeroErrori,AlberoVettore2.Root().LeftChild(),true,2);
+  GetElement<double>(numeroTest,numeroErrori,AlberoVettore2.Root().RightChild(),true,3);
+  GetElement<double>(numeroTest,numeroErrori,AlberoVettore2.Root().LeftChild().LeftChild(),true,4);
+  GetElement<double>(numeroTest,numeroErrori,AlberoVettore2.Root().LeftChild().RightChild(),true,5);
+  GetElement<double>(numeroTest,numeroErrori,AlberoVettore2.Root().RightChild().LeftChild(),true,6);
+  GetElement<double>(numeroTest,numeroErrori,AlberoVettore2.Root().RightChild().RightChild(),true,7);
+
+  EqualBT(numeroTest, numeroErrori, AlberoLista2, AlberoVettore2);
+
+  //Provo Cotruttore copi e move
+  lasd::BinaryTreeLnk<double> AlberoLista3{AlberoLista2};
+  lasd::BinaryTreeVec<double> AlberoVettore4{std::move(AlberoLista3)};
+
+  AlberoVettore.Clear();
+  Empty(numeroTest, numeroErrori, AlberoVettore, true);
+
+  // Provo il = move
+  AlberoVettore = std::move(AlberoLista2);
+
+  //Verifico Uguaglianze
+  NonEqualBT(numeroTest, numeroErrori, AlberoLista2, AlberoVettore);
+  Empty(numeroTest, numeroErrori, AlberoLista2, false);
+  NonEqualBT(numeroTest, numeroErrori, AlberoLista2, AlberoVettore2);
+  EqualBT(numeroTest, numeroErrori, AlberoVettore, AlberoVettore2);
+  EqualBT(numeroTest, numeroErrori, AlberoLista3, AlberoLista2);
+
+  //Provo il move construct
+  lasd::BinaryTreeVec<double> AlberoVettore3{std::move(AlberoLista)};
+  Empty(numeroTest, numeroErrori, AlberoLista, false);
+
 }
 

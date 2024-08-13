@@ -143,7 +143,7 @@ template <typename Data>
 BinaryTreeLnk<Data>::BinaryTreeLnk(MappableContainer<Data>&& struttura){
     QueueVec<BinaryTreeLnk<Data>::NodeLnk *> coda{};
 
-    struttura.Map([&coda, this](const Data &&dato) {
+    struttura.Map([&coda, this](Data &dato) {
         NodeLnk * nodo = new NodeLnk(std::move(dato));
     
         coda.Enqueue(nodo);
