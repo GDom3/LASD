@@ -81,7 +81,7 @@ bool QueueVec<Data>::operator==(const QueueVec & quevec) const noexcept{
 
 template <typename Data>
 void QueueVec<Data>::Resize(unsigned long int newSize){
-    if(newSize == size || numeroElementi > newSize)
+    if(newSize == size || numeroElementi > newSize || newSize <= GRANDEZZA_INIZIALE)
         return;
     
     Data * newElem = new Data[newSize]();

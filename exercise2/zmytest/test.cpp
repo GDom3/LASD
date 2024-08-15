@@ -1462,6 +1462,11 @@ void testStackVecIntMio(unsigned int & numeroTest, unsigned int & numeroErrori){
 
   cout << endl << "Inizio StackVec<int> Test DG :" << endl;
 
+  lasd::StackVec<int> prova{};
+  prova.Resize(0);
+  PushC(numeroLocaleTest, numeroLocaleErrori, prova, 12);
+  TopNPop(numeroLocaleTest, numeroLocaleErrori, prova, true, 12);
+
   //Creo uno stack
   lasd::StackVec<int> primoStack;
   Empty(numeroLocaleTest, numeroLocaleErrori, primoStack, true);
@@ -1803,6 +1808,11 @@ void testQueueVecIntMio(unsigned int & numeroTest, unsigned int & numeroErrori){
   unsigned int numeroLocaleErrori = 0;
 
   cout << endl << "Inizio QueueVec<int> Test DG :" << endl;
+
+  lasd::QueueVec<int> prova{};
+  prova.Resize(0);
+  EnqueueC(numeroLocaleTest, numeroLocaleErrori, prova, 12);
+  Head(numeroLocaleTest, numeroLocaleErrori, prova, true, 12);
 
   //Creo una Coda
   lasd::QueueVec<int> coda;
