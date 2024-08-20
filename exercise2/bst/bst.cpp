@@ -133,7 +133,7 @@ inline const Data& BST<Data>::Predecessor(const Data& elem) const{
     if (radice == nullptr)
         throw std::length_error("BST Vuoto!");
     
-    NodeLnk * tmp = const_cast<BST<Data>*>(this)->Predecessor(radice,elem);
+    NodeLnk * tmp = Predecessor(radice,elem);
     if(tmp == nullptr)
         throw std::length_error("Predecessore Non Trovato!");
 
@@ -141,7 +141,7 @@ inline const Data& BST<Data>::Predecessor(const Data& elem) const{
 }
 
 template <typename Data>
-inline BST<Data>::NodeLnk * BST<Data>::Predecessor(NodeLnk * T , const Data& k) const{
+BST<Data>::NodeLnk * BST<Data>::Predecessor(NodeLnk * T , const Data& k) const{
     if (T != nullptr) {
         if(T->elemento == k)
             return Max(T->figlioSinistro);
@@ -175,7 +175,7 @@ inline const Data& BST<Data>::Successor(const Data& elem) const{
     if (radice == nullptr)
         throw std::length_error("BST Vuoto!");
     
-    NodeLnk * tmp = const_cast<BST<Data>*>(this)->Successor(radice,elem);
+    NodeLnk * tmp = Successor(radice,elem);
     if(tmp == nullptr)
         throw std::length_error("Successore Non Trovato!");
     
@@ -183,7 +183,7 @@ inline const Data& BST<Data>::Successor(const Data& elem) const{
 }
 
 template <typename Data>
-inline BST<Data>::NodeLnk * BST<Data>::Successor(NodeLnk * T , const Data& k) const{
+BST<Data>::NodeLnk * BST<Data>::Successor(NodeLnk * T , const Data& k) const{
     if (T != nullptr) {
         if(T->elemento == k){
             return Min(T->figlioDestro);
@@ -260,7 +260,7 @@ BST<Data>::NodeLnk * BST<Data>::Remove(NodeLnk * T ,const Data & k) {
 }
 
 template <typename Data>
-inline BST<Data>::NodeLnk * BST<Data>::CancellaRadiceBST(NodeLnk * T){
+BST<Data>::NodeLnk * BST<Data>::CancellaRadiceBST(NodeLnk * T){
     if (T != nullptr){
         if(T->figlioSinistro == nullptr || T->figlioDestro == nullptr) {
             NodeLnk * tmp = nullptr;
@@ -311,7 +311,7 @@ BST<Data>::NodeLnk * BST<Data>::StaccaMin(NodeLnk * T, NodeLnk * Padre){
 }
 
 template <typename Data>
-inline BST<Data>::NodeLnk * BST<Data>::Min(NodeLnk * T) const{
+BST<Data>::NodeLnk * BST<Data>::Min(NodeLnk * T) const{
     if (T != nullptr){
         if (T->figlioSinistro != nullptr)
             return Min(T->figlioSinistro);
@@ -326,7 +326,7 @@ inline BST<Data>::NodeLnk * BST<Data>::Min(NodeLnk * T) const{
 }
 
 template <typename Data>
-inline BST<Data>::NodeLnk * BST<Data>::Max(NodeLnk * T) const{
+BST<Data>::NodeLnk * BST<Data>::Max(NodeLnk * T) const{
     if (T != nullptr){
         if (T->figlioDestro != nullptr)
             return Max(T->figlioDestro);

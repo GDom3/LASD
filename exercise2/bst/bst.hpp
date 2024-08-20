@@ -157,7 +157,7 @@ protected:
   // Auxiliary functions, if necessary!
 
   // type DataNDelete(argument) specifiers;
-  //inline Data DataNDelete(NodeLnk *);
+
   // type Detach(argument) specifiers;
 
   // type DetachMin(argument) specifiers;
@@ -174,14 +174,14 @@ protected:
   // type FindPointerToPredecessor(argument) specifiers; // Both mutable & unmutable versions
   // type FindPointerToSuccessor(argument) specifiers; // Both mutable & unmutable versions
 
-  inline NodeLnk * Min(NodeLnk * ) const;
-  inline NodeLnk * Max(NodeLnk * ) const;
+  NodeLnk * Min(NodeLnk * ) const;
+  NodeLnk * Max(NodeLnk * ) const;
   
-  inline NodeLnk * Successor(NodeLnk * , const Data& ) const;
-  inline NodeLnk * Predecessor(NodeLnk * , const Data& ) const;
+  NodeLnk * Successor(NodeLnk * , const Data& ) const;
+  NodeLnk * Predecessor(NodeLnk * , const Data& ) const;
   
   NodeLnk * Remove(NodeLnk * , const Data &);
-  inline NodeLnk * CancellaRadiceBST(NodeLnk *);
+  NodeLnk * CancellaRadiceBST(NodeLnk *);
   NodeLnk * StaccaMin(NodeLnk *,NodeLnk *);
 
   NodeLnk * Insert(NodeLnk * , const Data &);
