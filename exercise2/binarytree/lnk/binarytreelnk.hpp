@@ -40,14 +40,14 @@ protected:
 
     // ...
         
-    Data elemento{};
-    NodeLnk * figlioSinistro = nullptr;
-    NodeLnk * figlioDestro = nullptr;
+
   
 
   public:
 
-    
+    Data elemento{};
+    NodeLnk * figlioSinistro = nullptr;
+    NodeLnk * figlioDestro = nullptr;
 
 
     friend class BinaryTreeLnk<Data>;

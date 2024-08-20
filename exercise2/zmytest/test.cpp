@@ -12,6 +12,7 @@
 #include "../zlasdtest/stack/stack.hpp"
 #include "../zlasdtest/queue/queue.hpp"
 #include "../zlasdtest/binarytree/binarytree.hpp"
+#include "../zlasdtest/bst/bst.hpp"
 
 
 #include "../list/list.hpp"
@@ -22,6 +23,7 @@
 #include "../vector/vector.hpp"
 #include "../binarytree/lnk/binarytreelnk.hpp"
 #include "../binarytree/vec/binarytreevec.hpp"
+#include "../bst/bst.hpp"
 
 #include "test.hpp"
 
@@ -55,6 +57,10 @@ void mytest() {
   
   numeroLocaleTest = 0; numeroLocaleErrori = 0;
   testAlberoMio(numeroLocaleTest, numeroLocaleErrori);
+  stestnum += numeroLocaleTest; stesterr += numeroLocaleErrori;
+
+  numeroLocaleTest = 0; numeroLocaleErrori = 0;
+  testAlberoBSTMio(numeroLocaleTest, numeroLocaleErrori);
   stestnum += numeroLocaleTest; stesterr += numeroLocaleErrori;
   
   cout << endl << "Risultati Test (Errors/Tests: " << stesterr << "/" << stestnum << ")\n\n";
@@ -3166,3 +3172,516 @@ void testAmbedueAlberoDoubleMio(unsigned int & numeroTest, unsigned int & numero
 
 }
 
+void testAlberoBSTMio(unsigned int & numeroTest, unsigned int & numeroErrori){
+  testAlberoBSTIntMio(numeroTest,numeroErrori);
+  testAlberoBSTIteratoreMio(numeroTest,numeroErrori);
+}
+
+void testAlberoBSTIntMio(unsigned int & numeroTest, unsigned int & numeroErrori){
+  unsigned int numeroLocaleTest = 0;
+  unsigned int numeroLocaleErrori = 0;
+  cout << endl << "Inizio BST<int> Test DG :" << endl;
+
+ 
+  lasd::List<int> lista{};
+
+  for (unsigned long int i = 1; i <= 12; i++)
+    lista.InsertAtBack(i);
+  
+  // lista = 1->2->3->4->5->6->7->8->9->10->11->12
+  lasd::BST<int> albBST(lista);
+  Size(numeroLocaleTest, numeroLocaleErrori, albBST, true, lista.Size());
+  // albBST = 1->2->3->4->5->6->7->8->9->10->11->12
+  Traverse(numeroLocaleTest, numeroLocaleErrori, albBST, true, TraversePrint<int>);
+  // albBST = 2->3->4->5->6->7->8->9->10->11->12
+  RemoveSuccessor(numeroLocaleTest, numeroLocaleErrori, albBST, true, -1);
+  Size(numeroLocaleTest, numeroLocaleErrori, albBST, true, 11);
+  Traverse(numeroLocaleTest, numeroLocaleErrori, albBST, true, TraversePrint<int>);
+
+  // albBST = {} vuoto
+  for (unsigned long int i = 1; i < 12; i++){
+    if(i % 2 == 0)
+      RemoveMax(numeroLocaleTest, numeroLocaleErrori, albBST, true);    
+    else
+      RemoveMin(numeroLocaleTest, numeroLocaleErrori, albBST, true);
+  }
+    
+  //Provo a rimuovere un max che non c'è
+  RemoveMax(numeroLocaleTest, numeroLocaleErrori, albBST, false);
+  Traverse(numeroLocaleTest, numeroLocaleErrori, albBST, true, TraversePrint<int>);
+  
+  /* albBST
+       4
+      / \
+    2     6
+   / \   / \
+  1   3 5   7   */
+  InsertC(numeroLocaleTest, numeroLocaleErrori, albBST, true, 4);
+  InsertC(numeroLocaleTest, numeroLocaleErrori, albBST, true, 2);
+  InsertC(numeroLocaleTest, numeroLocaleErrori, albBST, true, 6);
+  InsertC(numeroLocaleTest, numeroLocaleErrori, albBST, true, 1);
+  InsertC(numeroLocaleTest, numeroLocaleErrori, albBST, true, 3);
+  InsertC(numeroLocaleTest, numeroLocaleErrori, albBST, true, 5);
+  InsertC(numeroLocaleTest, numeroLocaleErrori, albBST, true, 7);
+  
+  //Provo a inserire un valore già inserito
+  InsertC(numeroLocaleTest, numeroLocaleErrori, albBST, false, 7);
+  
+  // Dimensione 7
+  Size(numeroLocaleTest, numeroLocaleErrori, albBST, true, 7);
+  Traverse(numeroLocaleTest, numeroLocaleErrori, albBST, true, TraversePrint<int>);
+  TraverseBreadth(numeroLocaleTest, numeroLocaleErrori, albBST, true, TraversePrint<int>);
+  
+  Remove(numeroLocaleTest, numeroLocaleErrori, albBST, true, 5);
+  Size(numeroLocaleTest, numeroLocaleErrori, albBST, true, 6);
+  /*
+     albBST
+       4
+      / \
+    2     6
+   / \     \
+  1   3     7 */
+  Remove(numeroLocaleTest, numeroLocaleErrori, albBST, true, 2);
+  Size(numeroLocaleTest, numeroLocaleErrori, albBST, true, 5);
+  /*  
+     albBST
+       4
+      / \
+     3   6
+    /     \
+   1       7 */
+  Remove(numeroLocaleTest, numeroLocaleErrori, albBST, true, 4);
+  Size(numeroLocaleTest, numeroLocaleErrori, albBST, true, 4);
+  /*  
+     albBST
+       6
+      / \
+     3   7
+    /       
+   1         */
+  
+  //Provo una remove di un valore che non c'è
+  Remove(numeroLocaleTest, numeroLocaleErrori, albBST, false, 12);
+  Size(numeroLocaleTest, numeroLocaleErrori, albBST, true, 4);
+  //albBST = 1 3 6 7
+  Traverse(numeroLocaleTest, numeroLocaleErrori, albBST, true, TraversePrint<int>);
+  //albBST = 6 3 7 1
+  TraverseBreadth(numeroLocaleTest, numeroLocaleErrori, albBST, true, TraversePrint<int>);
+  //lista = 1 3 6 7
+  lista = albBST;
+  
+  /*
+    albBSTCopyTraverse 
+       1
+        \
+         3
+          \  
+           6
+            \
+             7  */
+  lasd::BST<int> albBSTCopyTraverse(lista);
+  EqualBST(numeroLocaleTest, numeroLocaleErrori, albBST, albBSTCopyTraverse);
+  NonEqualBT(numeroLocaleTest, numeroLocaleErrori, albBST, albBSTCopyTraverse);
+  Size(numeroLocaleTest, numeroLocaleErrori, albBSTCopyTraverse, true, 4);
+  
+  InsertM(numeroLocaleTest, numeroLocaleErrori, albBST, true, std::move(12));
+  /*
+    albBST 
+       6
+      / \
+     3   7
+    /     \  
+   1      12
+  */
+  NonEqualBST(numeroLocaleTest, numeroLocaleErrori, albBST, albBSTCopyTraverse);
+  
+  /*
+    albBSTCopyTraverse 
+       1
+        \
+         3
+          \  
+           6
+            \
+             7
+              \
+              12  */
+  InsertM(numeroLocaleTest, numeroLocaleErrori, albBSTCopyTraverse, true, std::move(12));
+  EqualBST(numeroLocaleTest, numeroLocaleErrori, albBST, albBSTCopyTraverse);
+  //Rimovo 3
+  RemoveSuccessor(numeroLocaleTest, numeroLocaleErrori, albBST, true, 2);
+  /* albBST 
+       6
+      / \
+     1   7
+          \  
+          12  */
+  //Rimovo 7
+  RemovePredecessor(numeroLocaleTest, numeroLocaleErrori, albBST, true, 12);
+  /* albBST 
+       6
+      / \
+     1  12 */
+  Size(numeroLocaleTest, numeroLocaleErrori, albBST, true, 3);
+  
+  
+  /*albBSTCopyTraverse
+       1
+        \
+         3
+          \  
+           6
+            \
+             7
+              \
+              12  */
+  
+  Remove(numeroLocaleTest, numeroLocaleErrori, albBSTCopyTraverse, true, 7);
+  NonEqualBST(numeroLocaleTest, numeroLocaleErrori, albBST, albBSTCopyTraverse);
+  Remove(numeroLocaleTest, numeroLocaleErrori, albBSTCopyTraverse, true, 3);
+  EqualBST(numeroLocaleTest, numeroLocaleErrori, albBST, albBSTCopyTraverse);
+  NonEqualBT(numeroLocaleTest, numeroLocaleErrori, albBST, albBSTCopyTraverse);
+  /*albBSTCopyTraverse
+       1
+        \  
+         6
+          \
+           12  */
+  
+  //vettore = 12 6 2003 4 7 19 71 11 719 38 18 1933 
+  lasd::SortableVector<int>vettore{12};
+   vettore[0] = 12;
+   vettore[1] = 6;
+   vettore[2] = 2003;
+   vettore[3] = 4;
+   vettore[4] = 7;
+   vettore[5] = 19;
+   vettore[6] = 71;
+   vettore[7] = 11;
+   vettore[8] = 719;
+   vettore[9] = 38;
+   vettore[10] = 18;
+   vettore[11] = 1933;
+
+  //Copio il vettore
+  lasd::SortableVector<int>vettore2{vettore};
+
+  //Provo il Map Constructor
+  lasd::BST<int> albBSTMapConstructor{std::move(vettore2)};
+  /* albBSTMapConstructor
+              12
+          /       \
+         6        2003
+        / \        /    
+       4   7      19    
+            \    /  \   
+            11 18   71 
+                   /  \
+                  38  719
+                        \
+                       1933 */
+
+  //Ricopio e lo ordino vettore2 = [4, 6, 7, 11, 12, 18, 19, 38, 71, 719, 1933, 2003]
+  vettore2 = vettore;
+  vettore2.Sort();
+  Traverse(numeroLocaleTest, numeroLocaleErrori,vettore2, true, TraversePrint<int>);
+  Traverse(numeroLocaleTest, numeroLocaleErrori, albBSTMapConstructor, true, TraversePrint<int>);
+  TraverseBreadth(numeroLocaleTest, numeroLocaleErrori, albBSTMapConstructor, true, TraversePrint<int>);
+  //Rimuovo 18
+  RemoveSuccessor(numeroLocaleTest, numeroLocaleErrori, albBSTMapConstructor, true, 17);
+  /* albBSTMapConstructor
+            12
+        /       \
+       6        2003
+      / \        /    
+     4   7      19    
+          \       \   
+          11      71 
+                 /  \
+                38  719
+                      \
+                     1933 */
+
+  TraverseBreadth(numeroLocaleTest, numeroLocaleErrori, albBSTMapConstructor, true, TraversePrint<int>);
+  MaxNRemove(numeroLocaleTest, numeroLocaleErrori, albBSTMapConstructor, true, 2003);
+  /* albBSTMapConstructor
+            12
+         /      \
+         6       19 
+        / \       \  
+       4   7      71
+            \    /  \ 
+            11  38  719
+                      \
+                     1933 */
+  Min(numeroLocaleTest, numeroLocaleErrori, albBSTMapConstructor, true, 4);
+  Successor(numeroLocaleTest, numeroLocaleErrori, albBSTMapConstructor, true, 11, 12);
+  RemoveSuccessor(numeroLocaleTest, numeroLocaleErrori, albBSTMapConstructor, true, 719);
+  RemoveSuccessor(numeroLocaleTest, numeroLocaleErrori, albBSTMapConstructor, false, 719);
+  /* albBSTMapConstructor
+            12
+         /      \
+         6       19 
+        / \       \  
+       4   7      71
+            \    /  \ 
+            11  38  719 */
+  PredecessorNRemove(numeroLocaleTest, numeroLocaleErrori, albBSTMapConstructor, true, 12, 11);
+  /* albBSTMapConstructor
+            12
+         /      \
+         6       19 
+        / \       \  
+       4   7      71
+                 /  \ 
+                38  719 */
+
+  TraverseBreadth(numeroLocaleTest, numeroLocaleErrori, albBSTMapConstructor, true, TraversePrint<int>);
+  MaxNRemove(numeroLocaleTest, numeroLocaleErrori, albBSTMapConstructor, true, 719);
+  /* albBSTMapConstructor
+            12
+         /      \
+         6       19 
+        / \       \  
+       4   7      71
+                 /   
+                38   */
+  RemoveMax(numeroLocaleTest, numeroLocaleErrori, albBSTMapConstructor, true);
+  /* albBSTMapConstructor
+            12
+         /      \
+         6       19 
+        / \       \  
+       4   7      38 */
+  MinNRemove(numeroLocaleTest, numeroLocaleErrori, albBSTMapConstructor, true, 4);
+  /* albBSTMapConstructor
+            12
+         /      \
+         6       19 
+          \       \  
+           7      38 */
+  RemoveMin(numeroLocaleTest, numeroLocaleErrori, albBSTMapConstructor, true);
+  /* albBSTMapConstructor
+            12
+           /  \
+          7   19 
+                \  
+                38 */
+  RemovePredecessor(numeroLocaleTest, numeroLocaleErrori, albBSTMapConstructor, true, 19);
+  /* albBSTMapConstructor
+            19
+           /  \
+          7    38 */
+  SuccessorNRemove(numeroLocaleTest, numeroLocaleErrori, albBSTMapConstructor, true, 19, 38);
+  /* albBSTMapConstructor
+            19
+           /  
+          7    */
+  RemoveSuccessor(numeroLocaleTest, numeroLocaleErrori, albBSTMapConstructor, true, 7);
+  /* albBSTMapConstructor
+            7   */
+  PredecessorNRemove(numeroLocaleTest, numeroLocaleErrori, albBSTMapConstructor, false, 6, 7);
+  /* albBSTMapConstructor
+            7   */
+  PredecessorNRemove(numeroLocaleTest, numeroLocaleErrori, albBSTMapConstructor, false, 5, 7);
+  /* albBSTMapConstructor
+            7   */
+  TraverseBreadth(numeroLocaleTest, numeroLocaleErrori, albBSTMapConstructor, true, TraversePrint<int>);
+  //Verifico che ci sia 7
+  Exists(numeroLocaleTest, numeroLocaleErrori, albBSTMapConstructor, true, 7);
+  Exists(numeroLocaleTest, numeroLocaleErrori, albBSTMapConstructor, false, 12);
+  Traverse(numeroLocaleTest, numeroLocaleErrori, albBSTMapConstructor, true, TraversePrint<int>);
+  Traverse(numeroLocaleTest, numeroLocaleErrori,vettore, true, TraversePrint<int>);
+  //Lo svuoto
+  RemoveSome(numeroLocaleTest, numeroLocaleErrori, albBSTMapConstructor, true, vettore);
+  Empty(numeroLocaleTest, numeroLocaleErrori, albBSTMapConstructor, true);
+  //Provo a vuoto
+  Min(numeroLocaleTest, numeroLocaleErrori, albBSTMapConstructor, false, 0);
+  RemoveMin(numeroLocaleTest, numeroLocaleErrori, albBSTMapConstructor, false);
+  MinNRemove(numeroLocaleTest, numeroLocaleErrori, albBSTMapConstructor, false, 0);
+  Max(numeroLocaleTest, numeroLocaleErrori, albBSTMapConstructor, false, 0);
+  RemoveMax(numeroLocaleTest, numeroLocaleErrori, albBSTMapConstructor, false);
+  MaxNRemove(numeroLocaleTest, numeroLocaleErrori, albBSTMapConstructor, false, 0);
+  Predecessor(numeroLocaleTest, numeroLocaleErrori, albBSTMapConstructor, false, 0, 0);
+  RemovePredecessor(numeroLocaleTest, numeroLocaleErrori, albBSTMapConstructor, false, 0);
+  PredecessorNRemove(numeroLocaleTest, numeroLocaleErrori, albBSTMapConstructor, false, 0, 0);
+  Successor(numeroLocaleTest, numeroLocaleErrori, albBSTMapConstructor, false, 0, 0);
+  RemoveSuccessor(numeroLocaleTest, numeroLocaleErrori, albBSTMapConstructor, false, 0);
+  SuccessorNRemove(numeroLocaleTest, numeroLocaleErrori, albBSTMapConstructor, false, 0, 0);
+  Exists(numeroLocaleTest, numeroLocaleErrori, albBSTMapConstructor, false, 0);
+  Remove(numeroLocaleTest, numeroLocaleErrori, albBSTMapConstructor, false, 0);
+  //Inserisco 0
+  InsertM(numeroLocaleTest, numeroLocaleErrori, albBSTMapConstructor, true, 0);
+  //Rimuovo 0
+  Min(numeroLocaleTest, numeroLocaleErrori, albBSTMapConstructor, true, 0);
+  RemoveMin(numeroLocaleTest, numeroLocaleErrori, albBSTMapConstructor, true);
+  InsertM(numeroLocaleTest, numeroLocaleErrori, albBSTMapConstructor, true, 0);
+  MinNRemove(numeroLocaleTest, numeroLocaleErrori, albBSTMapConstructor, true, 0);
+  //Insrisco 0
+  InsertM(numeroLocaleTest, numeroLocaleErrori, albBSTMapConstructor, true, 0);
+  Max(numeroLocaleTest, numeroLocaleErrori, albBSTMapConstructor, true, 0);
+  //Rimuovo 0
+  RemoveMax(numeroLocaleTest, numeroLocaleErrori, albBSTMapConstructor, true);
+  //Insrisco 0
+  InsertM(numeroLocaleTest, numeroLocaleErrori, albBSTMapConstructor, true, 0);
+  //Rimuovo 0
+  MaxNRemove(numeroLocaleTest, numeroLocaleErrori, albBSTMapConstructor, true, 0);
+  
+  //Insrisco 0
+  InsertM(numeroLocaleTest, numeroLocaleErrori, albBSTMapConstructor, true, 0);
+  //Non esiste predecessore di 0
+  Predecessor(numeroLocaleTest, numeroLocaleErrori, albBSTMapConstructor, false, 0, 0);
+  RemovePredecessor(numeroLocaleTest, numeroLocaleErrori, albBSTMapConstructor, false, 0);
+  PredecessorNRemove(numeroLocaleTest, numeroLocaleErrori, albBSTMapConstructor, false, 0, 0);
+  //Non esiste successore di 0
+  Successor(numeroLocaleTest, numeroLocaleErrori, albBSTMapConstructor, false, 0, 0);
+  RemoveSuccessor(numeroLocaleTest, numeroLocaleErrori, albBSTMapConstructor, false, 0);
+  SuccessorNRemove(numeroLocaleTest, numeroLocaleErrori, albBSTMapConstructor, false, 0, 0);
+  //Rimuovo 0
+  Predecessor(numeroLocaleTest, numeroLocaleErrori, albBSTMapConstructor, true, 1, 0);
+  RemovePredecessor(numeroLocaleTest, numeroLocaleErrori, albBSTMapConstructor, true, 1);
+  
+  //Lo inserisco e lo rimuovo
+  InsertM(numeroLocaleTest, numeroLocaleErrori, albBSTMapConstructor, true, 0);
+  PredecessorNRemove(numeroLocaleTest, numeroLocaleErrori, albBSTMapConstructor, true, 1, 0);
+  //Inserisco 0
+  InsertM(numeroLocaleTest, numeroLocaleErrori, albBSTMapConstructor, true, 0);
+  Successor(numeroLocaleTest, numeroLocaleErrori, albBSTMapConstructor, true, -1, 0);
+  //Rimuovo 0
+  RemoveSuccessor(numeroLocaleTest, numeroLocaleErrori, albBSTMapConstructor, true, -1);
+  //Inserisco e rimuovo 0
+  InsertM(numeroLocaleTest, numeroLocaleErrori, albBSTMapConstructor, true, 0);
+  SuccessorNRemove(numeroLocaleTest, numeroLocaleErrori, albBSTMapConstructor, true, -1, 0);
+  //Inserisco 0 lo cerco e lo rimuovo
+  InsertM(numeroLocaleTest, numeroLocaleErrori, albBSTMapConstructor, true, 0);
+  Exists(numeroLocaleTest, numeroLocaleErrori, albBSTMapConstructor, true, 0);
+  Remove(numeroLocaleTest, numeroLocaleErrori, albBSTMapConstructor, true, 0);
+  //Inserisco tutti i valori in vettore e poi li rimuovo
+  InsertAllC(numeroLocaleTest, numeroLocaleErrori, albBSTMapConstructor, true,vettore);
+  RemoveAll(numeroLocaleTest, numeroLocaleErrori, albBSTMapConstructor, true,vettore);
+  //è vuoto ora
+  Empty(numeroLocaleTest, numeroLocaleErrori, albBSTMapConstructor, true);
+  //Inserisco tutti i valori con la move in vettore e poi li rimuovo
+  InsertAllM(numeroLocaleTest, numeroLocaleErrori, albBSTMapConstructor, true, std::move(vettore));
+  RemoveAll(numeroLocaleTest, numeroLocaleErrori, albBSTMapConstructor, true,vettore2);
+  //è vuoto ora
+  Empty(numeroLocaleTest, numeroLocaleErrori, albBSTMapConstructor, true);
+  
+  //Provo il Copy Constructor
+  lasd::BST<int> albBSTCopyConstructor{albBSTMapConstructor};
+  EqualBST(numeroLocaleTest, numeroLocaleErrori, albBSTMapConstructor, albBSTCopyConstructor);
+  Empty(numeroLocaleTest, numeroLocaleErrori, albBSTCopyConstructor, true);
+  Empty(numeroLocaleTest, numeroLocaleErrori, albBSTMapConstructor, true);
+  Traverse(numeroLocaleTest, numeroLocaleErrori, albBSTMapConstructor, true, TraversePrint<int>);
+  
+  //Provo il Move Constructor
+  lasd::BST<int> albBSTMoveConstructor{std::move(albBSTMapConstructor)};
+  EqualBST(numeroLocaleTest, numeroLocaleErrori, albBSTCopyConstructor, albBSTMoveConstructor);
+  Empty(numeroLocaleTest, numeroLocaleErrori, albBSTMoveConstructor, true);
+  Empty(numeroLocaleTest, numeroLocaleErrori, albBSTMapConstructor, true);
+  
+  //Inserico tutti gli elementi di vettore e constrollo la root e la dimensione
+  Traverse(numeroLocaleTest, numeroLocaleErrori, albBSTMoveConstructor, true, TraversePrint<int>);
+  Traverse(numeroLocaleTest, numeroLocaleErrori, vettore, true, TraversePrint<int>);
+  Root(numeroLocaleTest, numeroLocaleErrori, albBSTMoveConstructor, false, 0);
+  InsertSomeC(numeroLocaleTest, numeroLocaleErrori, albBSTMoveConstructor, true,vettore);
+  Traverse(numeroLocaleTest, numeroLocaleErrori, albBSTMoveConstructor, true, TraversePrint<int>);
+  Root(numeroLocaleTest, numeroLocaleErrori, albBSTMoveConstructor, true, 0);
+  Size(numeroLocaleTest, numeroLocaleErrori, albBSTMoveConstructor, true, 12);
+  Traverse(numeroLocaleTest, numeroLocaleErrori, albBSTCopyConstructor, true, TraversePrint<int>);
+  //Controllo se c'è un valore che non c'è
+  Exists(numeroLocaleTest, numeroLocaleErrori, albBSTCopyConstructor, false, 9);
+  //Inverto i valori albBSTMoveConstructor albBSTCopyConstructor
+  Traverse(numeroLocaleTest, numeroLocaleErrori, albBSTMoveConstructor, true, TraversePrint<int>);  
+  albBSTMoveConstructor = std::move(albBSTCopyConstructor);
+  Empty(numeroLocaleTest, numeroLocaleErrori, albBSTCopyConstructor, false);
+  Empty(numeroLocaleTest, numeroLocaleErrori, albBSTMoveConstructor, true);
+  Traverse(numeroLocaleTest, numeroLocaleErrori, albBSTCopyConstructor, true, TraversePrint<int>);  
+  Traverse(numeroLocaleTest, numeroLocaleErrori, albBSTMoveConstructor, true, TraversePrint<int>);  
+  //Li pulisco
+  albBSTCopyTraverse.Clear();
+  albBSTMoveConstructor.Clear();
+  //Provo il = move
+  albBSTCopyTraverse = std::move(albBSTMoveConstructor);
+  Empty(numeroLocaleTest, numeroLocaleErrori, albBSTMoveConstructor, true);
+  Empty(numeroLocaleTest, numeroLocaleErrori, albBSTCopyTraverse, true);
+  EqualBST(numeroLocaleTest, numeroLocaleErrori, albBSTCopyTraverse, albBSTMoveConstructor);
+  NonEqualBST(numeroLocaleTest, numeroLocaleErrori, albBSTCopyTraverse, albBSTCopyConstructor);
+  
+  //Provo il = copy
+  albBSTMoveConstructor = albBSTCopyTraverse;
+  Empty(numeroLocaleTest, numeroLocaleErrori, albBSTMoveConstructor, true);
+  Empty(numeroLocaleTest, numeroLocaleErrori, albBSTCopyTraverse, true);
+  EqualBST(numeroLocaleTest, numeroLocaleErrori, albBSTCopyTraverse, albBSTMoveConstructor);
+  NonEqualBST(numeroLocaleTest, numeroLocaleErrori, albBSTCopyTraverse, albBSTCopyConstructor);
+  
+  //Inserisco 5 in albBSTCopyTraverse
+  InsertC(numeroLocaleTest, numeroLocaleErrori, albBSTCopyTraverse, true, 5);
+  Traverse(numeroLocaleTest, numeroLocaleErrori, albBSTCopyTraverse, true, TraversePrint<int>);  
+  //Riprovo il move constructor 
+  lasd::BST<int> albBST2{std::move(albBSTCopyTraverse)};
+  Size(numeroLocaleTest, numeroLocaleErrori, albBST2, true, 1);
+  Root(numeroLocaleTest, numeroLocaleErrori, albBST2, true, 5);
+  Empty(numeroLocaleTest, numeroLocaleErrori, albBSTCopyTraverse, true);
+  //Riprovo il move = 
+  albBSTCopyTraverse = std::move(albBST2);
+  Size(numeroLocaleTest, numeroLocaleErrori, albBSTCopyTraverse, true, 1);
+  Root(numeroLocaleTest, numeroLocaleErrori, albBSTCopyTraverse, true, 5);
+  Empty(numeroLocaleTest, numeroLocaleErrori, albBST2, true);
+  //Riprovo il copy = 
+  albBST2 = albBSTCopyTraverse;
+  Size(numeroLocaleTest, numeroLocaleErrori, albBST2, true, 1);
+  EqualBST(numeroLocaleTest, numeroLocaleErrori, albBSTCopyTraverse, albBST2);
+  NonEqualBST(numeroLocaleTest, numeroLocaleErrori, albBSTCopyTraverse, albBSTCopyConstructor);
+  //Pulisco e riprovo il copy = 
+  albBSTCopyTraverse.Clear();
+  albBST2 = albBSTCopyTraverse;
+  Size(numeroLocaleTest, numeroLocaleErrori, albBST2, true, 0);
+  EqualBST(numeroLocaleTest, numeroLocaleErrori, albBSTCopyTraverse, albBST2);
+  // albBSTCopyTraverse inserisco 5 e 1 a sinistra
+  InsertC(numeroLocaleTest, numeroLocaleErrori, albBSTCopyTraverse, true, 5);
+  InsertC(numeroLocaleTest, numeroLocaleErrori, albBSTCopyTraverse, true, 1);
+  Traverse(numeroLocaleTest, numeroLocaleErrori, albBSTCopyTraverse, true, TraversePrint<int>);  
+  // albBST2 inserico (in ordine) 2 3 8
+  InsertC(numeroLocaleTest, numeroLocaleErrori, albBST2, true, 2);
+  InsertC(numeroLocaleTest, numeroLocaleErrori, albBST2, true, 8);
+  InsertC(numeroLocaleTest, numeroLocaleErrori, albBST2, true, 3);
+  Traverse(numeroLocaleTest, numeroLocaleErrori, albBST2, true, TraversePrint<int>);  
+  
+  //Riprovo il move = 
+  albBST2 = std::move(albBSTCopyTraverse);
+  Size(numeroLocaleTest, numeroLocaleErrori, albBST2, true, 2);
+  Size(numeroLocaleTest, numeroLocaleErrori, albBSTCopyTraverse, true, 3);
+  NonEqualBST(numeroLocaleTest, numeroLocaleErrori, albBSTCopyTraverse, albBST2);
+  // copy =
+  albBSTCopyTraverse = albBST2;
+  EqualBST(numeroLocaleTest, numeroLocaleErrori, albBSTCopyTraverse, albBST2);
+  Size(numeroLocaleTest, numeroLocaleErrori, albBSTCopyTraverse, true, 2);
+  Size(numeroLocaleTest, numeroLocaleErrori, albBST2, true, 2);
+  Root(numeroLocaleTest, numeroLocaleErrori, albBSTCopyTraverse, true, 5);
+  Root(numeroLocaleTest, numeroLocaleErrori, albBST2, true, 5);
+  
+  //Ultimi prove
+  lasd::BST<int> albBST3{albBST2};
+  lasd::BST<int> albBST4{std::move(albBST2)};
+  Empty(numeroLocaleTest, numeroLocaleErrori, albBST2, true);
+  EqualBST(numeroLocaleTest, numeroLocaleErrori, albBST3, albBST4);
+
+
+  cout << "Fine BST<int> Test DG : (Errors/Tests: " << numeroLocaleErrori << "/" << numeroLocaleTest << ")" << endl;
+  numeroTest += numeroLocaleTest;
+  numeroErrori += numeroLocaleErrori;
+
+}
+
+
+void testAlberoBSTIteratoreMio(unsigned int & numeroTest, unsigned int & numeroErrori){
+  unsigned int numeroLocaleTest = 0;
+  unsigned int numeroLocaleErrori = 0;
+  cout << endl << "Inizio BST<Double> Test DG :" << endl;
+
+  cout << "Fine BST<Double> Test DG : (Errors/Tests: " << numeroLocaleErrori << "/" << numeroLocaleTest << ")" << endl;
+  numeroTest += numeroLocaleTest;
+  numeroErrori += numeroLocaleErrori;
+
+}

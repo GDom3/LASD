@@ -232,14 +232,14 @@ inline bool BinaryTreeLnk<Data>::operator!=(const BinaryTreeLnk& alb) const noex
 template <typename Data>
 const BinaryTreeLnk<Data>::Node& BinaryTreeLnk<Data>::Root() const {
     if(radice == nullptr)
-        throw std::out_of_range("Albero Vuoto");
+        throw std::length_error("Albero Vuoto");
     return *radice;
 }
 
 template <typename Data>
 BinaryTreeLnk<Data>::MutableNode& BinaryTreeLnk<Data>::Root() {
     if(radice == nullptr)
-        throw std::out_of_range("Albero Vuoto");
+        throw std::length_error("Albero Vuoto");
     return *radice;
 }
 

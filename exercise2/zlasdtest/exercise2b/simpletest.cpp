@@ -25,7 +25,7 @@
 using namespace std;
 
 /* ************************************************************************** */
- /*
+ 
 void stestBSTInt(uint & testnum, uint & testerr) {
   uint loctestnum = 0, loctesterr = 0;
   cout << endl << "Begin of BST<int> Test" << endl;
@@ -54,13 +54,20 @@ void stestBSTInt(uint & testnum, uint & testerr) {
     Max(loctestnum, loctesterr, bst, true, 5);
 
     Root(loctestnum, loctesterr, bst, true, 3);
+  
+    TraverseInOrder(loctestnum, loctesterr, bst, true, &TraversePrint<int>);
+    
+    RemoveMin(loctestnum, loctesterr, bst, true);Size(loctestnum, loctesterr, bst, true, 5);
+    
+    TraverseInOrder(loctestnum, loctesterr, bst, true, &TraversePrint<int>);
+    
+    MinNRemove(loctestnum, loctesterr, bst, true, 1); Size(loctestnum, loctesterr, bst, true, 4);
+    TraverseInOrder(loctestnum, loctesterr, bst, true, &TraversePrint<int>);
 
-    RemoveMin(loctestnum, loctesterr, bst, true);
-    MinNRemove(loctestnum, loctesterr, bst, true, 1);
-
-    InsertC(loctestnum, loctesterr, bst, true, -1);
-    InsertC(loctestnum, loctesterr, bst, true, 1);
-
+    InsertC(loctestnum, loctesterr, bst, true, -1);TraverseInOrder(loctestnum, loctesterr, bst, true, &TraversePrint<int>);
+    InsertC(loctestnum, loctesterr, bst, true, 1);TraverseInOrder(loctestnum, loctesterr, bst, true, &TraversePrint<int>);
+    Size(loctestnum, loctesterr, bst, true, 6);
+    
     Min(loctestnum, loctesterr, bst, true, -1);
     MaxNRemove(loctestnum, loctesterr, bst, true, 5);
     Size(loctestnum, loctesterr, bst, true, 5);
@@ -74,7 +81,7 @@ void stestBSTInt(uint & testnum, uint & testerr) {
     InsertC(loctestnum, loctesterr, bst, true, 7);
 
     Size(loctestnum, loctesterr, bst, true, 7);
-
+    TraverseInOrder(loctestnum, loctesterr, bst, true, &TraversePrint<int>);
     Exists(loctestnum, loctesterr, bst, true, 6);
     Exists(loctestnum, loctesterr, bst, false, 8);
     Exists(loctestnum, loctesterr, bst, false, 0);
@@ -92,7 +99,7 @@ void stestBSTInt(uint & testnum, uint & testerr) {
 
     TraverseInOrder(loctestnum, loctesterr, bst, true, &TraversePrint<int>);
 
-    Predecessor(loctestnum, loctesterr, bst, true, 4, 3);
+    Predecessor(loctestnum, loctesterr, bst, true, 4, 3);std::cout<<"\nCIAOOO\n";
     Predecessor(loctestnum, loctesterr, bst, true, 5, 4);
 
     Successor(loctestnum, loctesterr, bst, true, 2, 3);
@@ -200,8 +207,11 @@ void stestBSTFloat(uint & testnum, uint & testerr) {
     InsertC(loctestnum, loctesterr, bst2, true, 5.3);
     InsertC(loctestnum, loctesterr, bst2, true, 4.0);
 
+
     Root(loctestnum, loctesterr, bst2, true, 2.1);
 
+    TraversePreOrder(loctestnum, loctesterr, bst1, true, &TraversePrint<double>);
+    TraversePreOrder(loctestnum, loctesterr, bst2, true, &TraversePrint<double>);
     EqualBST(loctestnum, loctesterr, bst1, bst2);
     NonEqualBT(loctestnum, loctesterr, bst1, bst2);
 
@@ -244,6 +254,7 @@ void stestBSTString(uint & testnum, uint & testerr) {
 
     TraverseInOrder(loctestnum, loctesterr, bst, true, &TraversePrint<string>);
 
+    /*
     lasd::BTInOrderIterator<string> itr4(bst);
     GetItrValue(loctestnum, loctesterr, itr4, true, string("A"));
     ++itr4;
@@ -257,7 +268,7 @@ void stestBSTString(uint & testnum, uint & testerr) {
     Terminated(loctestnum, loctesterr, itr4, false);
     ++itr4;
     Terminated(loctestnum, loctesterr, itr4, true);
-
+*/        
     FoldInOrder(loctestnum, loctesterr, bst, true, &FoldStringConcatenate, string("?"), string("?ABCDE"));
   }
   catch (...) {
@@ -269,9 +280,9 @@ void stestBSTString(uint & testnum, uint & testerr) {
   testerr += loctesterr;
 }
 
-*/
+
 /* ************************************************************************** */
-/*
+
 void testSimpleExercise2B(uint & testnum, uint & testerr) {
   stestBSTInt(testnum, testerr);
   stestBSTFloat(testnum, testerr);
@@ -279,4 +290,3 @@ void testSimpleExercise2B(uint & testnum, uint & testerr) {
   cout << endl << "Exercise 2B (Simple Test) (Errors/Tests: " << testerr << "/" << testnum << ")" << endl;
 }
 
-*/

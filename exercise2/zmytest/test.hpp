@@ -37,6 +37,11 @@ template <typename Albero>
 void testAlberoGenericoDoubleMio(unsigned int &, unsigned int &);
 void testAmbedueAlberoDoubleMio(unsigned int &, unsigned int &);
 
+void testAlberoBSTMio(unsigned int &, unsigned int &);
+void testAlberoBSTIntMio(unsigned int &, unsigned int &);
+void testAlberoBSTIteratoreMio(unsigned int &, unsigned int &);
+
+
 /* ************************************************************************** */
 
 #endif
