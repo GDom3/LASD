@@ -218,4 +218,629 @@ inline void MutableBinaryTree<Data>::BreadthMap(MapFun fun) {
 }
 
 
+
+
+
+
+
+
+template <typename Data>
+BTPreOrderIterator<Data>::BTPreOrderIterator(const BinaryTree<Data>& albero){
+    if (!albero.Empty()) {
+        depositoRadice = &albero.Root();
+        stackT.Push(depositoRadice);
+    }
+
+}
+
+template <typename Data>
+BTPreOrderIterator<Data>::BTPreOrderIterator(const BTPreOrderIterator<Data>& iter)
+    : depositoRadice{iter.depositoRadice},stackT{iter.stackT}
+{
+
+}
+
+template <typename Data>
+BTPreOrderIterator<Data>::BTPreOrderIterator(BTPreOrderIterator<Data>&& iter) noexcept{
+    std::swap(depositoRadice,iter.depositoRadice);
+    std::swap(stackT,iter.stackT);
+}
+
+template <typename Data>
+BTPreOrderIterator<Data>& BTPreOrderIterator<Data>::operator=(const BTPreOrderIterator<Data>& iter){
+    BTPreOrderIterator<Data> copia{iter};
+    std::swap(*this,copia);
+    return *this;
+}
+
+template <typename Data>
+BTPreOrderIterator<Data>& BTPreOrderIterator<Data>::operator=(BTPreOrderIterator<Data>&& iter) noexcept{
+    std::swap(depositoRadice,iter.depositoRadice);
+    std::swap(stackT,iter.stackT);
+    return *this;
+}
+
+template <typename Data>
+inline bool BTPreOrderIterator<Data>::operator==(const BTPreOrderIterator<Data>& iter) const noexcept{
+    return depositoRadice == iter.depositoRadice && stackT == iter.stackT;
+}
+
+template <typename Data>
+inline bool BTPreOrderIterator<Data>::operator!=(const BTPreOrderIterator<Data>& iter) const noexcept{
+    return !operator==(iter);
+}
+
+template <typename Data>
+inline const Data& BTPreOrderIterator<Data>::operator*() const {
+    if (Terminated())
+        throw std::out_of_range("Finito !!");
+
+    return stackT.Top()->Element();
+}
+
+template <typename Data>
+inline bool BTPreOrderIterator<Data>::Terminated() const noexcept {
+    return stackT.Empty();
+}
+
+template <typename Data>
+BTPreOrderIterator<Data>& BTPreOrderIterator<Data>::operator++(){
+    if (Terminated())
+        throw std::out_of_range("Finito !!");
+    
+    const typename BinaryTree<Data>::Node * nodo = stackT.Top();
+    stackT.Pop();
+
+    if (nodo->HasRightChild())
+        stackT.Push(&nodo->RightChild());
+    if (nodo->HasLeftChild())
+        stackT.Push(&nodo->LeftChild());
+
+
+    
+    return *this;
+}
+
+template <typename Data>
+void BTPreOrderIterator<Data>::Reset() noexcept {
+    stackT.Clear();
+    if (depositoRadice != nullptr)
+        stackT.Push(depositoRadice);
+}
+
+
+
+
+
+
+
+
+template <typename Data>
+BTPreOrderMutableIterator<Data>::BTPreOrderMutableIterator(const BinaryTree<Data>& alb) 
+    : BTPreOrderIterator<Data>::BTPreOrderIterator(alb){
+    
+}
+
+template <typename Data>
+BTPreOrderMutableIterator<Data>::BTPreOrderMutableIterator(const BTPreOrderMutableIterator<Data>& iter)
+    : BTPreOrderIterator<Data>::BTPreOrderIterator(iter)
+{
+
+}
+
+
+template <typename Data>
+BTPreOrderMutableIterator<Data>::BTPreOrderMutableIterator(BTPreOrderMutableIterator<Data>&& iter) noexcept
+    :BTPreOrderIterator<Data>::BTPreOrderIterator(std::move(iter))
+{
+
+}
+
+
+template <typename Data>
+BTPreOrderMutableIterator<Data>& BTPreOrderMutableIterator<Data>::operator=(const BTPreOrderMutableIterator<Data>& iter){
+    BTPreOrderIterator<Data>::operator=(iter);
+    return *this;
+}
+
+template <typename Data>
+BTPreOrderMutableIterator<Data>& BTPreOrderMutableIterator<Data>::operator=(BTPreOrderMutableIterator<Data>&& iter) noexcept{
+    BTPreOrderIterator<Data>::operator=(std::move(iter));
+    return *this;
+}
+
+template <typename Data>
+inline bool BTPreOrderMutableIterator<Data>::operator==(const BTPreOrderMutableIterator<Data>& iter) const noexcept{
+    return BTPreOrderIterator<Data>::operator==(iter);
+}
+
+template <typename Data>
+inline bool BTPreOrderMutableIterator<Data>::operator!=(const BTPreOrderMutableIterator<Data>& iter) const noexcept{
+    return BTPreOrderIterator<Data>::operator!=(iter);
+}
+
+
+template <typename Data>
+inline Data& BTPreOrderMutableIterator<Data>::operator*(){
+    return const_cast<Data&>(BTPreOrderIterator<Data>::operator*());
+}
+
+
+template <typename Data>
+void BTPostOrderIterator<Data>::visitaPost(const typename BinaryTree<Data>::Node * nodo) noexcept{
+    while(nodo != nullptr){
+        if (nodo.HasRightChild())
+            stackT.Push(nodo.RightChild());
+        if (nodo.HasLeftChild())
+            stackT.Push(nodo.LeftChild());
+
+        if (nodo.HasLeftChild())
+            nodo = nodo.LeftChild();
+        else if (nodo.HasRightChild())
+            nodo = nodo.RightChild();
+        else   
+            nodo = nullptr;
+    }
+}
+
+template <typename Data>
+BTPostOrderIterator<Data>::BTPostOrderIterator(const BinaryTree<Data>& alb){
+    if(!alb.Empty()){
+        depositoRadice = &alb.Root();
+
+        const typename BinaryTree<Data>::Node * temp = depositoRadice;
+        stackT.Push(depositoRadice);
+        visitaPost(depositoRadice);
+
+    }
+
+}
+
+template <typename Data>
+BTPostOrderIterator<Data>::BTPostOrderIterator(const BTPostOrderIterator<Data>& iter)
+    : depositoRadice{iter.depositoRadice},stackT{iter.stackT}
+{
+
+}
+
+template <typename Data>
+BTPostOrderIterator<Data>::BTPostOrderIterator(BTPostOrderIterator<Data>&& iter) noexcept{
+    std::swap(depositoRadice,iter.depositoRadice);
+    std::swap(stackT,iter.stackT);
+}
+
+template <typename Data>
+BTPostOrderIterator<Data>& BTPostOrderIterator<Data>::operator=(const BTPostOrderIterator<Data>& iter){
+    BTPostOrderIterator<Data> copia{iter};
+    std::swap(*this,copia);
+    return *this;
+}
+
+template <typename Data>
+BTPostOrderIterator<Data>& BTPostOrderIterator<Data>::operator=(BTPostOrderIterator<Data>&& iter) noexcept{
+    std::swap(depositoRadice,iter.depositoRadice);
+    std::swap(stackT,iter.stackT);
+    return *this;
+}
+
+template <typename Data>
+inline bool BTPostOrderIterator<Data>::operator==(const BTPostOrderIterator<Data>& iter) const noexcept{
+    return depositoRadice == iter.depositoRadice && stackT == iter.stackT;
+}
+
+template <typename Data>
+inline bool BTPostOrderIterator<Data>::operator!=(const BTPostOrderIterator<Data>& iter) const noexcept{
+    return !operator==(iter);
+}
+
+template <typename Data>
+inline const Data& BTPostOrderIterator<Data>::operator*() const {
+    if (Terminated())
+        throw std::out_of_range("Finito !!");
+
+    return stackT.Top()->Element();
+}
+
+template <typename Data>
+inline bool BTPostOrderIterator<Data>::Terminated() const noexcept {
+    return stackT.Empty();
+}
+
+
+template <typename Data>
+BTPostOrderIterator<Data>& BTPostOrderIterator<Data>::operator++() {
+
+    const typename BinaryTree<Data>::Node * testa = stackT.TopNPop();
+    const typename BinaryTree<Data>::Node * prossimo = stackT.Top();
+
+    if( (prossimo.HasLeftChild() && prossimo.LeftChild() != testa) && (prossimo.HasRightChild() && prossimo.RightChild() != testa))
+        visitaPost(prossimo);
+
+
+}
+
+template <typename Data>
+void BTPostOrderIterator<Data>::Reset() noexcept {
+    stackT.Clear();
+    if (depositoRadice != nullptr){
+        stackT.Push(depositoRadice);
+        visitaPost(depositoRadice);
+    }
+}
+
+
+
+
+
+
+
+
+
+template <typename Data>
+BTPostOrderMutableIterator<Data>::BTPostOrderMutableIterator(const BinaryTree<Data>& alb) 
+    : BTPostOrderIterator<Data>::BTPostOrderIterator(alb){
+    
+}
+
+template <typename Data>
+BTPostOrderMutableIterator<Data>::BTPostOrderMutableIterator(const BTPostOrderMutableIterator<Data>& iter)
+    : BTPostOrderIterator<Data>::BTPostOrderIterator(iter)
+{
+
+}
+
+template <typename Data>
+BTPostOrderMutableIterator<Data>::BTPostOrderMutableIterator(BTPostOrderMutableIterator<Data>&& iter) noexcept
+    :BTPostOrderIterator<Data>::BTPostOrderIterator(std::move(iter))
+{
+
+}
+
+template <typename Data>
+BTPostOrderMutableIterator<Data>& BTPostOrderMutableIterator<Data>::operator=(const BTPostOrderMutableIterator<Data>& iter){
+    BTPostOrderIterator<Data>::operator=(iter);
+    return *this;
+}
+
+template <typename Data>
+BTPostOrderMutableIterator<Data>& BTPostOrderMutableIterator<Data>::operator=(BTPostOrderMutableIterator<Data>&& iter) noexcept{
+    BTPostOrderIterator<Data>::operator=(std::move(iter));
+    return *this;
+}
+
+template <typename Data>
+inline bool BTPostOrderMutableIterator<Data>::operator==(const BTPostOrderMutableIterator<Data>& iter) const noexcept{
+    return BTPostOrderIterator<Data>::operator==(iter);
+}
+
+template <typename Data>
+inline bool BTPostOrderMutableIterator<Data>::operator!=(const BTPostOrderMutableIterator<Data>& iter) const noexcept{
+    return BTPostOrderIterator<Data>::operator!=(iter);
+}
+
+
+template <typename Data>
+inline Data& BTPostOrderMutableIterator<Data>::operator*(){
+    return const_cast<Data&>(BTPostOrderIterator<Data>::operator*());
+}
+
+
+
+
+
+template <typename Data>
+inline BTInOrderIterator<Data>::BTInOrderIterator(const BinaryTree<Data>& alb){
+    if(!alb.Empty()){
+        depositoRadice = &alb.Root();
+        stackT.Push(depositoRadice);
+        visitaIn(depositoRadice);
+    }
+
+}
+
+
+template <typename Data>
+void BTInOrderIterator<Data>::visitaIn(const typename BinaryTree<Data>::Node * node) noexcept{
+    while(node != nullptr){
+        if(node->HasLeftChild())
+            stackT.Push(&node->LeftChild());
+        
+        try {
+            node = &node->LeftChild();
+        }catch (...){
+            node = nullptr;
+        }
+    }
+    
+}
+
+
+template <typename Data>
+BTInOrderIterator<Data>::BTInOrderIterator(const BTInOrderIterator<Data>& iter)
+    : depositoRadice{iter.depositoRadice},stackT{iter.stackT}
+{
+
+}
+
+template <typename Data>
+BTInOrderIterator<Data>::BTInOrderIterator(BTInOrderIterator<Data>&& iter) noexcept{
+    std::swap(depositoRadice,iter.depositoRadice);
+    std::swap(stackT,iter.stackT);
+}
+
+template <typename Data>
+BTInOrderIterator<Data>& BTInOrderIterator<Data>::operator=(const BTInOrderIterator<Data>& iter){
+    BTInOrderIterator<Data> copia{iter};
+    std::swap(*this,copia);
+    return *this;
+}
+
+template <typename Data>
+BTInOrderIterator<Data>& BTInOrderIterator<Data>::operator=(BTInOrderIterator<Data>&& iter) noexcept{
+    std::swap(depositoRadice,iter.depositoRadice);
+    std::swap(stackT,iter.stackT);
+    return *this;
+}
+
+template <typename Data>
+inline bool BTInOrderIterator<Data>::operator==(const BTInOrderIterator<Data>& iter) const noexcept{
+    return depositoRadice == iter.depositoRadice && stackT == iter.stackT;
+}
+
+template <typename Data>
+inline bool BTInOrderIterator<Data>::operator!=(const BTInOrderIterator<Data>& iter) const noexcept{
+    return !operator==(iter);
+}
+
+template <typename Data>
+inline const Data& BTInOrderIterator<Data>::operator*() const {
+    if (Terminated())
+        throw std::out_of_range("Finito !!");
+
+    return stackT.Top()->Element();
+}
+
+template <typename Data>
+inline bool BTInOrderIterator<Data>::Terminated() const noexcept {
+    return stackT.Empty();
+}
+
+template <typename Data>
+inline BTInOrderIterator<Data>& BTInOrderIterator<Data>::operator++(){
+    stackT.TopNPop();
+    
+    if(!stackT.Empty()){
+        const typename BinaryTree<Data>::Node * prossima = stackT.TopNPop();
+
+        if(prossima->HasRightChild()){
+            stackT.Push(&prossima->RightChild());
+            visitaIn(&prossima->RightChild());
+        }
+            
+    
+        stackT.Push(prossima);
+    }
+    
+    
+
+    return *this;
+}
+    
+
+template <typename Data>
+void BTInOrderIterator<Data>::Reset() noexcept {
+    stackT.Clear();
+    if (depositoRadice != nullptr){
+        stackT.Push(depositoRadice);
+        visitaIn(depositoRadice);
+    }
+}
+
+
+
+
+
+
+
+
+
+template <typename Data>
+BTInOrderMutableIterator<Data>::BTInOrderMutableIterator(const BinaryTree<Data>& alb) 
+    : BTInOrderIterator<Data>::BTInOrderIterator(alb){
+    
+}
+
+template <typename Data>
+BTInOrderMutableIterator<Data>::BTInOrderMutableIterator(const BTInOrderMutableIterator<Data>& iter)
+    : BTInOrderIterator<Data>::BTInOrderIterator(iter)
+{
+
+}
+
+template <typename Data>
+BTInOrderMutableIterator<Data>::BTInOrderMutableIterator(BTInOrderMutableIterator<Data>&& iter) noexcept
+    :BTInOrderIterator<Data>::BTInOrderIterator(std::move(iter))
+{
+
+}
+
+template <typename Data>
+BTInOrderMutableIterator<Data>& BTInOrderMutableIterator<Data>::operator=(const BTInOrderMutableIterator<Data>& iter){
+    BTInOrderIterator<Data>::operator=(iter);
+    return *this;
+}
+
+template <typename Data>
+BTInOrderMutableIterator<Data>& BTInOrderMutableIterator<Data>::operator=(BTInOrderMutableIterator<Data>&& iter) noexcept{
+    BTInOrderIterator<Data>::operator=(std::move(iter));
+    return *this;
+}
+
+template <typename Data>
+inline bool BTInOrderMutableIterator<Data>::operator==(const BTInOrderMutableIterator<Data>& iter) const noexcept{
+    return BTInOrderIterator<Data>::operator==(iter);
+}
+
+template <typename Data>
+inline bool BTInOrderMutableIterator<Data>::operator!=(const BTInOrderMutableIterator<Data>& iter) const noexcept{
+    return BTInOrderIterator<Data>::operator!=(iter);
+}
+
+
+template <typename Data>
+inline Data& BTInOrderMutableIterator<Data>::operator*(){
+    return const_cast<Data&>(BTPostOrderIterator<Data>::operator*());
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+template <typename Data>
+inline BTBreadthIterator<Data>::BTBreadthIterator(const BinaryTree<Data>& alb){
+    if(!alb.Empty()){
+        depositoRadice = &alb.Root();
+        codaT.Enqueue(depositoRadice);
+    }
+
+}
+
+
+template <typename Data>
+BTBreadthIterator<Data>::BTBreadthIterator(const BTBreadthIterator<Data>& iter)
+    : depositoRadice{iter.depositoRadice},codaT{iter.codaT}
+{
+
+}
+
+template <typename Data>
+BTBreadthIterator<Data>::BTBreadthIterator(BTBreadthIterator<Data>&& iter) noexcept{
+    std::swap(depositoRadice,iter.depositoRadice);
+    std::swap(codaT,iter.codaT);
+}
+
+template <typename Data>
+BTBreadthIterator<Data>& BTBreadthIterator<Data>::operator=(const BTBreadthIterator<Data>& iter){
+    BTInOrderIterator<Data> copia{iter};
+    std::swap(*this,copia);
+    return *this;
+}
+
+template <typename Data>
+BTBreadthIterator<Data>& BTBreadthIterator<Data>::operator=(BTBreadthIterator<Data>&& iter) noexcept{
+    std::swap(depositoRadice,iter.depositoRadice);
+    std::swap(codaT,iter.codaT);
+    return *this;
+}
+
+template <typename Data>
+inline bool BTBreadthIterator<Data>::operator==(const BTBreadthIterator<Data>& iter) const noexcept{
+    return depositoRadice == iter.depositoRadice && codaT == iter.codaT;
+}
+
+template <typename Data>
+inline bool BTBreadthIterator<Data>::operator!=(const BTBreadthIterator<Data>& iter) const noexcept{
+    return !operator==(iter);
+}
+
+template <typename Data>
+inline const Data& BTBreadthIterator<Data>::operator*() const {
+    if (Terminated())
+        throw std::out_of_range("Finito !!");
+
+    return codaT.Top()->Element();
+}
+
+template <typename Data>
+inline bool BTBreadthIterator<Data>::Terminated() const noexcept {
+    return codaT.Empty();
+}
+
+template <typename Data>
+inline BTBreadthIterator<Data>& BTBreadthIterator<Data>::operator++(){
+  
+    const typename BinaryTree<Data>::Node * nodo = codaT.HeadNDequeue();
+    if(nodo->HasLeftChild())
+        codaT.Enqueue(nodo->LeftChild());
+    if(nodo->HasRightChild())
+        codaT.Enqueue(nodo->RightChild());
+
+
+    return *this;
+}
+    
+
+template <typename Data>
+void BTBreadthIterator<Data>::Reset() noexcept {
+    codaT.Clear();
+    if (depositoRadice != nullptr){
+        codaT.Enqueue(depositoRadice);
+    }
+}
+
+
+
+
+
+
+
+
+
+template <typename Data>
+BTBreadthMutableIterator<Data>::BTBreadthMutableIterator(const BinaryTree<Data>& alb) 
+    : BTBreadthIterator<Data>::BTBreadthIterator(alb){
+    
+}
+
+template <typename Data>
+BTBreadthMutableIterator<Data>::BTBreadthMutableIterator(const BTBreadthMutableIterator<Data>& iter)
+    : BTBreadthIterator<Data>::BTBreadthIterator(iter)
+{
+
+}
+
+template <typename Data>
+BTBreadthMutableIterator<Data>::BTBreadthMutableIterator(BTBreadthMutableIterator<Data>&& iter) noexcept
+    :BTBreadthIterator<Data>::BTBreadthIterator(std::move(iter))
+{
+
+}
+
+template <typename Data>
+BTBreadthMutableIterator<Data>& BTBreadthMutableIterator<Data>::operator=(const BTBreadthMutableIterator<Data>& iter){
+    BTBreadthIterator<Data>::operator=(iter);
+    return *this;
+}
+
+template <typename Data>
+BTBreadthMutableIterator<Data>& BTBreadthMutableIterator<Data>::operator=(BTBreadthMutableIterator<Data>&& iter) noexcept{
+    BTBreadthIterator<Data>::operator=(std::move(iter));
+    return *this;
+}
+
+template <typename Data>
+inline bool BTBreadthMutableIterator<Data>::operator==(const BTBreadthMutableIterator<Data>& iter) const noexcept{
+    return BTBreadthIterator<Data>::operator==(iter);
+}
+
+template <typename Data>
+inline bool BTBreadthMutableIterator<Data>::operator!=(const BTBreadthMutableIterator<Data>& iter) const noexcept{
+    return BTBreadthIterator<Data>::operator!=(iter);
+}
+
+
+template <typename Data>
+inline Data& BTBreadthMutableIterator<Data>::operator*(){
+    return const_cast<Data&>(BTBreadthIterator<Data>::operator*());
+}
 }

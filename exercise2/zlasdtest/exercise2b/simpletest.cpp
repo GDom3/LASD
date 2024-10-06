@@ -253,8 +253,8 @@ void stestBSTString(uint & testnum, uint & testerr) {
     Size(loctestnum, loctesterr, bst, true, 5);
 
     TraverseInOrder(loctestnum, loctesterr, bst, true, &TraversePrint<string>);
-
-    /*
+    TraverseBreadth(loctestnum, loctesterr, bst, true, &TraversePrint<string>);
+    
     lasd::BTInOrderIterator<string> itr4(bst);
     GetItrValue(loctestnum, loctesterr, itr4, true, string("A"));
     ++itr4;
@@ -268,7 +268,7 @@ void stestBSTString(uint & testnum, uint & testerr) {
     Terminated(loctestnum, loctesterr, itr4, false);
     ++itr4;
     Terminated(loctestnum, loctesterr, itr4, true);
-*/        
+        
     FoldInOrder(loctestnum, loctesterr, bst, true, &FoldStringConcatenate, string("?"), string("?ABCDE"));
   }
   catch (...) {

@@ -13,6 +13,7 @@
 #include "../zlasdtest/queue/queue.hpp"
 #include "../zlasdtest/binarytree/binarytree.hpp"
 #include "../zlasdtest/bst/bst.hpp"
+#include "../zlasdtest/iterator/iterator.hpp"
 
 
 #include "../list/list.hpp"
@@ -24,6 +25,7 @@
 #include "../binarytree/lnk/binarytreelnk.hpp"
 #include "../binarytree/vec/binarytreevec.hpp"
 #include "../bst/bst.hpp"
+#include "../iterator/iterator.hpp"
 
 #include "test.hpp"
 
@@ -61,6 +63,10 @@ void mytest() {
 
   numeroLocaleTest = 0; numeroLocaleErrori = 0;
   testAlberoBSTMio(numeroLocaleTest, numeroLocaleErrori);
+  stestnum += numeroLocaleTest; stesterr += numeroLocaleErrori;
+
+  numeroLocaleTest = 0; numeroLocaleErrori = 0;
+  testIteratoreMio(numeroLocaleTest, numeroLocaleErrori);
   stestnum += numeroLocaleTest; stesterr += numeroLocaleErrori;
   
   cout << endl << "Risultati Test (Errors/Tests: " << stesterr << "/" << stestnum << ")\n\n";
@@ -3174,7 +3180,6 @@ void testAmbedueAlberoDoubleMio(unsigned int & numeroTest, unsigned int & numero
 
 void testAlberoBSTMio(unsigned int & numeroTest, unsigned int & numeroErrori){
   testAlberoBSTIntMio(numeroTest,numeroErrori);
-  testAlberoBSTIteratoreMio(numeroTest,numeroErrori);
 }
 
 void testAlberoBSTIntMio(unsigned int & numeroTest, unsigned int & numeroErrori){
@@ -3674,8 +3679,8 @@ void testAlberoBSTIntMio(unsigned int & numeroTest, unsigned int & numeroErrori)
 
 }
 
-
 void testAlberoBSTIteratoreMio(unsigned int & numeroTest, unsigned int & numeroErrori){
+
   unsigned int numeroLocaleTest = 0;
   unsigned int numeroLocaleErrori = 0;
   cout << endl << "Inizio BST<Double> Test DG :" << endl;
@@ -3685,3 +3690,195 @@ void testAlberoBSTIteratoreMio(unsigned int & numeroTest, unsigned int & numeroE
   numeroErrori += numeroLocaleErrori;
 
 }
+
+void testIteratoreMio(unsigned int & numeroTest, unsigned int & numeroErrori){
+  testPreIteratoreMio(numeroTest,numeroErrori);
+  testPostIteratoreMio(numeroTest,numeroErrori);
+  testInIteratoreMio(numeroTest,numeroErrori);
+  testBreadthIteratoreMio(numeroTest,numeroErrori);
+}
+
+void testPreIteratoreMio(unsigned int & numeroTest, unsigned int & numeroErrori){
+  unsigned int numeroLocaleTest = 0;
+  unsigned int numeroLocaleErrori = 0;
+  cout << endl << "Inizio PreIteratore Test DG :" << endl;
+
+  lasd::BST<double> alb{};
+  lasd::BTPreOrderMutableIterator<double> iter(alb);
+
+  try
+  {
+    numeroLocaleTest++;
+    ++iter;
+    numeroLocaleErrori++;
+  }
+  catch(...){
+    
+  }
+  
+  Terminated(numeroLocaleTest, numeroLocaleErrori, iter, true);
+
+  lasd::List<double> lista{};
+  lista.InsertAtBack(4);
+  
+  lasd::BST<double> albUnoElemento{lista};
+  lasd::BTPreOrderMutableIterator<double> iterUnoElemento(albUnoElemento);
+
+
+  Terminated(numeroLocaleTest, numeroLocaleErrori, iterUnoElemento, false);
+  GetItrValue<double>(numeroLocaleTest, numeroLocaleErrori, iterUnoElemento, true, 4);
+  Terminated(numeroLocaleTest, numeroLocaleErrori, iterUnoElemento, false);
+  ++iterUnoElemento;
+  Terminated(numeroLocaleTest, numeroLocaleErrori, iterUnoElemento, true);
+
+  lasd::List<double> listaCopia{lista};
+  listaCopia.InsertAtBack(3);
+  
+  lasd::BST<double> albDueElementi{listaCopia};
+  lasd::BTPreOrderMutableIterator<double> iterDueElementi{albDueElementi};
+  
+  Terminated(numeroLocaleTest, numeroLocaleErrori, iterDueElementi, false);
+  GetItrValue<double>(numeroLocaleTest, numeroLocaleErrori, iterDueElementi, true, 4);
+  Terminated(numeroLocaleTest, numeroLocaleErrori, iterDueElementi, false);
+  ++iterDueElementi;
+  Terminated(numeroLocaleTest, numeroLocaleErrori, iterDueElementi, false);
+  GetItrValue<double>(numeroLocaleTest, numeroLocaleErrori, iterDueElementi, true, 3);
+  Terminated(numeroLocaleTest, numeroLocaleErrori, iterDueElementi, false);
+  ++iterDueElementi;
+  GetItrValue<double>(numeroLocaleTest, numeroLocaleErrori, iterDueElementi, false, 5);
+  Terminated(numeroLocaleTest, numeroLocaleErrori, iterDueElementi, true);
+
+  lista.InsertAtBack(6);
+  albDueElementi = lasd::BST<double>{lista};
+  lasd::BTPreOrderMutableIterator<double>iterDueElementi2(albDueElementi);
+  iterDueElementi = iterDueElementi2;
+
+  Terminated(numeroLocaleTest, numeroLocaleErrori, iterDueElementi2, false);
+  GetItrValue<double>(numeroLocaleTest, numeroLocaleErrori, iterDueElementi2, true, 4);
+  Terminated(numeroLocaleTest, numeroLocaleErrori, iterDueElementi2, false);
+  ++iterDueElementi2;
+  Terminated(numeroLocaleTest, numeroLocaleErrori, iterDueElementi2, false);
+  GetItrValue<double>(numeroLocaleTest, numeroLocaleErrori, iterDueElementi2, true, 6);
+  Terminated(numeroLocaleTest, numeroLocaleErrori, iterDueElementi2, false);
+  ++iterDueElementi2;
+  GetItrValue<double>(numeroLocaleTest, numeroLocaleErrori, iterDueElementi2, false, 5);
+  Terminated(numeroLocaleTest, numeroLocaleErrori, iterDueElementi2, true);
+
+  Terminated(numeroLocaleTest, numeroLocaleErrori, iterDueElementi, false);
+  GetItrValue<double>(numeroLocaleTest, numeroLocaleErrori, iterDueElementi, true, 4);
+  Terminated(numeroLocaleTest, numeroLocaleErrori, iterDueElementi, false);
+  ++iterDueElementi;
+  Terminated(numeroLocaleTest, numeroLocaleErrori, iterDueElementi, false);
+  GetItrValue<double>(numeroLocaleTest, numeroLocaleErrori, iterDueElementi, true, 6);
+  Terminated(numeroLocaleTest, numeroLocaleErrori, iterDueElementi, false);
+  ++iterDueElementi;
+  GetItrValue<double>(numeroLocaleTest, numeroLocaleErrori, iterDueElementi, false, 5);
+  Terminated(numeroLocaleTest, numeroLocaleErrori, iterDueElementi, true);
+
+
+  iterDueElementi = iterDueElementi2;
+  Terminated(numeroLocaleTest, numeroLocaleErrori, iterDueElementi, true);
+  iterDueElementi2 = std::move(iterDueElementi);
+  Terminated(numeroLocaleTest, numeroLocaleErrori, iterDueElementi2, true);
+
+  lasd::List<double> list{};
+  list.InsertAtBack(6);
+  list.InsertAtBack(1);
+  list.InsertAtBack(5);
+  list.InsertAtBack(3);
+  list.InsertAtBack(2);
+  list.InsertAtBack(4);
+  list.InsertAtBack(11);
+  list.InsertAtBack(7);
+  list.InsertAtBack(9);
+  list.InsertAtBack(8);
+  list.InsertAtBack(10);
+
+  lasd::BST<double> albero{list};
+  lasd::BTPreOrderMutableIterator<double>iteratore(albero);
+
+  Terminated(numeroLocaleTest, numeroLocaleErrori, iteratore, false);
+  GetItrValue<double>(numeroLocaleTest, numeroLocaleErrori, iteratore, true, 6);
+  Terminated(numeroLocaleTest, numeroLocaleErrori, iteratore, false);
+  ++iteratore;
+  Terminated(numeroLocaleTest, numeroLocaleErrori, iteratore, false);
+  GetItrValue<double>(numeroLocaleTest, numeroLocaleErrori, iteratore, true, 1);
+  Terminated(numeroLocaleTest, numeroLocaleErrori, iteratore, false);
+  ++iteratore;
+  GetItrValue<double>(numeroLocaleTest, numeroLocaleErrori, iteratore, false, 11);
+  Terminated(numeroLocaleTest, numeroLocaleErrori, iteratore, false);
+  GetItrValue<double>(numeroLocaleTest, numeroLocaleErrori, iteratore, true, 5);
+  Terminated(numeroLocaleTest, numeroLocaleErrori, iteratore, false);
+  ++iteratore;
+  Terminated(numeroLocaleTest, numeroLocaleErrori, iteratore, false);
+  GetItrValue<double>(numeroLocaleTest, numeroLocaleErrori, iteratore, true, 3);
+  Terminated(numeroLocaleTest, numeroLocaleErrori, iteratore, false);
+  ++iteratore;
+  Terminated(numeroLocaleTest, numeroLocaleErrori, iteratore, false);
+  GetItrValue<double>(numeroLocaleTest, numeroLocaleErrori, iteratore, true, 2);
+  Terminated(numeroLocaleTest, numeroLocaleErrori, iteratore, false);
+  ++iteratore;
+  Terminated(numeroLocaleTest, numeroLocaleErrori, iteratore, false);
+  GetItrValue<double>(numeroLocaleTest, numeroLocaleErrori, iteratore, true, 4);
+  Terminated(numeroLocaleTest, numeroLocaleErrori, iteratore, false);
+  ++iteratore;
+  GetItrValue<double>(numeroLocaleTest, numeroLocaleErrori, iteratore, true, 11);
+  Terminated(numeroLocaleTest, numeroLocaleErrori, iteratore, false);
+  ++iteratore;
+  GetItrValue<double>(numeroLocaleTest, numeroLocaleErrori, iteratore, true, 7);
+  Terminated(numeroLocaleTest, numeroLocaleErrori, iteratore, false);
+  ++iteratore;
+  Terminated(numeroLocaleTest, numeroLocaleErrori, iteratore, false);
+  GetItrValue<double>(numeroLocaleTest, numeroLocaleErrori, iteratore, true, 9);
+  Terminated(numeroLocaleTest, numeroLocaleErrori, iteratore, false);
+  ++iteratore;
+  Terminated(numeroLocaleTest, numeroLocaleErrori, iteratore, false);
+  GetItrValue<double>(numeroLocaleTest, numeroLocaleErrori, iteratore, true, 8);
+  Terminated(numeroLocaleTest, numeroLocaleErrori, iteratore, false);
+  ++iteratore;
+  Terminated(numeroLocaleTest, numeroLocaleErrori, iteratore, false);
+  GetItrValue<double>(numeroLocaleTest, numeroLocaleErrori, iteratore, true, 10);
+  ++iteratore;
+  Terminated(numeroLocaleTest, numeroLocaleErrori, iteratore, true);
+
+  cout << "Fine PreIteratore Test DG : (Errors/Tests: " << numeroLocaleErrori << "/" << numeroLocaleTest << ")" << endl;
+  numeroTest += numeroLocaleTest;
+  numeroErrori += numeroLocaleErrori;
+
+}
+
+void testPostIteratoreMio(unsigned int & numeroTest, unsigned int & numeroErrori){
+  unsigned int numeroLocaleTest = 0;
+  unsigned int numeroLocaleErrori = 0;
+  cout << endl << "Inizio PostIteratore Test DG :" << endl;
+
+  cout << "Fine PostIteratore Test DG : (Errors/Tests: " << numeroLocaleErrori << "/" << numeroLocaleTest << ")" << endl;
+  numeroTest += numeroLocaleTest;
+  numeroErrori += numeroLocaleErrori;
+
+}
+
+
+void testInIteratoreMio(unsigned int & numeroTest, unsigned int & numeroErrori){
+  unsigned int numeroLocaleTest = 0;
+  unsigned int numeroLocaleErrori = 0;
+  cout << endl << "Inizio InIteratore Test DG :" << endl;
+
+  cout << "Fine InIteratore Test DG : (Errors/Tests: " << numeroLocaleErrori << "/" << numeroLocaleTest << ")" << endl;
+  numeroTest += numeroLocaleTest;
+  numeroErrori += numeroLocaleErrori;
+
+}
+
+void testBreadthIteratoreMio(unsigned int & numeroTest, unsigned int & numeroErrori){
+  unsigned int numeroLocaleTest = 0;
+  unsigned int numeroLocaleErrori = 0;
+  cout << endl << "Inizio BreadthIteratore Test DG :" << endl;
+
+  cout << "Fine BreadthIteratore Test DG : (Errors/Tests: " << numeroLocaleErrori << "/" << numeroLocaleTest << ")" << endl;
+  numeroTest += numeroLocaleTest;
+  numeroErrori += numeroLocaleErrori;
+
+
+}
+

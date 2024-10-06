@@ -39,7 +39,13 @@ void testAmbedueAlberoDoubleMio(unsigned int &, unsigned int &);
 
 void testAlberoBSTMio(unsigned int &, unsigned int &);
 void testAlberoBSTIntMio(unsigned int &, unsigned int &);
-void testAlberoBSTIteratoreMio(unsigned int &, unsigned int &);
+
+void testIteratoreMio(unsigned int &, unsigned int &);
+void testPreIteratoreMio(unsigned int &, unsigned int &);
+void testPostIteratoreMio(unsigned int &, unsigned int &);
+void testInIteratoreMio(unsigned int &, unsigned int &);
+void testBreadthIteratoreMio(unsigned int &, unsigned int &);
+
 
 
 /* ************************************************************************** */

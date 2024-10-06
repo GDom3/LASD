@@ -53,7 +53,7 @@ void lasdtest() {
   ftestnum += loctestnum; ftesterr += loctesterr;
 
   loctestnum = 0; loctesterr = 0;
-  //testFullExercise2B(loctestnum, loctesterr);
+  testFullExercise2B(loctestnum, loctesterr);
   ftestnum += loctestnum; ftesterr += loctesterr;
 
   cout << endl << "Exercise 2 (Simple Test) (Errors/Tests: " << stesterr << "/" << stestnum << ")";
