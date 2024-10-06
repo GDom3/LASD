@@ -356,7 +356,7 @@ public:
   // template <typename Accumulator>
   // type BreadthFold(arguments) specifiers;
   template <typename Accumulator>
-  inline Accumulator BreadthOrderFold(FoldFun<Accumulator>,Accumulator) const;
+  inline Accumulator BreadthFold(FoldFun<Accumulator>,Accumulator) const;
   /* ************************************************************************ */
 
   // Specific member function (inherited from TraversableContainer)

@@ -111,6 +111,8 @@ public:
   // using List<Data>::Clear;
   using List<Data>::Clear;
 
+  using List<Data>::Stampa;
+
 protected:
 
   // Auxiliary functions, if necessary!

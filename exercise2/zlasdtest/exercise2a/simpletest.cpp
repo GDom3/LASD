@@ -91,7 +91,7 @@ void stestBinaryTreeInt(uint & testnum, uint & testerr) {
 
 void stestBinaryTreeFloat(lasd::MutableBinaryTree<double> & bt, uint & testnum, uint & testerr) {
   uint loctestnum = 0, loctesterr = 0;
-  try {/*
+  try {
     lasd::BTPreOrderIterator<double> itr1(bt);
     GetItrValue(loctestnum, loctesterr, itr1, true, 1.2);
     ++itr1;
@@ -142,6 +142,7 @@ void stestBinaryTreeFloat(lasd::MutableBinaryTree<double> & bt, uint & testnum, 
     Terminated(loctestnum, loctesterr, itr3, false);
     ++itr3;
     GetItrValue(loctestnum, loctesterr, itr3, true, 0.3);
+    
     itr3.Reset();
     lasd::BTInOrderIterator<double> newitr3(move(itr3));
     itr3.Reset();
@@ -162,7 +163,7 @@ void stestBinaryTreeFloat(lasd::MutableBinaryTree<double> & bt, uint & testnum, 
     GetItrValue(loctestnum, loctesterr, itr4, true, 0.3);
     itr4.Reset();
     lasd::BTPostOrderIterator<double> newitr4(move(itr4));
-    itr4.Reset();*/
+    itr4.Reset();
   }
   catch (...) {
     loctestnum++; loctesterr++;

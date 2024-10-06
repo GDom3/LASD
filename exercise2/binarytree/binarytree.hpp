@@ -327,7 +327,7 @@ private:
 
 protected:
 
-  const typename BinaryTree<Data>::Node * depositoRadice;
+  const typename BinaryTree<Data>::Node * depositoRadice = nullptr;
   StackLst <const typename BinaryTree<Data>::Node *> stackT{};
   
 
@@ -477,7 +477,7 @@ private:
 protected:
 
   // ...
-  const typename BinaryTree<Data>::Node * depositoRadice;
+  const typename BinaryTree<Data>::Node * depositoRadice = nullptr;
   StackLst <const typename BinaryTree<Data>::Node *> stackT{};
   
 
@@ -623,7 +623,7 @@ private:
 protected:
 
   // ...
-  const typename BinaryTree<Data>::Node * depositoRadice;
+  const typename BinaryTree<Data>::Node * depositoRadice = nullptr;
   StackLst <const typename BinaryTree<Data>::Node *> stackT{};
   
 
@@ -770,7 +770,7 @@ private:
 protected:
 
   // ...
-  const typename BinaryTree<Data>::Node * depositoRadice;
+  const typename BinaryTree<Data>::Node * depositoRadice = nullptr;
   QueueLst <const typename BinaryTree<Data>::Node *> codaT{};
   
 

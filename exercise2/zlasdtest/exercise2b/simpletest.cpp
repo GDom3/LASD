@@ -99,7 +99,7 @@ void stestBSTInt(uint & testnum, uint & testerr) {
 
     TraverseInOrder(loctestnum, loctesterr, bst, true, &TraversePrint<int>);
 
-    Predecessor(loctestnum, loctesterr, bst, true, 4, 3);std::cout<<"\nCIAOOO\n";
+    Predecessor(loctestnum, loctesterr, bst, true, 4, 3);
     Predecessor(loctestnum, loctesterr, bst, true, 5, 4);
 
     Successor(loctestnum, loctesterr, bst, true, 2, 3);

@@ -303,9 +303,12 @@ BTPreOrderIterator<Data>& BTPreOrderIterator<Data>::operator++(){
 
 template <typename Data>
 void BTPreOrderIterator<Data>::Reset() noexcept {
-    stackT.Clear();
-    if (depositoRadice != nullptr)
+    
+    if (depositoRadice != nullptr){
+        stackT.Clear();
         stackT.Push(depositoRadice);
+    }
+        
 }
 
 
@@ -477,8 +480,9 @@ BTPostOrderIterator<Data>& BTPostOrderIterator<Data>::operator++() {
 
 template <typename Data>
 void BTPostOrderIterator<Data>::Reset() noexcept {
-    stackT.Clear();
+    
     if (depositoRadice != nullptr){
+        stackT.Clear();
         stackT.Push(depositoRadice);
         visitaPost(depositoRadice);
     }
@@ -557,7 +561,8 @@ inline BTInOrderIterator<Data>::BTInOrderIterator(const BinaryTree<Data>& alb){
 
 template <typename Data>
 void BTInOrderIterator<Data>::visitaIn(const typename BinaryTree<Data>::Node * node) noexcept{
-    while(node != nullptr){
+
+    while(node != nullptr){ 
         if(node->HasLeftChild()){
             stackT.Push(&node->LeftChild());
             node = &node->LeftChild();
@@ -640,8 +645,8 @@ inline BTInOrderIterator<Data>& BTInOrderIterator<Data>::operator++(){
 
 template <typename Data>
 void BTInOrderIterator<Data>::Reset() noexcept {
-    stackT.Clear();
     if (depositoRadice != nullptr){
+        stackT.Clear();
         stackT.Push(depositoRadice);
         visitaIn(depositoRadice);
     }
@@ -793,8 +798,9 @@ inline BTBreadthIterator<Data>& BTBreadthIterator<Data>::operator++(){
 
 template <typename Data>
 void BTBreadthIterator<Data>::Reset() noexcept {
-    codaT.Clear();
+  
     if (depositoRadice != nullptr){
+        codaT.Clear();
         codaT.Enqueue(depositoRadice);
     }
 }
