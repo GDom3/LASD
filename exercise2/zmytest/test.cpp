@@ -3796,7 +3796,7 @@ void testPreIteratoreMio(unsigned int & numeroTest, unsigned int & numeroErrori)
 
   lasd::BST<double> albero{list};
   lasd::BTPreOrderMutableIterator<double>iteratore(albero);
-
+  
   Terminated(numeroLocaleTest, numeroLocaleErrori, iteratore, false);
   GetItrValue<double>(numeroLocaleTest, numeroLocaleErrori, iteratore, true, 6);
   Terminated(numeroLocaleTest, numeroLocaleErrori, iteratore, false);
@@ -3841,6 +3841,144 @@ void testPreIteratoreMio(unsigned int & numeroTest, unsigned int & numeroErrori)
   ++iteratore;
   Terminated(numeroLocaleTest, numeroLocaleErrori, iteratore, true);
 
+  iteratore.Reset();
+  Terminated(numeroLocaleTest, numeroLocaleErrori, iteratore, false);
+  GetItrValue<double>(numeroLocaleTest, numeroLocaleErrori, iteratore, true, 6);
+  Terminated(numeroLocaleTest, numeroLocaleErrori, iteratore, false);
+  ++iteratore;
+  Terminated(numeroLocaleTest, numeroLocaleErrori, iteratore, false);
+  GetItrValue<double>(numeroLocaleTest, numeroLocaleErrori, iteratore, true, 1);
+  Terminated(numeroLocaleTest, numeroLocaleErrori, iteratore, false);
+  ++iteratore;
+  GetItrValue<double>(numeroLocaleTest, numeroLocaleErrori, iteratore, false, 11);
+  Terminated(numeroLocaleTest, numeroLocaleErrori, iteratore, false);
+  GetItrValue<double>(numeroLocaleTest, numeroLocaleErrori, iteratore, true, 5);
+  Terminated(numeroLocaleTest, numeroLocaleErrori, iteratore, false);
+  ++iteratore;
+  Terminated(numeroLocaleTest, numeroLocaleErrori, iteratore, false);
+  GetItrValue<double>(numeroLocaleTest, numeroLocaleErrori, iteratore, true, 3);
+  Terminated(numeroLocaleTest, numeroLocaleErrori, iteratore, false);
+  ++iteratore;
+  Terminated(numeroLocaleTest, numeroLocaleErrori, iteratore, false);
+  GetItrValue<double>(numeroLocaleTest, numeroLocaleErrori, iteratore, true, 2);
+  Terminated(numeroLocaleTest, numeroLocaleErrori, iteratore, false);
+  ++iteratore;
+  Terminated(numeroLocaleTest, numeroLocaleErrori, iteratore, false);
+  GetItrValue<double>(numeroLocaleTest, numeroLocaleErrori, iteratore, true, 4);
+  Terminated(numeroLocaleTest, numeroLocaleErrori, iteratore, false);
+  ++iteratore;
+  GetItrValue<double>(numeroLocaleTest, numeroLocaleErrori, iteratore, true, 11);
+  Terminated(numeroLocaleTest, numeroLocaleErrori, iteratore, false);
+  ++iteratore;
+  GetItrValue<double>(numeroLocaleTest, numeroLocaleErrori, iteratore, true, 7);
+  Terminated(numeroLocaleTest, numeroLocaleErrori, iteratore, false);
+  ++iteratore;
+  Terminated(numeroLocaleTest, numeroLocaleErrori, iteratore, false);
+  GetItrValue<double>(numeroLocaleTest, numeroLocaleErrori, iteratore, true, 9);
+  Terminated(numeroLocaleTest, numeroLocaleErrori, iteratore, false);
+  ++iteratore;
+  Terminated(numeroLocaleTest, numeroLocaleErrori, iteratore, false);
+  GetItrValue<double>(numeroLocaleTest, numeroLocaleErrori, iteratore, true, 8);
+  Terminated(numeroLocaleTest, numeroLocaleErrori, iteratore, false);
+  ++iteratore;
+  Terminated(numeroLocaleTest, numeroLocaleErrori, iteratore, false);
+  GetItrValue<double>(numeroLocaleTest, numeroLocaleErrori, iteratore, true, 10);
+  ++iteratore;
+  Terminated(numeroLocaleTest, numeroLocaleErrori, iteratore, true);
+
+
+  iteratore.Reset();
+  lasd::BTPreOrderMutableIterator<double>copia{iteratore};
+  Terminated(numeroLocaleTest, numeroLocaleErrori, copia, false);
+  GetItrValue<double>(numeroLocaleTest, numeroLocaleErrori, copia, true, 6);
+  Terminated(numeroLocaleTest, numeroLocaleErrori, copia, false);
+  ++copia;
+  Terminated(numeroLocaleTest, numeroLocaleErrori, copia, false);
+  GetItrValue<double>(numeroLocaleTest, numeroLocaleErrori, copia, true, 1);
+  Terminated(numeroLocaleTest, numeroLocaleErrori, copia, false);
+  ++copia;
+  GetItrValue<double>(numeroLocaleTest, numeroLocaleErrori, copia, false, 11);
+  Terminated(numeroLocaleTest, numeroLocaleErrori, copia, false);
+  GetItrValue<double>(numeroLocaleTest, numeroLocaleErrori, copia, true, 5);
+  Terminated(numeroLocaleTest, numeroLocaleErrori, copia, false);
+  ++copia;
+  Terminated(numeroLocaleTest, numeroLocaleErrori, copia, false);
+  GetItrValue<double>(numeroLocaleTest, numeroLocaleErrori, copia, true, 3);
+  Terminated(numeroLocaleTest, numeroLocaleErrori, copia, false);
+  ++copia;
+  Terminated(numeroLocaleTest, numeroLocaleErrori, copia, false);
+  GetItrValue<double>(numeroLocaleTest, numeroLocaleErrori, copia, true, 2);
+  Terminated(numeroLocaleTest, numeroLocaleErrori, copia, false);
+  ++copia;
+  Terminated(numeroLocaleTest, numeroLocaleErrori, copia, false);
+  GetItrValue<double>(numeroLocaleTest, numeroLocaleErrori, copia, true, 4);
+  Terminated(numeroLocaleTest, numeroLocaleErrori, copia, false);
+  ++copia;
+  GetItrValue<double>(numeroLocaleTest, numeroLocaleErrori, copia, true, 11);
+  Terminated(numeroLocaleTest, numeroLocaleErrori, copia, false);
+  ++copia;
+  GetItrValue<double>(numeroLocaleTest, numeroLocaleErrori, copia, true, 7);
+  Terminated(numeroLocaleTest, numeroLocaleErrori, copia, false);
+  ++copia;
+  Terminated(numeroLocaleTest, numeroLocaleErrori, copia, false);
+  GetItrValue<double>(numeroLocaleTest, numeroLocaleErrori, copia, true, 9);
+  Terminated(numeroLocaleTest, numeroLocaleErrori, copia, false);
+  ++copia;
+  Terminated(numeroLocaleTest, numeroLocaleErrori, copia, false);
+  GetItrValue<double>(numeroLocaleTest, numeroLocaleErrori, copia, true, 8);
+  Terminated(numeroLocaleTest, numeroLocaleErrori, copia, false);
+  ++copia;
+  Terminated(numeroLocaleTest, numeroLocaleErrori, copia, false);
+  GetItrValue<double>(numeroLocaleTest, numeroLocaleErrori, copia, true, 10);
+  ++copia;
+  Terminated(numeroLocaleTest, numeroLocaleErrori, copia, true);
+
+  copia = std::move(iteratore);
+  Terminated(numeroLocaleTest, numeroLocaleErrori, copia, false);
+  GetItrValue<double>(numeroLocaleTest, numeroLocaleErrori, copia, true, 6);
+  Terminated(numeroLocaleTest, numeroLocaleErrori, copia, false);
+  ++copia;
+  Terminated(numeroLocaleTest, numeroLocaleErrori, copia, false);
+  GetItrValue<double>(numeroLocaleTest, numeroLocaleErrori, copia, true, 1);
+  Terminated(numeroLocaleTest, numeroLocaleErrori, copia, false);
+  ++copia;
+  GetItrValue<double>(numeroLocaleTest, numeroLocaleErrori, copia, false, 11);
+  Terminated(numeroLocaleTest, numeroLocaleErrori, copia, false);
+  GetItrValue<double>(numeroLocaleTest, numeroLocaleErrori, copia, true, 5);
+  Terminated(numeroLocaleTest, numeroLocaleErrori, copia, false);
+  ++copia;
+  Terminated(numeroLocaleTest, numeroLocaleErrori, copia, false);
+  GetItrValue<double>(numeroLocaleTest, numeroLocaleErrori, copia, true, 3);
+  Terminated(numeroLocaleTest, numeroLocaleErrori, copia, false);
+  ++copia;
+  Terminated(numeroLocaleTest, numeroLocaleErrori, copia, false);
+  GetItrValue<double>(numeroLocaleTest, numeroLocaleErrori, copia, true, 2);
+  Terminated(numeroLocaleTest, numeroLocaleErrori, copia, false);
+  ++copia;
+  Terminated(numeroLocaleTest, numeroLocaleErrori, copia, false);
+  GetItrValue<double>(numeroLocaleTest, numeroLocaleErrori, copia, true, 4);
+  Terminated(numeroLocaleTest, numeroLocaleErrori, copia, false);
+  ++copia;
+  GetItrValue<double>(numeroLocaleTest, numeroLocaleErrori, copia, true, 11);
+  Terminated(numeroLocaleTest, numeroLocaleErrori, copia, false);
+  ++copia;
+  GetItrValue<double>(numeroLocaleTest, numeroLocaleErrori, copia, true, 7);
+  Terminated(numeroLocaleTest, numeroLocaleErrori, copia, false);
+  ++copia;
+  Terminated(numeroLocaleTest, numeroLocaleErrori, copia, false);
+  GetItrValue<double>(numeroLocaleTest, numeroLocaleErrori, copia, true, 9);
+  Terminated(numeroLocaleTest, numeroLocaleErrori, copia, false);
+  ++copia;
+  Terminated(numeroLocaleTest, numeroLocaleErrori, copia, false);
+  GetItrValue<double>(numeroLocaleTest, numeroLocaleErrori, copia, true, 8);
+  Terminated(numeroLocaleTest, numeroLocaleErrori, copia, false);
+  ++copia;
+  Terminated(numeroLocaleTest, numeroLocaleErrori, copia, false);
+  GetItrValue<double>(numeroLocaleTest, numeroLocaleErrori, copia, true, 10);
+  ++copia;
+  Terminated(numeroLocaleTest, numeroLocaleErrori, copia, true);
+
+
   cout << "Fine PreIteratore Test DG : (Errors/Tests: " << numeroLocaleErrori << "/" << numeroLocaleTest << ")" << endl;
   numeroTest += numeroLocaleTest;
   numeroErrori += numeroLocaleErrori;
@@ -3852,17 +3990,573 @@ void testPostIteratoreMio(unsigned int & numeroTest, unsigned int & numeroErrori
   unsigned int numeroLocaleErrori = 0;
   cout << endl << "Inizio PostIteratore Test DG :" << endl;
 
+  lasd::BST<double> alb{};
+  lasd::BTPostOrderMutableIterator<double> iter(alb);
+
+  try
+  {
+    numeroLocaleTest++;
+    ++iter;
+    numeroLocaleErrori++;
+  }
+  catch(...){
+    
+  }
+  
+  Terminated(numeroLocaleTest, numeroLocaleErrori, iter, true);
+
+  lasd::List<double> lista{};
+  lista.InsertAtBack(4);
+  
+  lasd::BST<double> albUnoElemento{lista};
+  lasd::BTPostOrderMutableIterator<double> iterUnoElemento(albUnoElemento);
+
+
+  Terminated(numeroLocaleTest, numeroLocaleErrori, iterUnoElemento, false);
+  GetItrValue<double>(numeroLocaleTest, numeroLocaleErrori, iterUnoElemento, true, 4);
+  Terminated(numeroLocaleTest, numeroLocaleErrori, iterUnoElemento, false);
+  ++iterUnoElemento;
+  Terminated(numeroLocaleTest, numeroLocaleErrori, iterUnoElemento, true);
+
+  lasd::List<double> listaCopia{lista};
+  listaCopia.InsertAtBack(3);
+  
+  lasd::BST<double> albDueElementi{listaCopia};
+  lasd::BTPostOrderMutableIterator<double> iterDueElementi{albDueElementi};
+  
+  Terminated(numeroLocaleTest, numeroLocaleErrori, iterDueElementi, false);
+  GetItrValue<double>(numeroLocaleTest, numeroLocaleErrori, iterDueElementi, true, 3);
+  Terminated(numeroLocaleTest, numeroLocaleErrori, iterDueElementi, false);
+  ++iterDueElementi;
+  Terminated(numeroLocaleTest, numeroLocaleErrori, iterDueElementi, false);
+  GetItrValue<double>(numeroLocaleTest, numeroLocaleErrori, iterDueElementi, true, 4);
+  Terminated(numeroLocaleTest, numeroLocaleErrori, iterDueElementi, false);
+  ++iterDueElementi;
+  GetItrValue<double>(numeroLocaleTest, numeroLocaleErrori, iterDueElementi, false, 5);
+  Terminated(numeroLocaleTest, numeroLocaleErrori, iterDueElementi, true); 
+
+  lista.InsertAtBack(6);
+  albDueElementi = lasd::BST<double>{lista};
+  lasd::BTPostOrderMutableIterator<double>iterDueElementi2(albDueElementi);
+  iterDueElementi = iterDueElementi2;
+
+  Terminated(numeroLocaleTest, numeroLocaleErrori, iterDueElementi2, false);
+  GetItrValue<double>(numeroLocaleTest, numeroLocaleErrori, iterDueElementi2, true, 6);
+  Terminated(numeroLocaleTest, numeroLocaleErrori, iterDueElementi2, false);
+  ++iterDueElementi2;
+  Terminated(numeroLocaleTest, numeroLocaleErrori, iterDueElementi2, false);
+  GetItrValue<double>(numeroLocaleTest, numeroLocaleErrori, iterDueElementi2, true, 4);
+  Terminated(numeroLocaleTest, numeroLocaleErrori, iterDueElementi2, false);
+  ++iterDueElementi2;
+  GetItrValue<double>(numeroLocaleTest, numeroLocaleErrori, iterDueElementi2, false, 5);
+  Terminated(numeroLocaleTest, numeroLocaleErrori, iterDueElementi2, true);
+
+  Terminated(numeroLocaleTest, numeroLocaleErrori, iterDueElementi, false);
+  GetItrValue<double>(numeroLocaleTest, numeroLocaleErrori, iterDueElementi, true, 6);
+  Terminated(numeroLocaleTest, numeroLocaleErrori, iterDueElementi, false);
+  ++iterDueElementi;
+  Terminated(numeroLocaleTest, numeroLocaleErrori, iterDueElementi, false);
+  GetItrValue<double>(numeroLocaleTest, numeroLocaleErrori, iterDueElementi, true, 4);
+  Terminated(numeroLocaleTest, numeroLocaleErrori, iterDueElementi, false);
+  ++iterDueElementi;
+  GetItrValue<double>(numeroLocaleTest, numeroLocaleErrori, iterDueElementi, false, 5);
+  Terminated(numeroLocaleTest, numeroLocaleErrori, iterDueElementi, true);
+
+
+  iterDueElementi = iterDueElementi2;
+  Terminated(numeroLocaleTest, numeroLocaleErrori, iterDueElementi, true);
+  iterDueElementi2 = std::move(iterDueElementi);
+  Terminated(numeroLocaleTest, numeroLocaleErrori, iterDueElementi2, true);
+
+  lasd::List<double> list{};
+  list.InsertAtBack(6);
+  list.InsertAtBack(1);
+  list.InsertAtBack(5);
+  list.InsertAtBack(3);
+  list.InsertAtBack(2);
+  list.InsertAtBack(4);
+  list.InsertAtBack(11);
+  list.InsertAtBack(7);
+  list.InsertAtBack(9);
+  list.InsertAtBack(8);
+  list.InsertAtBack(10);
+
+  lasd::BST<double> albero{list};
+  lasd::BTPostOrderMutableIterator<double>iteratore(albero);
+  
+
+  Terminated(numeroLocaleTest, numeroLocaleErrori, iteratore, false);
+  GetItrValue<double>(numeroLocaleTest, numeroLocaleErrori, iteratore, true, 2);
+  Terminated(numeroLocaleTest, numeroLocaleErrori, iteratore, false);
+  ++iteratore;
+  Terminated(numeroLocaleTest, numeroLocaleErrori, iteratore, false);
+  GetItrValue<double>(numeroLocaleTest, numeroLocaleErrori, iteratore, true, 4);
+  Terminated(numeroLocaleTest, numeroLocaleErrori, iteratore, false);
+  ++iteratore;
+  GetItrValue<double>(numeroLocaleTest, numeroLocaleErrori, iteratore, false, 11);
+  Terminated(numeroLocaleTest, numeroLocaleErrori, iteratore, false);
+  GetItrValue<double>(numeroLocaleTest, numeroLocaleErrori, iteratore, true, 3);
+  Terminated(numeroLocaleTest, numeroLocaleErrori, iteratore, false);
+  ++iteratore;
+  Terminated(numeroLocaleTest, numeroLocaleErrori, iteratore, false);
+  GetItrValue<double>(numeroLocaleTest, numeroLocaleErrori, iteratore, true, 5);
+  Terminated(numeroLocaleTest, numeroLocaleErrori, iteratore, false);
+  ++iteratore;
+  Terminated(numeroLocaleTest, numeroLocaleErrori, iteratore, false);
+  GetItrValue<double>(numeroLocaleTest, numeroLocaleErrori, iteratore, true, 1);
+  Terminated(numeroLocaleTest, numeroLocaleErrori, iteratore, false);
+  ++iteratore;
+  Terminated(numeroLocaleTest, numeroLocaleErrori, iteratore, false);
+  GetItrValue<double>(numeroLocaleTest, numeroLocaleErrori, iteratore, true, 8);
+  Terminated(numeroLocaleTest, numeroLocaleErrori, iteratore, false);
+  ++iteratore;
+  GetItrValue<double>(numeroLocaleTest, numeroLocaleErrori, iteratore, true, 10);
+  Terminated(numeroLocaleTest, numeroLocaleErrori, iteratore, false);
+  ++iteratore;
+  GetItrValue<double>(numeroLocaleTest, numeroLocaleErrori, iteratore, true, 9);
+  Terminated(numeroLocaleTest, numeroLocaleErrori, iteratore, false);
+  ++iteratore;
+  Terminated(numeroLocaleTest, numeroLocaleErrori, iteratore, false);
+  GetItrValue<double>(numeroLocaleTest, numeroLocaleErrori, iteratore, true, 7);
+  Terminated(numeroLocaleTest, numeroLocaleErrori, iteratore, false);
+  ++iteratore;
+  Terminated(numeroLocaleTest, numeroLocaleErrori, iteratore, false);
+  GetItrValue<double>(numeroLocaleTest, numeroLocaleErrori, iteratore, true, 11);
+  Terminated(numeroLocaleTest, numeroLocaleErrori, iteratore, false);
+  ++iteratore;
+  Terminated(numeroLocaleTest, numeroLocaleErrori, iteratore, false);
+  GetItrValue<double>(numeroLocaleTest, numeroLocaleErrori, iteratore, true, 6);
+  ++iteratore;
+  Terminated(numeroLocaleTest, numeroLocaleErrori, iteratore, true);
+
+  iteratore.Reset();
+  Terminated(numeroLocaleTest, numeroLocaleErrori, iteratore, false);
+  GetItrValue<double>(numeroLocaleTest, numeroLocaleErrori, iteratore, true, 2);
+  Terminated(numeroLocaleTest, numeroLocaleErrori, iteratore, false);
+  ++iteratore;
+  Terminated(numeroLocaleTest, numeroLocaleErrori, iteratore, false);
+  GetItrValue<double>(numeroLocaleTest, numeroLocaleErrori, iteratore, true, 4);
+  Terminated(numeroLocaleTest, numeroLocaleErrori, iteratore, false);
+  ++iteratore;
+  GetItrValue<double>(numeroLocaleTest, numeroLocaleErrori, iteratore, false, 11);
+  Terminated(numeroLocaleTest, numeroLocaleErrori, iteratore, false);
+  GetItrValue<double>(numeroLocaleTest, numeroLocaleErrori, iteratore, true, 3);
+  Terminated(numeroLocaleTest, numeroLocaleErrori, iteratore, false);
+  ++iteratore;
+  Terminated(numeroLocaleTest, numeroLocaleErrori, iteratore, false);
+  GetItrValue<double>(numeroLocaleTest, numeroLocaleErrori, iteratore, true, 5);
+  Terminated(numeroLocaleTest, numeroLocaleErrori, iteratore, false);
+  ++iteratore;
+  Terminated(numeroLocaleTest, numeroLocaleErrori, iteratore, false);
+  GetItrValue<double>(numeroLocaleTest, numeroLocaleErrori, iteratore, true, 1);
+  Terminated(numeroLocaleTest, numeroLocaleErrori, iteratore, false);
+  ++iteratore;
+  Terminated(numeroLocaleTest, numeroLocaleErrori, iteratore, false);
+  GetItrValue<double>(numeroLocaleTest, numeroLocaleErrori, iteratore, true, 8);
+  Terminated(numeroLocaleTest, numeroLocaleErrori, iteratore, false);
+  ++iteratore;
+  GetItrValue<double>(numeroLocaleTest, numeroLocaleErrori, iteratore, true, 10);
+  Terminated(numeroLocaleTest, numeroLocaleErrori, iteratore, false);
+  ++iteratore;
+  GetItrValue<double>(numeroLocaleTest, numeroLocaleErrori, iteratore, true, 9);
+  Terminated(numeroLocaleTest, numeroLocaleErrori, iteratore, false);
+  ++iteratore;
+  Terminated(numeroLocaleTest, numeroLocaleErrori, iteratore, false);
+  GetItrValue<double>(numeroLocaleTest, numeroLocaleErrori, iteratore, true, 7);
+  Terminated(numeroLocaleTest, numeroLocaleErrori, iteratore, false);
+  ++iteratore;
+  Terminated(numeroLocaleTest, numeroLocaleErrori, iteratore, false);
+  GetItrValue<double>(numeroLocaleTest, numeroLocaleErrori, iteratore, true, 11);
+  Terminated(numeroLocaleTest, numeroLocaleErrori, iteratore, false);
+  ++iteratore;
+  Terminated(numeroLocaleTest, numeroLocaleErrori, iteratore, false);
+  GetItrValue<double>(numeroLocaleTest, numeroLocaleErrori, iteratore, true, 6);
+  ++iteratore;
+  Terminated(numeroLocaleTest, numeroLocaleErrori, iteratore, true);
+
+
+  iteratore.Reset();
+  lasd::BTPostOrderMutableIterator<double>copia{iteratore};
+  Terminated(numeroLocaleTest, numeroLocaleErrori, copia, false);
+  GetItrValue<double>(numeroLocaleTest, numeroLocaleErrori, copia, true, 2);
+  Terminated(numeroLocaleTest, numeroLocaleErrori, copia, false);
+  ++copia;
+  Terminated(numeroLocaleTest, numeroLocaleErrori, copia, false);
+  GetItrValue<double>(numeroLocaleTest, numeroLocaleErrori, copia, true, 4);
+  Terminated(numeroLocaleTest, numeroLocaleErrori, copia, false);
+  ++copia;
+  GetItrValue<double>(numeroLocaleTest, numeroLocaleErrori, copia, false, 11);
+  Terminated(numeroLocaleTest, numeroLocaleErrori, copia, false);
+  GetItrValue<double>(numeroLocaleTest, numeroLocaleErrori, copia, true, 3);
+  Terminated(numeroLocaleTest, numeroLocaleErrori, copia, false);
+  ++copia;
+  Terminated(numeroLocaleTest, numeroLocaleErrori, copia, false);
+  GetItrValue<double>(numeroLocaleTest, numeroLocaleErrori, copia, true, 5);
+  Terminated(numeroLocaleTest, numeroLocaleErrori, copia, false);
+  ++copia;
+  Terminated(numeroLocaleTest, numeroLocaleErrori, copia, false);
+  GetItrValue<double>(numeroLocaleTest, numeroLocaleErrori, copia, true, 1);
+  Terminated(numeroLocaleTest, numeroLocaleErrori, copia, false);
+  ++copia;
+  Terminated(numeroLocaleTest, numeroLocaleErrori, copia, false);
+  GetItrValue<double>(numeroLocaleTest, numeroLocaleErrori, copia, true, 8);
+  Terminated(numeroLocaleTest, numeroLocaleErrori, copia, false);
+  ++copia;
+  GetItrValue<double>(numeroLocaleTest, numeroLocaleErrori, copia, true, 10);
+  Terminated(numeroLocaleTest, numeroLocaleErrori, copia, false);
+  ++copia;
+  GetItrValue<double>(numeroLocaleTest, numeroLocaleErrori, copia, true, 9);
+  Terminated(numeroLocaleTest, numeroLocaleErrori, copia, false);
+  ++copia;
+  Terminated(numeroLocaleTest, numeroLocaleErrori, copia, false);
+  GetItrValue<double>(numeroLocaleTest, numeroLocaleErrori, copia, true, 7);
+  Terminated(numeroLocaleTest, numeroLocaleErrori, copia, false);
+  ++copia;
+  Terminated(numeroLocaleTest, numeroLocaleErrori, copia, false);
+  GetItrValue<double>(numeroLocaleTest, numeroLocaleErrori, copia, true, 11);
+  Terminated(numeroLocaleTest, numeroLocaleErrori, copia, false);
+  ++copia;
+  Terminated(numeroLocaleTest, numeroLocaleErrori, copia, false);
+  GetItrValue<double>(numeroLocaleTest, numeroLocaleErrori, copia, true, 6);
+  ++copia;
+  Terminated(numeroLocaleTest, numeroLocaleErrori, copia, true);
+
+  copia = std::move(iteratore);
+  Terminated(numeroLocaleTest, numeroLocaleErrori, copia, false);
+  GetItrValue<double>(numeroLocaleTest, numeroLocaleErrori, copia, true, 2);
+  Terminated(numeroLocaleTest, numeroLocaleErrori, copia, false);
+  ++copia;
+  Terminated(numeroLocaleTest, numeroLocaleErrori, copia, false);
+  GetItrValue<double>(numeroLocaleTest, numeroLocaleErrori, copia, true, 4);
+  Terminated(numeroLocaleTest, numeroLocaleErrori, copia, false);
+  ++copia;
+  GetItrValue<double>(numeroLocaleTest, numeroLocaleErrori, copia, false, 11);
+  Terminated(numeroLocaleTest, numeroLocaleErrori, copia, false);
+  GetItrValue<double>(numeroLocaleTest, numeroLocaleErrori, copia, true, 3);
+  Terminated(numeroLocaleTest, numeroLocaleErrori, copia, false);
+  ++copia;
+  Terminated(numeroLocaleTest, numeroLocaleErrori, copia, false);
+  GetItrValue<double>(numeroLocaleTest, numeroLocaleErrori, copia, true, 5);
+  Terminated(numeroLocaleTest, numeroLocaleErrori, copia, false);
+  ++copia;
+  Terminated(numeroLocaleTest, numeroLocaleErrori, copia, false);
+  GetItrValue<double>(numeroLocaleTest, numeroLocaleErrori, copia, true, 1);
+  Terminated(numeroLocaleTest, numeroLocaleErrori, copia, false);
+  ++copia;
+  Terminated(numeroLocaleTest, numeroLocaleErrori, copia, false);
+  GetItrValue<double>(numeroLocaleTest, numeroLocaleErrori, copia, true, 8);
+  Terminated(numeroLocaleTest, numeroLocaleErrori, copia, false);
+  ++copia;
+  GetItrValue<double>(numeroLocaleTest, numeroLocaleErrori, copia, true, 10);
+  Terminated(numeroLocaleTest, numeroLocaleErrori, copia, false);
+  ++copia;
+  GetItrValue<double>(numeroLocaleTest, numeroLocaleErrori, copia, true, 9);
+  Terminated(numeroLocaleTest, numeroLocaleErrori, copia, false);
+  ++copia;
+  Terminated(numeroLocaleTest, numeroLocaleErrori, copia, false);
+  GetItrValue<double>(numeroLocaleTest, numeroLocaleErrori, copia, true, 7);
+  Terminated(numeroLocaleTest, numeroLocaleErrori, copia, false);
+  ++copia;
+  Terminated(numeroLocaleTest, numeroLocaleErrori, copia, false);
+  GetItrValue<double>(numeroLocaleTest, numeroLocaleErrori, copia, true, 11);
+  Terminated(numeroLocaleTest, numeroLocaleErrori, copia, false);
+  ++copia;
+  Terminated(numeroLocaleTest, numeroLocaleErrori, copia, false);
+  GetItrValue<double>(numeroLocaleTest, numeroLocaleErrori, copia, true, 6);
+  ++copia;
+  Terminated(numeroLocaleTest, numeroLocaleErrori, copia, true);
+
+
+
   cout << "Fine PostIteratore Test DG : (Errors/Tests: " << numeroLocaleErrori << "/" << numeroLocaleTest << ")" << endl;
   numeroTest += numeroLocaleTest;
   numeroErrori += numeroLocaleErrori;
 
 }
 
-
 void testInIteratoreMio(unsigned int & numeroTest, unsigned int & numeroErrori){
   unsigned int numeroLocaleTest = 0;
   unsigned int numeroLocaleErrori = 0;
   cout << endl << "Inizio InIteratore Test DG :" << endl;
+
+
+  lasd::BST<double> alb{};
+  lasd::BTInOrderMutableIterator<double> iter(alb);
+
+  try
+  {
+    numeroLocaleTest++;
+    ++iter;
+    numeroLocaleErrori++;
+  }
+  catch(...){
+    
+  }
+  
+  Terminated(numeroLocaleTest, numeroLocaleErrori, iter, true);
+
+  lasd::List<double> lista{};
+  lista.InsertAtBack(4);
+  
+  lasd::BST<double> albUnoElemento{lista};
+  lasd::BTInOrderMutableIterator<double> iterUnoElemento(albUnoElemento);
+
+
+  Terminated(numeroLocaleTest, numeroLocaleErrori, iterUnoElemento, false);
+  GetItrValue<double>(numeroLocaleTest, numeroLocaleErrori, iterUnoElemento, true, 4);
+  Terminated(numeroLocaleTest, numeroLocaleErrori, iterUnoElemento, false);
+  ++iterUnoElemento;
+  Terminated(numeroLocaleTest, numeroLocaleErrori, iterUnoElemento, true);
+
+  lasd::List<double> listaCopia{lista};
+  listaCopia.InsertAtBack(3);
+  
+  lasd::BST<double> albDueElementi{listaCopia};
+  lasd::BTInOrderMutableIterator<double> iterDueElementi{albDueElementi};
+  
+  Terminated(numeroLocaleTest, numeroLocaleErrori, iterDueElementi, false);
+  GetItrValue<double>(numeroLocaleTest, numeroLocaleErrori, iterDueElementi, true, 3);
+  Terminated(numeroLocaleTest, numeroLocaleErrori, iterDueElementi, false);
+  ++iterDueElementi;
+  Terminated(numeroLocaleTest, numeroLocaleErrori, iterDueElementi, false);
+  GetItrValue<double>(numeroLocaleTest, numeroLocaleErrori, iterDueElementi, true, 4);
+  Terminated(numeroLocaleTest, numeroLocaleErrori, iterDueElementi, false);
+  ++iterDueElementi;
+  GetItrValue<double>(numeroLocaleTest, numeroLocaleErrori, iterDueElementi, false, 5);
+  Terminated(numeroLocaleTest, numeroLocaleErrori, iterDueElementi, true); 
+
+  lista.InsertAtBack(6);
+  albDueElementi = lasd::BST<double>{lista};
+  lasd::BTInOrderMutableIterator<double>iterDueElementi2(albDueElementi);
+  iterDueElementi = iterDueElementi2;
+
+  Terminated(numeroLocaleTest, numeroLocaleErrori, iterDueElementi2, false);
+  GetItrValue<double>(numeroLocaleTest, numeroLocaleErrori, iterDueElementi2, true, 4);
+  Terminated(numeroLocaleTest, numeroLocaleErrori, iterDueElementi2, false);
+  ++iterDueElementi2;
+  Terminated(numeroLocaleTest, numeroLocaleErrori, iterDueElementi2, false);
+  GetItrValue<double>(numeroLocaleTest, numeroLocaleErrori, iterDueElementi2, true, 6);
+  Terminated(numeroLocaleTest, numeroLocaleErrori, iterDueElementi2, false);
+  ++iterDueElementi2;
+  GetItrValue<double>(numeroLocaleTest, numeroLocaleErrori, iterDueElementi2, false, 5);
+  Terminated(numeroLocaleTest, numeroLocaleErrori, iterDueElementi2, true);
+
+  Terminated(numeroLocaleTest, numeroLocaleErrori, iterDueElementi, false);
+  GetItrValue<double>(numeroLocaleTest, numeroLocaleErrori, iterDueElementi, true, 4);
+  Terminated(numeroLocaleTest, numeroLocaleErrori, iterDueElementi, false);
+  ++iterDueElementi;
+  Terminated(numeroLocaleTest, numeroLocaleErrori, iterDueElementi, false);
+  GetItrValue<double>(numeroLocaleTest, numeroLocaleErrori, iterDueElementi, true, 6);
+  Terminated(numeroLocaleTest, numeroLocaleErrori, iterDueElementi, false);
+  ++iterDueElementi;
+  GetItrValue<double>(numeroLocaleTest, numeroLocaleErrori, iterDueElementi, false, 5);
+  Terminated(numeroLocaleTest, numeroLocaleErrori, iterDueElementi, true);
+
+
+  iterDueElementi = iterDueElementi2;
+  Terminated(numeroLocaleTest, numeroLocaleErrori, iterDueElementi, true);
+  iterDueElementi2 = std::move(iterDueElementi);
+  Terminated(numeroLocaleTest, numeroLocaleErrori, iterDueElementi2, true);
+
+  lasd::List<double> list{};
+  list.InsertAtBack(6);
+  list.InsertAtBack(1);
+  list.InsertAtBack(5);
+  list.InsertAtBack(3);
+  list.InsertAtBack(2);
+  list.InsertAtBack(4);
+  list.InsertAtBack(11);
+  list.InsertAtBack(7);
+  list.InsertAtBack(9);
+  list.InsertAtBack(8);
+  list.InsertAtBack(10);
+
+  lasd::BST<double> albero{list};
+  lasd::BTInOrderMutableIterator<double>iteratore(albero);
+  
+
+  Terminated(numeroLocaleTest, numeroLocaleErrori, iteratore, false);
+  GetItrValue<double>(numeroLocaleTest, numeroLocaleErrori, iteratore, true, 1);
+  Terminated(numeroLocaleTest, numeroLocaleErrori, iteratore, false);
+  ++iteratore;
+  Terminated(numeroLocaleTest, numeroLocaleErrori, iteratore, false);
+  GetItrValue<double>(numeroLocaleTest, numeroLocaleErrori, iteratore, true, 2);
+  Terminated(numeroLocaleTest, numeroLocaleErrori, iteratore, false);
+  ++iteratore;
+  GetItrValue<double>(numeroLocaleTest, numeroLocaleErrori, iteratore, false, 11);
+  Terminated(numeroLocaleTest, numeroLocaleErrori, iteratore, false);
+  GetItrValue<double>(numeroLocaleTest, numeroLocaleErrori, iteratore, true, 3);
+  Terminated(numeroLocaleTest, numeroLocaleErrori, iteratore, false);
+  ++iteratore;
+  Terminated(numeroLocaleTest, numeroLocaleErrori, iteratore, false);
+  GetItrValue<double>(numeroLocaleTest, numeroLocaleErrori, iteratore, true, 4);
+  Terminated(numeroLocaleTest, numeroLocaleErrori, iteratore, false);
+  ++iteratore;
+  Terminated(numeroLocaleTest, numeroLocaleErrori, iteratore, false);
+  GetItrValue<double>(numeroLocaleTest, numeroLocaleErrori, iteratore, true, 5);
+  Terminated(numeroLocaleTest, numeroLocaleErrori, iteratore, false);
+  ++iteratore;
+  Terminated(numeroLocaleTest, numeroLocaleErrori, iteratore, false);
+  GetItrValue<double>(numeroLocaleTest, numeroLocaleErrori, iteratore, true, 6);
+  Terminated(numeroLocaleTest, numeroLocaleErrori, iteratore, false);
+  ++iteratore;
+  GetItrValue<double>(numeroLocaleTest, numeroLocaleErrori, iteratore, true, 7);
+  Terminated(numeroLocaleTest, numeroLocaleErrori, iteratore, false);
+  ++iteratore;
+  GetItrValue<double>(numeroLocaleTest, numeroLocaleErrori, iteratore, true, 8);
+  Terminated(numeroLocaleTest, numeroLocaleErrori, iteratore, false);
+  ++iteratore;
+  Terminated(numeroLocaleTest, numeroLocaleErrori, iteratore, false);
+  GetItrValue<double>(numeroLocaleTest, numeroLocaleErrori, iteratore, true, 9);
+  Terminated(numeroLocaleTest, numeroLocaleErrori, iteratore, false);
+  ++iteratore;
+  Terminated(numeroLocaleTest, numeroLocaleErrori, iteratore, false);
+  GetItrValue<double>(numeroLocaleTest, numeroLocaleErrori, iteratore, true, 10);
+  Terminated(numeroLocaleTest, numeroLocaleErrori, iteratore, false);
+  ++iteratore;
+  Terminated(numeroLocaleTest, numeroLocaleErrori, iteratore, false);
+  GetItrValue<double>(numeroLocaleTest, numeroLocaleErrori, iteratore, true, 11);
+  ++iteratore;
+  Terminated(numeroLocaleTest, numeroLocaleErrori, iteratore, true);
+
+  iteratore.Reset();
+  Terminated(numeroLocaleTest, numeroLocaleErrori, iteratore, false);
+  GetItrValue<double>(numeroLocaleTest, numeroLocaleErrori, iteratore, true, 1);
+  Terminated(numeroLocaleTest, numeroLocaleErrori, iteratore, false);
+  ++iteratore;
+  Terminated(numeroLocaleTest, numeroLocaleErrori, iteratore, false);
+  GetItrValue<double>(numeroLocaleTest, numeroLocaleErrori, iteratore, true, 2);
+  Terminated(numeroLocaleTest, numeroLocaleErrori, iteratore, false);
+  ++iteratore;
+  GetItrValue<double>(numeroLocaleTest, numeroLocaleErrori, iteratore, false, 11);
+  Terminated(numeroLocaleTest, numeroLocaleErrori, iteratore, false);
+  GetItrValue<double>(numeroLocaleTest, numeroLocaleErrori, iteratore, true, 3);
+  Terminated(numeroLocaleTest, numeroLocaleErrori, iteratore, false);
+  ++iteratore;
+  Terminated(numeroLocaleTest, numeroLocaleErrori, iteratore, false);
+  GetItrValue<double>(numeroLocaleTest, numeroLocaleErrori, iteratore, true, 4);
+  Terminated(numeroLocaleTest, numeroLocaleErrori, iteratore, false);
+  ++iteratore;
+  Terminated(numeroLocaleTest, numeroLocaleErrori, iteratore, false);
+  GetItrValue<double>(numeroLocaleTest, numeroLocaleErrori, iteratore, true, 5);
+  Terminated(numeroLocaleTest, numeroLocaleErrori, iteratore, false);
+  ++iteratore;
+  Terminated(numeroLocaleTest, numeroLocaleErrori, iteratore, false);
+  GetItrValue<double>(numeroLocaleTest, numeroLocaleErrori, iteratore, true, 6);
+  Terminated(numeroLocaleTest, numeroLocaleErrori, iteratore, false);
+  ++iteratore;
+  GetItrValue<double>(numeroLocaleTest, numeroLocaleErrori, iteratore, true, 7);
+  Terminated(numeroLocaleTest, numeroLocaleErrori, iteratore, false);
+  ++iteratore;
+  GetItrValue<double>(numeroLocaleTest, numeroLocaleErrori, iteratore, true, 8);
+  Terminated(numeroLocaleTest, numeroLocaleErrori, iteratore, false);
+  ++iteratore;
+  Terminated(numeroLocaleTest, numeroLocaleErrori, iteratore, false);
+  GetItrValue<double>(numeroLocaleTest, numeroLocaleErrori, iteratore, true, 9);
+  Terminated(numeroLocaleTest, numeroLocaleErrori, iteratore, false);
+  ++iteratore;
+  Terminated(numeroLocaleTest, numeroLocaleErrori, iteratore, false);
+  GetItrValue<double>(numeroLocaleTest, numeroLocaleErrori, iteratore, true, 10);
+  Terminated(numeroLocaleTest, numeroLocaleErrori, iteratore, false);
+  ++iteratore;
+  Terminated(numeroLocaleTest, numeroLocaleErrori, iteratore, false);
+  GetItrValue<double>(numeroLocaleTest, numeroLocaleErrori, iteratore, true, 11);
+  ++iteratore;
+  Terminated(numeroLocaleTest, numeroLocaleErrori, iteratore, true);
+
+
+  iteratore.Reset();
+  lasd::BTInOrderMutableIterator<double>copia{iteratore};
+  Terminated(numeroLocaleTest, numeroLocaleErrori, copia, false);
+  GetItrValue<double>(numeroLocaleTest, numeroLocaleErrori, copia, true, 1);
+  Terminated(numeroLocaleTest, numeroLocaleErrori, copia, false);
+  ++copia;
+  Terminated(numeroLocaleTest, numeroLocaleErrori, copia, false);
+  GetItrValue<double>(numeroLocaleTest, numeroLocaleErrori, copia, true, 2);
+  Terminated(numeroLocaleTest, numeroLocaleErrori, copia, false);
+  ++copia;
+  GetItrValue<double>(numeroLocaleTest, numeroLocaleErrori, copia, false, 11);
+  Terminated(numeroLocaleTest, numeroLocaleErrori, copia, false);
+  GetItrValue<double>(numeroLocaleTest, numeroLocaleErrori, copia, true, 3);
+  Terminated(numeroLocaleTest, numeroLocaleErrori, copia, false);
+  ++copia;
+  Terminated(numeroLocaleTest, numeroLocaleErrori, copia, false);
+  GetItrValue<double>(numeroLocaleTest, numeroLocaleErrori, copia, true, 4);
+  Terminated(numeroLocaleTest, numeroLocaleErrori, copia, false);
+  ++copia;
+  Terminated(numeroLocaleTest, numeroLocaleErrori, copia, false);
+  GetItrValue<double>(numeroLocaleTest, numeroLocaleErrori, copia, true, 5);
+  Terminated(numeroLocaleTest, numeroLocaleErrori, copia, false);
+  ++copia;
+  Terminated(numeroLocaleTest, numeroLocaleErrori, copia, false);
+  GetItrValue<double>(numeroLocaleTest, numeroLocaleErrori, copia, true, 6);
+  Terminated(numeroLocaleTest, numeroLocaleErrori, copia, false);
+  ++copia;
+  GetItrValue<double>(numeroLocaleTest, numeroLocaleErrori, copia, true, 7);
+  Terminated(numeroLocaleTest, numeroLocaleErrori, copia, false);
+  ++copia;
+  GetItrValue<double>(numeroLocaleTest, numeroLocaleErrori, copia, true, 8);
+  Terminated(numeroLocaleTest, numeroLocaleErrori, copia, false);
+  ++copia;
+  Terminated(numeroLocaleTest, numeroLocaleErrori, copia, false);
+  GetItrValue<double>(numeroLocaleTest, numeroLocaleErrori, copia, true, 9);
+  Terminated(numeroLocaleTest, numeroLocaleErrori, copia, false);
+  ++copia;
+  Terminated(numeroLocaleTest, numeroLocaleErrori, copia, false);
+  GetItrValue<double>(numeroLocaleTest, numeroLocaleErrori, copia, true, 10);
+  Terminated(numeroLocaleTest, numeroLocaleErrori, copia, false);
+  ++copia;
+  Terminated(numeroLocaleTest, numeroLocaleErrori, copia, false);
+  GetItrValue<double>(numeroLocaleTest, numeroLocaleErrori, copia, true, 11);
+  ++copia;
+  Terminated(numeroLocaleTest, numeroLocaleErrori, copia, true);
+
+  copia = std::move(iteratore);
+  Terminated(numeroLocaleTest, numeroLocaleErrori, copia, false);
+  GetItrValue<double>(numeroLocaleTest, numeroLocaleErrori, copia, true, 1);
+  Terminated(numeroLocaleTest, numeroLocaleErrori, copia, false);
+  ++copia;
+  Terminated(numeroLocaleTest, numeroLocaleErrori, copia, false);
+  GetItrValue<double>(numeroLocaleTest, numeroLocaleErrori, copia, true, 2);
+  Terminated(numeroLocaleTest, numeroLocaleErrori, copia, false);
+  ++copia;
+  GetItrValue<double>(numeroLocaleTest, numeroLocaleErrori, copia, false, 11);
+  Terminated(numeroLocaleTest, numeroLocaleErrori, copia, false);
+  GetItrValue<double>(numeroLocaleTest, numeroLocaleErrori, copia, true, 3);
+  Terminated(numeroLocaleTest, numeroLocaleErrori, copia, false);
+  ++copia;
+  Terminated(numeroLocaleTest, numeroLocaleErrori, copia, false);
+  GetItrValue<double>(numeroLocaleTest, numeroLocaleErrori, copia, true, 4);
+  Terminated(numeroLocaleTest, numeroLocaleErrori, copia, false);
+  ++copia;
+  Terminated(numeroLocaleTest, numeroLocaleErrori, copia, false);
+  GetItrValue<double>(numeroLocaleTest, numeroLocaleErrori, copia, true, 5);
+  Terminated(numeroLocaleTest, numeroLocaleErrori, copia, false);
+  ++copia;
+  Terminated(numeroLocaleTest, numeroLocaleErrori, copia, false);
+  GetItrValue<double>(numeroLocaleTest, numeroLocaleErrori, copia, true, 6);
+  Terminated(numeroLocaleTest, numeroLocaleErrori, copia, false);
+  ++copia;
+  GetItrValue<double>(numeroLocaleTest, numeroLocaleErrori, copia, true, 7);
+  Terminated(numeroLocaleTest, numeroLocaleErrori, copia, false);
+  ++copia;
+  GetItrValue<double>(numeroLocaleTest, numeroLocaleErrori, copia, true, 8);
+  Terminated(numeroLocaleTest, numeroLocaleErrori, copia, false);
+  ++copia;
+  Terminated(numeroLocaleTest, numeroLocaleErrori, copia, false);
+  GetItrValue<double>(numeroLocaleTest, numeroLocaleErrori, copia, true, 9);
+  Terminated(numeroLocaleTest, numeroLocaleErrori, copia, false);
+  ++copia;
+  Terminated(numeroLocaleTest, numeroLocaleErrori, copia, false);
+  GetItrValue<double>(numeroLocaleTest, numeroLocaleErrori, copia, true, 10);
+  Terminated(numeroLocaleTest, numeroLocaleErrori, copia, false);
+  ++copia;
+  Terminated(numeroLocaleTest, numeroLocaleErrori, copia, false);
+  GetItrValue<double>(numeroLocaleTest, numeroLocaleErrori, copia, true, 11);
+  ++copia;
+  Terminated(numeroLocaleTest, numeroLocaleErrori, copia, true);
+
+
 
   cout << "Fine InIteratore Test DG : (Errors/Tests: " << numeroLocaleErrori << "/" << numeroLocaleTest << ")" << endl;
   numeroTest += numeroLocaleTest;
@@ -3874,6 +4568,283 @@ void testBreadthIteratoreMio(unsigned int & numeroTest, unsigned int & numeroErr
   unsigned int numeroLocaleTest = 0;
   unsigned int numeroLocaleErrori = 0;
   cout << endl << "Inizio BreadthIteratore Test DG :" << endl;
+
+  lasd::BST<double> alb{};
+  lasd::BTBreadthMutableIterator<double> iter(alb);
+
+  try
+  {
+    numeroLocaleTest++;
+    ++iter;
+    numeroLocaleErrori++;
+  }
+  catch(...){
+    
+  }
+  
+  Terminated(numeroLocaleTest, numeroLocaleErrori, iter, true);
+
+  lasd::List<double> lista{};
+  lista.InsertAtBack(4);
+  
+  lasd::BST<double> albUnoElemento{lista};
+  lasd::BTBreadthMutableIterator<double> iterUnoElemento(albUnoElemento);
+
+
+  Terminated(numeroLocaleTest, numeroLocaleErrori, iterUnoElemento, false);
+  GetItrValue<double>(numeroLocaleTest, numeroLocaleErrori, iterUnoElemento, true, 4);
+  Terminated(numeroLocaleTest, numeroLocaleErrori, iterUnoElemento, false);
+  ++iterUnoElemento;
+  Terminated(numeroLocaleTest, numeroLocaleErrori, iterUnoElemento, true);
+
+  lasd::List<double> listaCopia{lista};
+  listaCopia.InsertAtBack(3);
+  
+  lasd::BST<double> albDueElementi{listaCopia};
+  lasd::BTBreadthMutableIterator<double> iterDueElementi{albDueElementi};
+  
+  Terminated(numeroLocaleTest, numeroLocaleErrori, iterDueElementi, false);
+  GetItrValue<double>(numeroLocaleTest, numeroLocaleErrori, iterDueElementi, true, 4);
+  Terminated(numeroLocaleTest, numeroLocaleErrori, iterDueElementi, false);
+  ++iterDueElementi;
+  Terminated(numeroLocaleTest, numeroLocaleErrori, iterDueElementi, false);
+  GetItrValue<double>(numeroLocaleTest, numeroLocaleErrori, iterDueElementi, true, 3);
+  Terminated(numeroLocaleTest, numeroLocaleErrori, iterDueElementi, false);
+  ++iterDueElementi;
+  GetItrValue<double>(numeroLocaleTest, numeroLocaleErrori, iterDueElementi, false, 5);
+  Terminated(numeroLocaleTest, numeroLocaleErrori, iterDueElementi, true); 
+
+  lista.InsertAtBack(6);
+  albDueElementi = lasd::BST<double>{lista};
+  lasd::BTBreadthMutableIterator<double>iterDueElementi2(albDueElementi);
+  iterDueElementi = iterDueElementi2;
+
+  Terminated(numeroLocaleTest, numeroLocaleErrori, iterDueElementi2, false);
+  GetItrValue<double>(numeroLocaleTest, numeroLocaleErrori, iterDueElementi2, true, 4);
+  Terminated(numeroLocaleTest, numeroLocaleErrori, iterDueElementi2, false);
+  ++iterDueElementi2;
+  Terminated(numeroLocaleTest, numeroLocaleErrori, iterDueElementi2, false);
+  GetItrValue<double>(numeroLocaleTest, numeroLocaleErrori, iterDueElementi2, true, 6);
+  Terminated(numeroLocaleTest, numeroLocaleErrori, iterDueElementi2, false);
+  ++iterDueElementi2;
+  GetItrValue<double>(numeroLocaleTest, numeroLocaleErrori, iterDueElementi2, false, 5);
+  Terminated(numeroLocaleTest, numeroLocaleErrori, iterDueElementi2, true);
+
+  Terminated(numeroLocaleTest, numeroLocaleErrori, iterDueElementi, false);
+  GetItrValue<double>(numeroLocaleTest, numeroLocaleErrori, iterDueElementi, true, 4);
+  Terminated(numeroLocaleTest, numeroLocaleErrori, iterDueElementi, false);
+  ++iterDueElementi;
+  Terminated(numeroLocaleTest, numeroLocaleErrori, iterDueElementi, false);
+  GetItrValue<double>(numeroLocaleTest, numeroLocaleErrori, iterDueElementi, true, 6);
+  Terminated(numeroLocaleTest, numeroLocaleErrori, iterDueElementi, false);
+  ++iterDueElementi;
+  GetItrValue<double>(numeroLocaleTest, numeroLocaleErrori, iterDueElementi, false, 5);
+  Terminated(numeroLocaleTest, numeroLocaleErrori, iterDueElementi, true);
+
+
+  iterDueElementi = iterDueElementi2;
+  Terminated(numeroLocaleTest, numeroLocaleErrori, iterDueElementi, true);
+  iterDueElementi2 = std::move(iterDueElementi);
+  Terminated(numeroLocaleTest, numeroLocaleErrori, iterDueElementi2, true);
+
+  lasd::List<double> list{};
+  list.InsertAtBack(6);
+  list.InsertAtBack(1);
+  list.InsertAtBack(5);
+  list.InsertAtBack(3);
+  list.InsertAtBack(2);
+  list.InsertAtBack(4);
+  list.InsertAtBack(11);
+  list.InsertAtBack(7);
+  list.InsertAtBack(9);
+  list.InsertAtBack(8);
+  list.InsertAtBack(10);
+
+  lasd::BST<double> albero{list};
+  lasd::BTBreadthMutableIterator<double>iteratore(albero);
+  
+
+  Terminated(numeroLocaleTest, numeroLocaleErrori, iteratore, false);
+  GetItrValue<double>(numeroLocaleTest, numeroLocaleErrori, iteratore, true, 6);
+  Terminated(numeroLocaleTest, numeroLocaleErrori, iteratore, false);
+  ++iteratore;
+  Terminated(numeroLocaleTest, numeroLocaleErrori, iteratore, false);
+  GetItrValue<double>(numeroLocaleTest, numeroLocaleErrori, iteratore, true, 1);
+  Terminated(numeroLocaleTest, numeroLocaleErrori, iteratore, false);
+  ++iteratore;
+  GetItrValue<double>(numeroLocaleTest, numeroLocaleErrori, iteratore, false, 3);
+  Terminated(numeroLocaleTest, numeroLocaleErrori, iteratore, false);
+  GetItrValue<double>(numeroLocaleTest, numeroLocaleErrori, iteratore, true, 11);
+  Terminated(numeroLocaleTest, numeroLocaleErrori, iteratore, false);
+  ++iteratore;
+  Terminated(numeroLocaleTest, numeroLocaleErrori, iteratore, false);
+  GetItrValue<double>(numeroLocaleTest, numeroLocaleErrori, iteratore, true, 5);
+  Terminated(numeroLocaleTest, numeroLocaleErrori, iteratore, false);
+  ++iteratore;
+  Terminated(numeroLocaleTest, numeroLocaleErrori, iteratore, false);
+  GetItrValue<double>(numeroLocaleTest, numeroLocaleErrori, iteratore, true, 7);
+  Terminated(numeroLocaleTest, numeroLocaleErrori, iteratore, false);
+  ++iteratore;
+  Terminated(numeroLocaleTest, numeroLocaleErrori, iteratore, false);
+  GetItrValue<double>(numeroLocaleTest, numeroLocaleErrori, iteratore, true, 3);
+  Terminated(numeroLocaleTest, numeroLocaleErrori, iteratore, false);
+  ++iteratore;
+  GetItrValue<double>(numeroLocaleTest, numeroLocaleErrori, iteratore, true, 9);
+  Terminated(numeroLocaleTest, numeroLocaleErrori, iteratore, false);
+  ++iteratore;
+  GetItrValue<double>(numeroLocaleTest, numeroLocaleErrori, iteratore, true, 2);
+  Terminated(numeroLocaleTest, numeroLocaleErrori, iteratore, false);
+  ++iteratore;
+  Terminated(numeroLocaleTest, numeroLocaleErrori, iteratore, false);
+  GetItrValue<double>(numeroLocaleTest, numeroLocaleErrori, iteratore, true, 4);
+  Terminated(numeroLocaleTest, numeroLocaleErrori, iteratore, false);
+  ++iteratore;
+  Terminated(numeroLocaleTest, numeroLocaleErrori, iteratore, false);
+  GetItrValue<double>(numeroLocaleTest, numeroLocaleErrori, iteratore, true, 8);
+  Terminated(numeroLocaleTest, numeroLocaleErrori, iteratore, false);
+  ++iteratore;
+  Terminated(numeroLocaleTest, numeroLocaleErrori, iteratore, false);
+  GetItrValue<double>(numeroLocaleTest, numeroLocaleErrori, iteratore, true, 10);
+  ++iteratore;
+  Terminated(numeroLocaleTest, numeroLocaleErrori, iteratore, true);
+
+  iteratore.Reset();
+  Terminated(numeroLocaleTest, numeroLocaleErrori, iteratore, false);
+  GetItrValue<double>(numeroLocaleTest, numeroLocaleErrori, iteratore, true, 6);
+  Terminated(numeroLocaleTest, numeroLocaleErrori, iteratore, false);
+  ++iteratore;
+  Terminated(numeroLocaleTest, numeroLocaleErrori, iteratore, false);
+  GetItrValue<double>(numeroLocaleTest, numeroLocaleErrori, iteratore, true, 1);
+  Terminated(numeroLocaleTest, numeroLocaleErrori, iteratore, false);
+  ++iteratore;
+  GetItrValue<double>(numeroLocaleTest, numeroLocaleErrori, iteratore, false, 3);
+  Terminated(numeroLocaleTest, numeroLocaleErrori, iteratore, false);
+  GetItrValue<double>(numeroLocaleTest, numeroLocaleErrori, iteratore, true, 11);
+  Terminated(numeroLocaleTest, numeroLocaleErrori, iteratore, false);
+  ++iteratore;
+  Terminated(numeroLocaleTest, numeroLocaleErrori, iteratore, false);
+  GetItrValue<double>(numeroLocaleTest, numeroLocaleErrori, iteratore, true, 5);
+  Terminated(numeroLocaleTest, numeroLocaleErrori, iteratore, false);
+  ++iteratore;
+  Terminated(numeroLocaleTest, numeroLocaleErrori, iteratore, false);
+  GetItrValue<double>(numeroLocaleTest, numeroLocaleErrori, iteratore, true, 7);
+  Terminated(numeroLocaleTest, numeroLocaleErrori, iteratore, false);
+  ++iteratore;
+  Terminated(numeroLocaleTest, numeroLocaleErrori, iteratore, false);
+  GetItrValue<double>(numeroLocaleTest, numeroLocaleErrori, iteratore, true, 3);
+  Terminated(numeroLocaleTest, numeroLocaleErrori, iteratore, false);
+  ++iteratore;
+  GetItrValue<double>(numeroLocaleTest, numeroLocaleErrori, iteratore, true, 9);
+  Terminated(numeroLocaleTest, numeroLocaleErrori, iteratore, false);
+  ++iteratore;
+  GetItrValue<double>(numeroLocaleTest, numeroLocaleErrori, iteratore, true, 2);
+  Terminated(numeroLocaleTest, numeroLocaleErrori, iteratore, false);
+  ++iteratore;
+  Terminated(numeroLocaleTest, numeroLocaleErrori, iteratore, false);
+  GetItrValue<double>(numeroLocaleTest, numeroLocaleErrori, iteratore, true, 4);
+  Terminated(numeroLocaleTest, numeroLocaleErrori, iteratore, false);
+  ++iteratore;
+  Terminated(numeroLocaleTest, numeroLocaleErrori, iteratore, false);
+  GetItrValue<double>(numeroLocaleTest, numeroLocaleErrori, iteratore, true, 8);
+  Terminated(numeroLocaleTest, numeroLocaleErrori, iteratore, false);
+  ++iteratore;
+  Terminated(numeroLocaleTest, numeroLocaleErrori, iteratore, false);
+  GetItrValue<double>(numeroLocaleTest, numeroLocaleErrori, iteratore, true, 10);
+  ++iteratore;
+  Terminated(numeroLocaleTest, numeroLocaleErrori, iteratore, true);
+
+
+  iteratore.Reset();
+  lasd::BTBreadthMutableIterator<double>copia{iteratore};
+  Terminated(numeroLocaleTest, numeroLocaleErrori, copia, false);
+  GetItrValue<double>(numeroLocaleTest, numeroLocaleErrori, copia, true, 6);
+  Terminated(numeroLocaleTest, numeroLocaleErrori, copia, false);
+  ++copia;
+  Terminated(numeroLocaleTest, numeroLocaleErrori, copia, false);
+  GetItrValue<double>(numeroLocaleTest, numeroLocaleErrori, copia, true, 1);
+  Terminated(numeroLocaleTest, numeroLocaleErrori, copia, false);
+  ++copia;
+  GetItrValue<double>(numeroLocaleTest, numeroLocaleErrori, copia, false, 3);
+  Terminated(numeroLocaleTest, numeroLocaleErrori, copia, false);
+  GetItrValue<double>(numeroLocaleTest, numeroLocaleErrori, copia, true, 11);
+  Terminated(numeroLocaleTest, numeroLocaleErrori, copia, false);
+  ++copia;
+  Terminated(numeroLocaleTest, numeroLocaleErrori, copia, false);
+  GetItrValue<double>(numeroLocaleTest, numeroLocaleErrori, copia, true, 5);
+  Terminated(numeroLocaleTest, numeroLocaleErrori, copia, false);
+  ++copia;
+  Terminated(numeroLocaleTest, numeroLocaleErrori, copia, false);
+  GetItrValue<double>(numeroLocaleTest, numeroLocaleErrori, copia, true, 7);
+  Terminated(numeroLocaleTest, numeroLocaleErrori, copia, false);
+  ++copia;
+  Terminated(numeroLocaleTest, numeroLocaleErrori, copia, false);
+  GetItrValue<double>(numeroLocaleTest, numeroLocaleErrori, copia, true, 3);
+  Terminated(numeroLocaleTest, numeroLocaleErrori, copia, false);
+  ++copia;
+  GetItrValue<double>(numeroLocaleTest, numeroLocaleErrori, copia, true, 9);
+  Terminated(numeroLocaleTest, numeroLocaleErrori, copia, false);
+  ++copia;
+  GetItrValue<double>(numeroLocaleTest, numeroLocaleErrori, copia, true, 2);
+  Terminated(numeroLocaleTest, numeroLocaleErrori, copia, false);
+  ++copia;
+  Terminated(numeroLocaleTest, numeroLocaleErrori, copia, false);
+  GetItrValue<double>(numeroLocaleTest, numeroLocaleErrori, copia, true, 4);
+  Terminated(numeroLocaleTest, numeroLocaleErrori, copia, false);
+  ++copia;
+  Terminated(numeroLocaleTest, numeroLocaleErrori, copia, false);
+  GetItrValue<double>(numeroLocaleTest, numeroLocaleErrori, copia, true, 8);
+  Terminated(numeroLocaleTest, numeroLocaleErrori, copia, false);
+  ++copia;
+  Terminated(numeroLocaleTest, numeroLocaleErrori, copia, false);
+  GetItrValue<double>(numeroLocaleTest, numeroLocaleErrori, copia, true, 10);
+  ++copia;
+  Terminated(numeroLocaleTest, numeroLocaleErrori, copia, true);
+
+  copia = std::move(iteratore);
+  Terminated(numeroLocaleTest, numeroLocaleErrori, copia, false);
+  GetItrValue<double>(numeroLocaleTest, numeroLocaleErrori, copia, true, 6);
+  Terminated(numeroLocaleTest, numeroLocaleErrori, copia, false);
+  ++copia;
+  Terminated(numeroLocaleTest, numeroLocaleErrori, copia, false);
+  GetItrValue<double>(numeroLocaleTest, numeroLocaleErrori, copia, true, 1);
+  Terminated(numeroLocaleTest, numeroLocaleErrori, copia, false);
+  ++copia;
+  GetItrValue<double>(numeroLocaleTest, numeroLocaleErrori, copia, false, 3);
+  Terminated(numeroLocaleTest, numeroLocaleErrori, copia, false);
+  GetItrValue<double>(numeroLocaleTest, numeroLocaleErrori, copia, true, 11);
+  Terminated(numeroLocaleTest, numeroLocaleErrori, copia, false);
+  ++copia;
+  Terminated(numeroLocaleTest, numeroLocaleErrori, copia, false);
+  GetItrValue<double>(numeroLocaleTest, numeroLocaleErrori, copia, true, 5);
+  Terminated(numeroLocaleTest, numeroLocaleErrori, copia, false);
+  ++copia;
+  Terminated(numeroLocaleTest, numeroLocaleErrori, copia, false);
+  GetItrValue<double>(numeroLocaleTest, numeroLocaleErrori, copia, true, 7);
+  Terminated(numeroLocaleTest, numeroLocaleErrori, copia, false);
+  ++copia;
+  Terminated(numeroLocaleTest, numeroLocaleErrori, copia, false);
+  GetItrValue<double>(numeroLocaleTest, numeroLocaleErrori, copia, true, 3);
+  Terminated(numeroLocaleTest, numeroLocaleErrori, copia, false);
+  ++copia;
+  GetItrValue<double>(numeroLocaleTest, numeroLocaleErrori, copia, true, 9);
+  Terminated(numeroLocaleTest, numeroLocaleErrori, copia, false);
+  ++copia;
+  GetItrValue<double>(numeroLocaleTest, numeroLocaleErrori, copia, true, 2);
+  Terminated(numeroLocaleTest, numeroLocaleErrori, copia, false);
+  ++copia;
+  Terminated(numeroLocaleTest, numeroLocaleErrori, copia, false);
+  GetItrValue<double>(numeroLocaleTest, numeroLocaleErrori, copia, true, 4);
+  Terminated(numeroLocaleTest, numeroLocaleErrori, copia, false);
+  ++copia;
+  Terminated(numeroLocaleTest, numeroLocaleErrori, copia, false);
+  GetItrValue<double>(numeroLocaleTest, numeroLocaleErrori, copia, true, 8);
+  Terminated(numeroLocaleTest, numeroLocaleErrori, copia, false);
+  ++copia;
+  Terminated(numeroLocaleTest, numeroLocaleErrori, copia, false);
+  GetItrValue<double>(numeroLocaleTest, numeroLocaleErrori, copia, true, 10);
+  ++copia;
+  Terminated(numeroLocaleTest, numeroLocaleErrori, copia, true);
+
 
   cout << "Fine BreadthIteratore Test DG : (Errors/Tests: " << numeroLocaleErrori << "/" << numeroLocaleTest << ")" << endl;
   numeroTest += numeroLocaleTest;

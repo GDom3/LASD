@@ -43,15 +43,6 @@ public:
 
   protected:
 
-    // Comparison operators
-    
-    // type operator==(argument) specifiers; 
-    // Comparison of abstract types is possible, but is not visible.
-    virtual inline bool operator== (const Node& ) const noexcept;
-    // type operator!=(argument) specifiers; 
-    // Comparison of abstract types is possible, but is not visible.
-    virtual inline bool operator!= (const Node& ) const noexcept;
-
   public:
 
     // friend class BinaryTree<Data>;
@@ -71,6 +62,15 @@ public:
     // Move assignment
     // type operator=(argument); // Move assignment of abstract types is not possible.
     Node& operator=(Node&& ) noexcept = delete;
+
+    // Comparison operators
+    
+    // type operator==(argument) specifiers; 
+    // Comparison of abstract types is possible, but is not visible.
+    virtual inline bool operator== (const Node& ) const noexcept;
+    // type operator!=(argument) specifiers; 
+    // Comparison of abstract types is possible, but is not visible.
+    virtual inline bool operator!= (const Node& ) const noexcept;
 
     /* ********************************************************************** */
 
@@ -327,8 +327,9 @@ private:
 
 protected:
 
+  const typename BinaryTree<Data>::Node * depositoRadice;
   StackLst <const typename BinaryTree<Data>::Node *> stackT{};
-  const typename BinaryTree<Data>::Node * depositoRadice = nullptr;
+  
 
 
 public:
@@ -394,6 +395,8 @@ public:
 
   // type Reset() specifiers; // (should not throw exceptions)
   void Reset() noexcept override;
+
+  
 
 };
 
@@ -474,8 +477,9 @@ private:
 protected:
 
   // ...
+  const typename BinaryTree<Data>::Node * depositoRadice;
   StackLst <const typename BinaryTree<Data>::Node *> stackT{};
-  const typename BinaryTree<Data>::Node * depositoRadice = nullptr;
+  
 
 public:
 
@@ -619,8 +623,9 @@ private:
 protected:
 
   // ...
+  const typename BinaryTree<Data>::Node * depositoRadice;
   StackLst <const typename BinaryTree<Data>::Node *> stackT{};
-  const typename BinaryTree<Data>::Node * depositoRadice = nullptr;
+  
 
 public:
 
@@ -765,8 +770,9 @@ private:
 protected:
 
   // ...
+  const typename BinaryTree<Data>::Node * depositoRadice;
   QueueLst <const typename BinaryTree<Data>::Node *> codaT{};
-  const typename BinaryTree<Data>::Node * depositoRadice = nullptr;
+  
 
 public:
 

@@ -367,19 +367,20 @@ inline Data& BTPreOrderMutableIterator<Data>::operator*(){
 
 
 template <typename Data>
-void BTPostOrderIterator<Data>::visitaPost(const typename BinaryTree<Data>::Node * nodo) noexcept{
-    while(nodo != nullptr){
-        if (nodo.HasRightChild())
-            stackT.Push(nodo.RightChild());
-        if (nodo.HasLeftChild())
-            stackT.Push(nodo.LeftChild());
+void BTPostOrderIterator<Data>::visitaPost(const typename BinaryTree<Data>::Node * tmp) noexcept{
+    while(tmp != nullptr){
+        if (tmp->HasRightChild())
+            stackT.Push(&(tmp->RightChild()));    
+        if (tmp->HasLeftChild())
+            stackT.Push(&(tmp->LeftChild()));
+      
 
-        if (nodo.HasLeftChild())
-            nodo = nodo.LeftChild();
-        else if (nodo.HasRightChild())
-            nodo = nodo.RightChild();
+        if (tmp->HasLeftChild())
+            tmp = &tmp->LeftChild();
+        else if (tmp->HasRightChild())
+            tmp = &tmp->RightChild();
         else   
-            nodo = nullptr;
+            tmp = nullptr;
     }
 }
 
@@ -387,8 +388,7 @@ template <typename Data>
 BTPostOrderIterator<Data>::BTPostOrderIterator(const BinaryTree<Data>& alb){
     if(!alb.Empty()){
         depositoRadice = &alb.Root();
-
-        const typename BinaryTree<Data>::Node * temp = depositoRadice;
+    
         stackT.Push(depositoRadice);
         visitaPost(depositoRadice);
 
@@ -449,14 +449,30 @@ inline bool BTPostOrderIterator<Data>::Terminated() const noexcept {
 
 template <typename Data>
 BTPostOrderIterator<Data>& BTPostOrderIterator<Data>::operator++() {
-
+    if (Terminated())
+        throw std::out_of_range("Finito !!");
+    
     const typename BinaryTree<Data>::Node * testa = stackT.TopNPop();
-    const typename BinaryTree<Data>::Node * prossimo = stackT.Top();
+    
+    if(!stackT.Empty()){
+        const typename BinaryTree<Data>::Node * prossimo = stackT.Top();
+    
 
-    if( (prossimo.HasLeftChild() && prossimo.LeftChild() != testa) && (prossimo.HasRightChild() && prossimo.RightChild() != testa))
-        visitaPost(prossimo);
+        if(
+            (!prossimo->HasLeftChild() || (prossimo->HasLeftChild() && prossimo->LeftChild() != *testa)) 
+                && 
+            (!prossimo->HasRightChild() || (prossimo->HasRightChild() && prossimo->RightChild() != *testa))
+        )
+        {
+            visitaPost(prossimo);
+        }
+            
+            
+        
+        
+    }
 
-
+    return *this;
 }
 
 template <typename Data>
@@ -542,14 +558,14 @@ inline BTInOrderIterator<Data>::BTInOrderIterator(const BinaryTree<Data>& alb){
 template <typename Data>
 void BTInOrderIterator<Data>::visitaIn(const typename BinaryTree<Data>::Node * node) noexcept{
     while(node != nullptr){
-        if(node->HasLeftChild())
+        if(node->HasLeftChild()){
             stackT.Push(&node->LeftChild());
-        
-        try {
             node = &node->LeftChild();
-        }catch (...){
+        }else{
             node = nullptr;
         }
+            
+        
     }
     
 }
@@ -607,21 +623,16 @@ inline bool BTInOrderIterator<Data>::Terminated() const noexcept {
 
 template <typename Data>
 inline BTInOrderIterator<Data>& BTInOrderIterator<Data>::operator++(){
-    stackT.TopNPop();
-    
-    if(!stackT.Empty()){
-        const typename BinaryTree<Data>::Node * prossima = stackT.TopNPop();
+    if (Terminated())
+        throw std::out_of_range("Finito !!");
 
-        if(prossima->HasRightChild()){
-            stackT.Push(&prossima->RightChild());
-            visitaIn(&prossima->RightChild());
-        }
-            
-    
-        stackT.Push(prossima);
+    const typename BinaryTree<Data>::Node * prossima = stackT.TopNPop();
+
+    if(prossima->HasRightChild()){
+        stackT.Push(&prossima->RightChild());
+        visitaIn(&prossima->RightChild());
     }
-    
-    
+            
 
     return *this;
 }
@@ -689,7 +700,7 @@ inline bool BTInOrderMutableIterator<Data>::operator!=(const BTInOrderMutableIte
 
 template <typename Data>
 inline Data& BTInOrderMutableIterator<Data>::operator*(){
-    return const_cast<Data&>(BTPostOrderIterator<Data>::operator*());
+    return const_cast<Data&>(BTInOrderIterator<Data>::operator*());
 }
 
 
@@ -731,7 +742,7 @@ BTBreadthIterator<Data>::BTBreadthIterator(BTBreadthIterator<Data>&& iter) noexc
 
 template <typename Data>
 BTBreadthIterator<Data>& BTBreadthIterator<Data>::operator=(const BTBreadthIterator<Data>& iter){
-    BTInOrderIterator<Data> copia{iter};
+    BTBreadthIterator<Data> copia{iter};
     std::swap(*this,copia);
     return *this;
 }
@@ -758,7 +769,7 @@ inline const Data& BTBreadthIterator<Data>::operator*() const {
     if (Terminated())
         throw std::out_of_range("Finito !!");
 
-    return codaT.Top()->Element();
+    return codaT.Head()->Element();
 }
 
 template <typename Data>
@@ -771,9 +782,9 @@ inline BTBreadthIterator<Data>& BTBreadthIterator<Data>::operator++(){
   
     const typename BinaryTree<Data>::Node * nodo = codaT.HeadNDequeue();
     if(nodo->HasLeftChild())
-        codaT.Enqueue(nodo->LeftChild());
+        codaT.Enqueue(&nodo->LeftChild());
     if(nodo->HasRightChild())
-        codaT.Enqueue(nodo->RightChild());
+        codaT.Enqueue(&nodo->RightChild());
 
 
     return *this;
