@@ -53,8 +53,7 @@ void stestBinaryTreeInt(uint & testnum, uint & testerr) {
     SetAt(loctestnum, loctesterr, vec, true, 1, 1);
     SetAt(loctestnum, loctesterr, vec, true, 2, 2);
     SetAt(loctestnum, loctesterr, vec, true, 3, 3);
-     
-    
+
     lasd::BinaryTreeVec<int> btvec(vec);
     cout << endl << "Begin of BinaryTreeVec<int> Test:" << endl;
     stestBinaryTreeInt(btvec, loctestnum, loctesterr);
@@ -63,8 +62,6 @@ void stestBinaryTreeInt(uint & testnum, uint & testerr) {
     stestBinaryTreeInt(btlnk, loctestnum, loctesterr);
     cout << "\n";
 
-
- 
     lasd::BinaryTreeVec<int> copbtvec(btvec);
     EqualBT(loctestnum, loctesterr, copbtvec, btvec);
     btvec.Clear();
@@ -87,7 +84,6 @@ void stestBinaryTreeInt(uint & testnum, uint & testerr) {
   testnum += loctestnum;
   testerr += loctesterr;
 }
-
 
 void stestBinaryTreeFloat(lasd::MutableBinaryTree<double> & bt, uint & testnum, uint & testerr) {
   uint loctestnum = 0, loctesterr = 0;
@@ -142,7 +138,6 @@ void stestBinaryTreeFloat(lasd::MutableBinaryTree<double> & bt, uint & testnum, 
     Terminated(loctestnum, loctesterr, itr3, false);
     ++itr3;
     GetItrValue(loctestnum, loctesterr, itr3, true, 0.3);
-    
     itr3.Reset();
     lasd::BTInOrderIterator<double> newitr3(move(itr3));
     itr3.Reset();
@@ -173,7 +168,6 @@ void stestBinaryTreeFloat(lasd::MutableBinaryTree<double> & bt, uint & testnum, 
   testnum += loctestnum;
   testerr += loctesterr;
 }
-
 
 void stestBinaryTreeFloat(uint & testnum, uint & testerr) {
   uint loctestnum = 0, loctesterr = 0;
