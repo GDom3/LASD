@@ -226,14 +226,14 @@ inline bool BinaryTreeVec<Data>::operator!=(const BinaryTreeVec& alb) const noex
 template <typename Data> 
 const BinaryTreeVec<Data>::Node& BinaryTreeVec<Data>::Root() const {
     if(size == 0)
-        throw std::out_of_range("Albero Vuoto!");
+        throw std::length_error("Albero Vuoto!");
     return *vettore[0];
 }
  
 template <typename Data> 
 BinaryTreeVec<Data>::MutableNode& BinaryTreeVec<Data>::Root() {
     if(size == 0)
-        throw std::out_of_range("Albero Vuoto!");
+        throw std::length_error("Albero Vuoto!");
     return *vettore[0];
 }
   

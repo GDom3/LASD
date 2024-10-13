@@ -10,10 +10,10 @@ namespace lasd {
 
 template <> class Hashable<int>{
     public :
-        unsigned long operator()(const int& dato ) const noexcept{
+        double operator()(const int& dato ) const noexcept{
             const double costanteFibonacci = (std::sqrt(5)-1)/2;
             
-            unsigned long parteDecimale = (costanteFibonacci * dato * dato) - std::floor(costanteFibonacci * dato * dato);
+            double parteDecimale = (costanteFibonacci * dato * (dato*3)/2) - std::floor(costanteFibonacci * dato * (dato*3)/2);
             
             return parteDecimale;
         }
@@ -23,10 +23,10 @@ template <> class Hashable<int>{
 template <> class Hashable<double>{
     public :
        
-        unsigned long operator()(const double& dato ) const noexcept{
+        double operator()(const double& dato ) const noexcept{
             const double costanteFibonacci = (std::sqrt(5)-1)/2;
 
-            unsigned long parteDecimale = (costanteFibonacci * dato) - std::floor(costanteFibonacci * dato);
+            double parteDecimale = (costanteFibonacci * dato) - std::floor(costanteFibonacci * dato);
           
             return parteDecimale; 
         }
@@ -35,12 +35,12 @@ template <> class Hashable<double>{
 
 template <> class Hashable<std::string>{
     public :
-        unsigned long operator()(const std::string& dato ) const noexcept{
+        double operator()(const std::string& dato ) const noexcept{
             
             const double costanteFibonacci = (std::sqrt(5)-1)/2;
             
             unsigned long elem = stringToInt(dato);
-            unsigned long parteDecimale = (costanteFibonacci * elem) - std::floor(costanteFibonacci * elem);
+            double parteDecimale = (costanteFibonacci * elem) - std::floor(costanteFibonacci * elem);
 
             return parteDecimale;
             

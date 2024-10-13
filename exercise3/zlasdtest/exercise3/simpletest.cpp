@@ -79,6 +79,7 @@ void stestHashTableInt(lasd::HashTable<int> & ht, const lasd::LinearContainer<in
     Empty(loctestnum, loctesterr, ht, true);
     Size(loctestnum, loctesterr, ht, true, 0);
     InsertC(loctestnum, loctesterr, ht, con);
+    
     Empty(loctestnum, loctesterr, ht, false);
     Size(loctestnum, loctesterr, ht, true, 125);
     CountHT(loctestnum, loctesterr, ht, vec, 2);
@@ -104,12 +105,12 @@ void stestHashTableInt(uint & testnum, uint & testerr) {
     lasd::HashTableClsAdr<int> htclsadr(83, vec);
     cout << endl << "Begin of HashTableClsAdr<int> Test:" << endl;
     stestHashTableInt(htclsadr, vec, loctestnum, loctesterr);
-    /*
+    
     lasd::HashTableOpnAdr<int> htopnadr(83, vec);
     cout << endl << "Begin of HashTableOpnAdr<int> Test:" << endl;
     stestHashTableInt(htopnadr, vec, loctestnum, loctesterr);
     cout << "\n";
-    */
+    
 
     lasd::HashTableClsAdr<int> cophtclsadr(htclsadr);
     EqualHT(loctestnum, loctesterr, cophtclsadr, htclsadr);
@@ -120,7 +121,7 @@ void stestHashTableInt(uint & testnum, uint & testerr) {
     cophtclsadr = htclsadr;
     EqualHT(loctestnum, loctesterr, cophtclsadr, htclsadr);
 
-    /*
+    
     lasd::HashTableOpnAdr<int> cophtopnadr(htopnadr);
     EqualHT(loctestnum, loctesterr, cophtopnadr, htopnadr);
     htopnadr.Clear();
@@ -129,7 +130,7 @@ void stestHashTableInt(uint & testnum, uint & testerr) {
     NonEqualHT(loctestnum, loctesterr, cophtopnadr, htopnadr);
     cophtopnadr = htopnadr;
     EqualHT(loctestnum, loctesterr, cophtopnadr, htopnadr);
-    */
+  
   }
   catch (...) {
     loctestnum++; loctesterr++;
@@ -201,12 +202,12 @@ void stestHashTableFloat(uint & testnum, uint & testerr) {
     lasd::HashTableClsAdr<double> htclsadr(83, lst);
     cout << endl << "Begin of HashTableClsAdr<double> Test:" << endl;
     stestHashTableFloat(htclsadr, lst, loctestnum, loctesterr);
-    /*
+    
     lasd::HashTableOpnAdr<double> htopnadr(83, lst);
     cout << endl << "Begin of HashTableOpnAdr<double> Test:" << endl;
     stestHashTableFloat(htopnadr, lst, loctestnum, loctesterr);
     cout << "\n";
-    */
+  
 
 
     lasd::HashTableClsAdr<double> cophtclsadr(htclsadr);
@@ -218,7 +219,7 @@ void stestHashTableFloat(uint & testnum, uint & testerr) {
     cophtclsadr = htclsadr;
     EqualHT(loctestnum, loctesterr, cophtclsadr, htclsadr);
 
-    /*
+    
     lasd::HashTableOpnAdr<double> cophtopnadr(htopnadr);
     EqualHT(loctestnum, loctesterr, cophtopnadr, htopnadr);
     htopnadr.Clear();
@@ -227,7 +228,7 @@ void stestHashTableFloat(uint & testnum, uint & testerr) {
     NonEqualHT(loctestnum, loctesterr, cophtopnadr, htopnadr);
     cophtopnadr = htopnadr;
     EqualHT(loctestnum, loctesterr, cophtopnadr, htopnadr);
-    */
+    
   }
   catch (...) {
     loctestnum++; loctesterr++;
@@ -305,12 +306,12 @@ void stestHashTableString(uint & testnum, uint & testerr) {
     lasd::HashTableClsAdr<string> htclsadr(101, vec);
     cout << endl << "Begin of HashTableClsAdr<string> Test:" << endl;
     stestHashTableString(htclsadr, vec, loctestnum, loctesterr);
-    /*
+  
     lasd::HashTableOpnAdr<string> htopnadr(101, vec);
     cout << endl << "Begin of HashTableOpnAdr<string> Test:" << endl;
     stestHashTableString(htopnadr, vec, loctestnum, loctesterr);
     cout << "\n";
-    */
+  
 
     lasd::HashTableClsAdr<string> cophtclsadr(htclsadr);
     EqualHT(loctestnum, loctesterr, cophtclsadr, htclsadr);
@@ -320,7 +321,7 @@ void stestHashTableString(uint & testnum, uint & testerr) {
     NonEqualHT(loctestnum, loctesterr, cophtclsadr, htclsadr);
     cophtclsadr = htclsadr;
     EqualHT(loctestnum, loctesterr, cophtclsadr, htclsadr);
-    /*
+    
     lasd::HashTableOpnAdr<string> cophtopnadr(htopnadr);
     EqualHT(loctestnum, loctesterr, cophtopnadr, htopnadr);
     htopnadr.Clear();
@@ -329,7 +330,7 @@ void stestHashTableString(uint & testnum, uint & testerr) {
     NonEqualHT(loctestnum, loctesterr, cophtopnadr, htopnadr);
     cophtopnadr = htopnadr;
     EqualHT(loctestnum, loctesterr, cophtopnadr, htopnadr);
-    */
+    
   }
   catch (...) {
     loctestnum++; loctesterr++;

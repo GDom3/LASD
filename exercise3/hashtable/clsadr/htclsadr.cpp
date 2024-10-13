@@ -149,7 +149,7 @@ template <typename Data>
 bool HashTableClsAdr<Data>::Insert(const Data& elem) {
     if(Exists(elem))
         return false;
-
+    
     unsigned long chiave = HashKey(elem);
 
     if(hashtable[chiave] == nullptr)

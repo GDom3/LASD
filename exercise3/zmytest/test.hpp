@@ -46,6 +46,15 @@ void testPostIteratoreMio(unsigned int &, unsigned int &);
 void testInIteratoreMio(unsigned int &, unsigned int &);
 void testBreadthIteratoreMio(unsigned int &, unsigned int &);
 
+void testHashTableMio(unsigned int &, unsigned int &);
+template <typename Hash>
+void testHashTableIntMio(unsigned int &, unsigned int &);
+template <typename Hash>
+void testHashTableDoubleMio(unsigned int &, unsigned int &);
+template <typename Hash>
+void testHashTableStringMio(unsigned int &, unsigned int &);
+
+
 
 
 /* ************************************************************************** */

@@ -14,6 +14,7 @@
 #include "../zlasdtest/binarytree/binarytree.hpp"
 #include "../zlasdtest/bst/bst.hpp"
 #include "../zlasdtest/iterator/iterator.hpp"
+#include "../zlasdtest/hashtable/hashtable.hpp"
 
 
 #include "../list/list.hpp"
@@ -26,6 +27,8 @@
 #include "../binarytree/vec/binarytreevec.hpp"
 #include "../bst/bst.hpp"
 #include "../iterator/iterator.hpp"
+#include "../hashtable/clsadr/htclsadr.hpp"
+#include "../hashtable/opnadr/htopnadr.hpp"
 
 #include "test.hpp"
 
@@ -67,6 +70,10 @@ void mytest() {
 
   numeroLocaleTest = 0; numeroLocaleErrori = 0;
   testIteratoreMio(numeroLocaleTest, numeroLocaleErrori);
+  stestnum += numeroLocaleTest; stesterr += numeroLocaleErrori;
+  
+  numeroLocaleTest = 0; numeroLocaleErrori = 0;
+  testHashTableMio(numeroLocaleTest, numeroLocaleErrori);
   stestnum += numeroLocaleTest; stesterr += numeroLocaleErrori;
   
   cout << endl << "Risultati Test (Errors/Tests: " << stesterr << "/" << stestnum << ")\n\n";
@@ -4851,5 +4858,82 @@ void testBreadthIteratoreMio(unsigned int & numeroTest, unsigned int & numeroErr
   numeroErrori += numeroLocaleErrori;
 
 
+}
+
+void testHashTableMio(unsigned int & numeroTest, unsigned int & numeroErrori){
+  
+  cout << endl << "Inizio HashTableClsAdr Test DG :" << endl;
+  testHashTableIntMio<lasd::HashTableClsAdr<int>>(numeroTest,numeroErrori);
+  //testHashTableDoubleMio<lasd::HashTableClsAdr<double>>(numeroTest,numeroErrori);
+  //testHashTableStringMio<lasd::HashTableClsAdr<string>>(numeroTest,numeroErrori);
+  cout << endl << "Fine HashTableClsAdr Test DG !" << endl;
+
+  cout << endl << "Inizio HashTableOpnAdr Test DG :" << endl;
+  testHashTableIntMio<lasd::HashTableOpnAdr<int>>(numeroTest,numeroErrori);
+  //testHashTableDoubleMio<lasd::HashTableOpnAdr<double>>(numeroTest,numeroErrori);
+  //testHashTableStringMio<lasd::HashTableOpnAdr<string>>(numeroTest,numeroErrori);
+  cout << endl << "Fine HashTableOpnAdr Test DG !" << endl;
+
+}
+
+template <typename Hash>
+void testHashTableIntMio(unsigned int & numeroTest, unsigned int & numeroErrori){
+  unsigned int numeroLocaleTest = 0;
+  unsigned int numeroLocaleErrori = 0;
+  cout << endl << "Inizio HashTable<Int> Test DG :" << endl;
+
+  
+  lasd::List<int> list{};
+  for(int i = 0; i < 100; i++){
+    list.InsertAtBack(i);
+  }
+
+  
+  Hash primaHash{list};
+  
+  
+  Size(numeroLocaleTest, numeroLocaleErrori, primaHash, true, 100);
+
+  for(int i = 0; i < 100; i++){
+    Exists(numeroLocaleTest, numeroLocaleErrori, primaHash, true, i);
+  }
+  
+  for(int i = 1, j = 1; i < 100; i+=2, j++){
+    Remove(numeroLocaleTest, numeroLocaleErrori, primaHash, i);
+    //primaHash.Stampa();
+    Exists(numeroLocaleTest, numeroLocaleErrori, primaHash, false, i);
+    Size(numeroLocaleTest, numeroLocaleErrori, primaHash, true, 100-j);
+  }
+  
+  Size(numeroLocaleTest, numeroLocaleErrori, primaHash, true, 50);
+
+
+  cout << "Fine HashTable<Int> Test DG : (Errors/Tests: " << numeroLocaleErrori << "/" << numeroLocaleTest << ")" << endl;
+  numeroTest += numeroLocaleTest;
+  numeroErrori += numeroLocaleErrori;
+}
+
+template <typename Hash>
+void testHashTableDoubleMio(unsigned int & numeroTest, unsigned int & numeroErrori){
+  unsigned int numeroLocaleTest = 0;
+  unsigned int numeroLocaleErrori = 0;
+  cout << endl << "Inizio HashTable<Double> Test DG :" << endl;
+
+
+  cout << "Fine HashTable<Double> Test DG : (Errors/Tests: " << numeroLocaleErrori << "/" << numeroLocaleTest << ")" << endl;
+  numeroTest += numeroLocaleTest;
+  numeroErrori += numeroLocaleErrori;
+}
+
+template <typename Hash>
+void testHashTableStringMio(unsigned int & numeroTest, unsigned int & numeroErrori){
+  unsigned int numeroLocaleTest = 0;
+  unsigned int numeroLocaleErrori = 0;
+  cout << endl << "Inizio HashTable<String> Test DG :" << endl;
+
+
+  cout << "Fine HashTable<String> Test DG : (Errors/Tests: " << numeroLocaleErrori << "/" << numeroLocaleTest << ")" << endl;
+  numeroTest += numeroLocaleTest;
+  numeroErrori += numeroLocaleErrori;
 }
 

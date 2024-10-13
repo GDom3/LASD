@@ -15,12 +15,14 @@ template <typename Data>
 QueueVec<Data>::QueueVec(const TraversableContainer<Data> &struttura ): Vector<Data>::Vector(struttura){
     coda = struttura.Size();
     numeroElementi = struttura.Size();
+
 }
 
 template <typename Data>
 QueueVec<Data>::QueueVec(MappableContainer<Data> &&struttura ):Vector<Data>::Vector(std::move(struttura)){
     coda = struttura.Size();
     numeroElementi = struttura.Size();
+
 
 }
 
@@ -29,6 +31,7 @@ inline QueueVec<Data>::QueueVec(const QueueVec<Data> & quevec):Vector<Data>::Vec
     testa = quevec.testa;
     coda = quevec.coda;
     numeroElementi = quevec.numeroElementi;
+
 }
 
 template <typename Data>
@@ -155,7 +158,8 @@ void QueueVec<Data>::Enqueue(const Data& elem) {
     
     if(numeroElementi >= size)
         Resize(size * TASSO_ESPANZIONE);
-
+    if(size == 0)
+        Resize(GRANDEZZA_INIZIALE);
     
     elementi[coda] = elem;
     coda++;
