@@ -47,19 +47,9 @@ HashTableOpnAdr<Data>::HashTableOpnAdr(const unsigned long& num , MappableContai
 
 template <typename Data>
 HashTableOpnAdr<Data>::HashTableOpnAdr(const HashTableOpnAdr& tabella) : HashTableOpnAdr(tabella.numeroCelle){
-    unsigned long i = 0;
-    tabella.hashtable.Traverse(
-        [this,&i](const Cella cella){
-            if(cella.usato && !cella.vuoto){
-                Insert(cella.elemento);
-    
-            }
-                
-            i++;
-        }
-
-    );
-    
+    for(unsigned long i = 0; i < tabella.numeroCelle; i++)
+        if(tabella.hashtable[i].usato && !tabella.hashtable[i].vuoto)
+            Insert(tabella.hashtable[i].elemento);     
 }
 
 template <typename Data> 
@@ -105,14 +95,15 @@ bool HashTableOpnAdr<Data>::operator==(const HashTableOpnAdr<Data>& tabella) con
 
     bool uguali = true;
     
-    tabella.hashtable.Traverse(
-        [this, &uguali](const Cella cella){
-            if(cella.usato && !cella.vuoto)
-                uguali &= Exists(cella.elemento);
-            
+    for(unsigned long i = 0; i < numeroCelle ; i++){
+        if(tabella.hashtable[i].usato && !tabella.hashtable[i].vuoto){
+            uguali &= Exists(tabella.hashtable[i].elemento);
+            if(!uguali)
+                return false;
         }
+            
 
-    );
+    }
 
 
     return uguali;
@@ -134,7 +125,7 @@ bool HashTableOpnAdr<Data>::Insert(const Data& elem) {
     if(Exists(elem))
         return false;
     
-    while(size >= numeroCelle)
+    if(size >= numeroCelle)
         Resize(numeroCelle * TASSO_ESPANZIONE);
 
     unsigned long posizione = FindEmpty(elem);
@@ -160,7 +151,7 @@ bool HashTableOpnAdr<Data>::Insert(Data&& elem){
     if(Exists(elem))
         return false;
 
-    while(size >= numeroCelle)
+    if(size >= numeroCelle)
         Resize(numeroCelle * TASSO_ESPANZIONE);
 
     unsigned long posizione = FindEmpty(elem);
@@ -225,7 +216,7 @@ void HashTableOpnAdr<Data>::Resize (const unsigned long num){
     if(num == 0){
         Clear();
         return;
-    }else if (num < GRANDEZZA_INIZIALE)
+    }else if (num < GRANDEZZA_INIZIALE || num == numeroCelle)
         return;
     
     unsigned long newNumCelle = num < numeroCelle?GRANDEZZA_INIZIALE:numeroCelle;
@@ -234,15 +225,10 @@ void HashTableOpnAdr<Data>::Resize (const unsigned long num){
     
     
     HashTableOpnAdr<Data> * copia = new HashTableOpnAdr(newNumCelle);
+    for(unsigned long i = 0; i < numeroCelle; i++)
+        if(hashtable[i].usato && !hashtable[i].vuoto )
+            copia->Insert(hashtable[i].elemento);
 
-    hashtable.Traverse(
-        [copia](const Cella cella){
-            if(cella.usato && !cella.vuoto )
-                copia->Insert(cella.elemento);
-            
-        }
-
-    );
     
     std::swap(*copia,*this);
     delete copia;
@@ -267,7 +253,7 @@ void HashTableOpnAdr<Data>::Clear() {
 
 template <typename Data>
 const unsigned long HashTableOpnAdr<Data>::DoppioHashing(const Data& dato, const unsigned long& h, const unsigned long& num) const{
-    
+    /*
     srand(1);
     
     unsigned long caso;
@@ -276,6 +262,9 @@ const unsigned long HashTableOpnAdr<Data>::DoppioHashing(const Data& dato, const
 
     caso = (caso*2)+1; //Garantisco che sia dispari
     return (h + (num * caso)) % numeroCelle;
+    
+    */
+    return (h+num) % numeroCelle;
 }
 
 template <typename Data>

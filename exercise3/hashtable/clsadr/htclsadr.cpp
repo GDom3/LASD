@@ -65,14 +65,14 @@ template <typename Data>
 HashTableClsAdr<Data>::HashTableClsAdr(const HashTableClsAdr<Data>& tabella) 
     : HashTableClsAdr(tabella.numeroCelle){
     
-    size = tabella.size;
-    unsigned long i = 0;
-    tabella.hashtable.Traverse(
-        [this, &i](const BST<Data> * dato){
-            if(dato != nullptr)
-                hashtable[i++] = new BST<Data>(*dato);
-        }
-    );
+    for(unsigned long i = 0; i < tabella.numeroCelle; i++)
+        if(tabella.hashtable[i] != nullptr)
+            tabella.hashtable[i]->Traverse( 
+                [this](const Data& elem){
+                    Insert(elem);
+                }
+
+            );
 
 }
 
