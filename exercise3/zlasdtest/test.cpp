@@ -22,7 +22,7 @@ void lasdtest() {
   uint stestnum = 0, stesterr = 0;
   uint ftestnum = 0, ftesterr = 0;
   
-  /*
+  
   loctestnum = 0; loctesterr = 0;
   testSimpleExercise1A(loctestnum, loctesterr);
   stestnum += loctestnum; stesterr += loctesterr;
@@ -62,7 +62,7 @@ void lasdtest() {
 
   cout << endl << "Exercise 2 (Simple Test) (Errors/Tests: " << stesterr << "/" << stestnum << ")";
   cout << endl << "Exercise 2 (Full Test) (Errors/Tests: " << ftesterr << "/" << ftestnum << ")" << endl;
-  */
+  
   stestnum = 0; stesterr = 0; ftestnum = 0; ftesterr = 0;
 
   loctestnum = 0; loctesterr = 0;

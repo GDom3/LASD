@@ -4906,8 +4906,69 @@ void testHashTableIntMio(unsigned int & numeroTest, unsigned int & numeroErrori)
   }
   
   Size(numeroLocaleTest, numeroLocaleErrori, primaHash, true, 50);
+ 
+  InsertAllM(numeroLocaleTest, numeroLocaleErrori, primaHash, false, std::move(list));
+
+  Size(numeroLocaleTest, numeroLocaleErrori, primaHash, true, 100);
+
+  for(int i = 0; i < 100; i++){
+    Exists(numeroLocaleTest, numeroLocaleErrori, primaHash, true, i);
+  }
+
+  for(int i = 0; i < 200; i++){
+    list.InsertAtBack(i);
+  }
+
+  InsertSomeM(numeroLocaleTest, numeroLocaleErrori, primaHash, true, std::move(list));
+
+  Size(numeroLocaleTest, numeroLocaleErrori, primaHash, true, 200);
+
+  for(int i = 0; i < 200; i++){
+    Exists(numeroLocaleTest, numeroLocaleErrori, primaHash, true, i);
+  }
+
+  primaHash.Resize(50);
+  for(int i = 0; i < 200; i++){
+    Exists(numeroLocaleTest, numeroLocaleErrori, primaHash, true, i);
+  }
+
+  lasd::List<int> listaDue{};
+ 
+  listaDue.InsertAtBack(12);
+  listaDue.InsertAtBack(6);
+  listaDue.InsertAtBack(3);
+  listaDue.InsertAtBack(4);
+  listaDue.InsertAtBack(7);
+  listaDue.InsertAtBack(71);
+  listaDue.InsertAtBack(11);
+  listaDue.InsertAtBack(7);
+  listaDue.InsertAtBack(38);
+  listaDue.InsertAtBack(1);
+  listaDue.InsertAtBack(8);
+  listaDue.InsertAtBack(33);
+  
+  lasd::List<int> copiaLista{listaDue};
+
+  Hash secondaHash{100,std::move(copiaLista)};
+  for(int i = 0; i < 100; i++){
+    Exists(numeroLocaleTest, numeroLocaleErrori, secondaHash, listaDue.Exists(i) , i);
+  }
 
 
+  RemoveSome(numeroLocaleTest, numeroLocaleErrori, primaHash, true, listaDue);
+  for(int i = 0; i < 200; i++){
+    Exists(numeroLocaleTest, numeroLocaleErrori, primaHash, !listaDue.Exists(i), i);
+  }
+
+  NonEqualHT(numeroLocaleTest, numeroLocaleErrori, primaHash, secondaHash);
+
+  for(int i = 0; i < 200; i++)
+    primaHash.Remove(i);
+
+  InsertSomeC(numeroLocaleTest, numeroLocaleErrori, primaHash, true, listaDue);
+
+  EqualHT(numeroLocaleTest, numeroLocaleErrori, primaHash, secondaHash); 
+  
   cout << "Fine HashTable<Int> Test DG : (Errors/Tests: " << numeroLocaleErrori << "/" << numeroLocaleTest << ")" << endl;
   numeroTest += numeroLocaleTest;
   numeroErrori += numeroLocaleErrori;
@@ -4919,6 +4980,91 @@ void testHashTableDoubleMio(unsigned int & numeroTest, unsigned int & numeroErro
   unsigned int numeroLocaleErrori = 0;
   cout << endl << "Inizio HashTable<Double> Test DG :" << endl;
 
+  lasd::List<double> list{};
+  for(double i = 0; i < 100; i++){
+    list.InsertAtBack(i);
+  }
+
+  
+  Hash primaHash{list};
+  
+  
+  Size(numeroLocaleTest, numeroLocaleErrori, primaHash, true, 100);
+
+  for(double i = 0; i < 100; i++){
+    Exists(numeroLocaleTest, numeroLocaleErrori, primaHash, true, i);
+  }
+  
+  for(double i = 1, j = 1; i < 100; i+=2, j++){
+    Remove(numeroLocaleTest, numeroLocaleErrori, primaHash, i);
+    //primaHash.Stampa();
+    Exists(numeroLocaleTest, numeroLocaleErrori, primaHash, false, i);
+    Size(numeroLocaleTest, numeroLocaleErrori, primaHash, true, 100-j);
+  }
+  
+  Size(numeroLocaleTest, numeroLocaleErrori, primaHash, true, 50);
+ 
+  InsertAllM(numeroLocaleTest, numeroLocaleErrori, primaHash, false, std::move(list));
+
+  Size(numeroLocaleTest, numeroLocaleErrori, primaHash, true, 100);
+
+  for(double i = 0; i < 100; i++){
+    Exists(numeroLocaleTest, numeroLocaleErrori, primaHash, true, i);
+  }
+
+  for(double i = 0; i < 200; i++){
+    list.InsertAtBack(i);
+  }
+
+  InsertSomeM(numeroLocaleTest, numeroLocaleErrori, primaHash, true, std::move(list));
+
+  Size(numeroLocaleTest, numeroLocaleErrori, primaHash, true, 200);
+
+  for(double i = 0; i < 200; i++){
+    Exists(numeroLocaleTest, numeroLocaleErrori, primaHash, true, i);
+  }
+
+  primaHash.Resize(50);
+  for(double i = 0; i < 200; i++){
+    Exists(numeroLocaleTest, numeroLocaleErrori, primaHash, true, i);
+  }
+
+  lasd::List<double> listaDue{};
+ 
+  listaDue.InsertAtBack(12);
+  listaDue.InsertAtBack(6);
+  listaDue.InsertAtBack(3);
+  listaDue.InsertAtBack(4);
+  listaDue.InsertAtBack(7);
+  listaDue.InsertAtBack(71);
+  listaDue.InsertAtBack(11);
+  listaDue.InsertAtBack(7);
+  listaDue.InsertAtBack(38);
+  listaDue.InsertAtBack(1);
+  listaDue.InsertAtBack(8);
+  listaDue.InsertAtBack(33);
+  
+  lasd::List<double> copiaLista{listaDue};
+
+  Hash secondaHash{100,std::move(copiaLista)};
+  for(double i = 0; i < 100; i++){
+    Exists(numeroLocaleTest, numeroLocaleErrori, secondaHash, listaDue.Exists(i) , i);
+  }
+
+
+  RemoveSome(numeroLocaleTest, numeroLocaleErrori, primaHash, true, listaDue);
+  for(double i = 0; i < 200; i++){
+    Exists(numeroLocaleTest, numeroLocaleErrori, primaHash, !listaDue.Exists(i), i);
+  }
+
+  NonEqualHT(numeroLocaleTest, numeroLocaleErrori, primaHash, secondaHash);
+
+  for(double i = 0; i < 200; i++)
+    primaHash.Remove(i);
+
+  InsertSomeC(numeroLocaleTest, numeroLocaleErrori, primaHash, true, listaDue);
+
+  EqualHT(numeroLocaleTest, numeroLocaleErrori, primaHash, secondaHash); 
 
   cout << "Fine HashTable<Double> Test DG : (Errors/Tests: " << numeroLocaleErrori << "/" << numeroLocaleTest << ")" << endl;
   numeroTest += numeroLocaleTest;
@@ -4930,6 +5076,92 @@ void testHashTableStringMio(unsigned int & numeroTest, unsigned int & numeroErro
   unsigned int numeroLocaleTest = 0;
   unsigned int numeroLocaleErrori = 0;
   cout << endl << "Inizio HashTable<String> Test DG :" << endl;
+
+  lasd::List<string> list{};
+  for(int i = 0; i < 100; i++){
+    list.InsertAtBack(std::to_string(i));
+  }
+
+  
+  Hash primaHash{list};
+  
+  
+  Size(numeroLocaleTest, numeroLocaleErrori, primaHash, true, 100);
+
+  for(int i = 0; i < 100; i++){
+    Exists(numeroLocaleTest, numeroLocaleErrori, primaHash, true, std::to_string(i));
+  }
+  
+  for(int i = 1, j = 1; i < 100; i+=2, j++){
+    Remove(numeroLocaleTest, numeroLocaleErrori, primaHash, std::to_string(i));
+    //primaHash.Stampa();
+    Exists(numeroLocaleTest, numeroLocaleErrori, primaHash, false, std::to_string(i));
+    Size(numeroLocaleTest, numeroLocaleErrori, primaHash, true, 100-j);
+  }
+  
+  Size(numeroLocaleTest, numeroLocaleErrori, primaHash, true, 50);
+ 
+  InsertAllM(numeroLocaleTest, numeroLocaleErrori, primaHash, false, std::move(list));
+
+  Size(numeroLocaleTest, numeroLocaleErrori, primaHash, true, 100);
+
+  for(int i = 0; i < 100; i++){
+    Exists(numeroLocaleTest, numeroLocaleErrori, primaHash, true, std::to_string(i));
+  }
+
+  for(int i = 0; i < 200; i++){
+    list.InsertAtBack(std::to_string(i));
+  }
+
+  InsertSomeM(numeroLocaleTest, numeroLocaleErrori, primaHash, true, std::move(list));
+
+  Size(numeroLocaleTest, numeroLocaleErrori, primaHash, true, 200);
+
+  for(int i = 0; i < 200; i++){
+    Exists(numeroLocaleTest, numeroLocaleErrori, primaHash, true, std::to_string(i));
+  }
+
+  primaHash.Resize(50);
+  for(int i = 0; i < 200; i++){
+    Exists(numeroLocaleTest, numeroLocaleErrori, primaHash, true, std::to_string(i));
+  }
+
+  lasd::List<string> listaDue{};
+ 
+  listaDue.InsertAtBack(std::to_string(12));
+  listaDue.InsertAtBack(std::to_string(6));
+  listaDue.InsertAtBack(std::to_string(3));
+  listaDue.InsertAtBack(std::to_string(4));
+  listaDue.InsertAtBack(std::to_string(7));
+  listaDue.InsertAtBack(std::to_string(71));
+  listaDue.InsertAtBack(std::to_string(11));
+  listaDue.InsertAtBack(std::to_string(7));
+  listaDue.InsertAtBack(std::to_string(38));
+  listaDue.InsertAtBack(std::to_string(1));
+  listaDue.InsertAtBack(std::to_string(8));
+  listaDue.InsertAtBack(std::to_string(33));
+  
+  lasd::List<string> copiaLista{listaDue};
+
+  Hash secondaHash{100,std::move(copiaLista)};
+  for(int i = 0; i < 100; i++){
+    Exists(numeroLocaleTest, numeroLocaleErrori, secondaHash, listaDue.Exists(std::to_string(i)) , std::to_string(i));
+  }
+
+
+  RemoveSome(numeroLocaleTest, numeroLocaleErrori, primaHash, true, listaDue);
+  for(int i = 0; i < 200; i++){
+    Exists(numeroLocaleTest, numeroLocaleErrori, primaHash, !listaDue.Exists(std::to_string(i)), std::to_string(i));
+  }
+
+  NonEqualHT(numeroLocaleTest, numeroLocaleErrori, primaHash, secondaHash);
+
+  for(int i = 0; i < 200; i++)
+    primaHash.Remove(std::to_string(i));
+
+  InsertSomeC(numeroLocaleTest, numeroLocaleErrori, primaHash, true, listaDue);
+
+  EqualHT(numeroLocaleTest, numeroLocaleErrori, primaHash, secondaHash); 
 
 
   cout << "Fine HashTable<String> Test DG : (Errors/Tests: " << numeroLocaleErrori << "/" << numeroLocaleTest << ")" << endl;

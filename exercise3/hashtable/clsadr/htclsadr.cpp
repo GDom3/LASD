@@ -218,21 +218,22 @@ void HashTableClsAdr<Data>::Resize (const unsigned long num){
         Clear();
         return;
     }
-        
+
+    unsigned long newNumeroCelle = GRANDEZZA_INIZIALE;
+    if(num > GRANDEZZA_INIZIALE)
+        while(newNumeroCelle < num)
+            newNumeroCelle*=2;
+
     
-    HashTableClsAdr<Data> * copia = new HashTableClsAdr(num);
+    HashTableClsAdr<Data> * copia = new HashTableClsAdr(newNumeroCelle);
 
-    hashtable.Traverse(
-        [copia](const BST<Data> * albero){
-            if(albero != nullptr && !albero->Empty())
-                albero->BreadthTraverse(
-                    [copia](const Data& elem){
-                        copia->Insert(elem);
-                    }
-                );
-        }
-
-    );
+    for(unsigned long i = 0; i < numeroCelle; i++)
+        if(hashtable[i] != nullptr && !hashtable[i]->Empty())
+            hashtable[i]->BreadthTraverse(
+                [copia](const Data& elem){
+                    copia->Insert(elem);
+                }
+            );
 
     std::swap(*copia,*this);
     delete copia;
