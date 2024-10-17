@@ -155,13 +155,15 @@ bool HashTableOpnAdr<Data>::Insert(Data&& elem){
         Resize(numeroCelle * TASSO_ESPANZIONE);
 
     unsigned long posizione = FindEmpty(elem);
-  
+    
+    //std::cout<<"["<<size+1<<"] "<<elem<<"\n";
     std::swap(hashtable[posizione].elemento,elem);
     //hashtable[posizione].deleted = false;  
     hashtable[posizione].vuoto = false;
     hashtable[posizione].usato = true;
     size++; 
-    //std::cout<<"\nsize = "<<size;
+    //std::cout<<"size = "<<size<<"\n";
+    
 
     return true;
 
@@ -252,19 +254,16 @@ void HashTableOpnAdr<Data>::Clear() {
 }
 
 template <typename Data>
-const unsigned long HashTableOpnAdr<Data>::DoppioHashing(const Data& dato, const unsigned long& h, const unsigned long& num) const{
-    /*
-    srand(1);
-    
-    unsigned long caso;
-    for(unsigned long i = 0; i < num; i++)
-        caso = rand();
+const unsigned long HashTableOpnAdr<Data>::DoppioHashing(const Data& dato, const unsigned long& h, const unsigned long& i) const{
 
-    caso = (caso*2)+1; //Garantisco che sia dispari
-    return (h + (num * caso)) % numeroCelle;
+    //return (h+num) % numeroCelle; Lineare
+    Hashable<Data> hash{};
     
-    */
-    return (h+num) % numeroCelle;
+    unsigned long dispari = std::floor(hash.hashDue(dato) * numeroCelle) * 2 + 1;
+    return (HashKey(dato) + i * dispari) % numeroCelle;
+
+
+
 }
 
 template <typename Data>

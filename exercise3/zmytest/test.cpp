@@ -4864,14 +4864,14 @@ void testHashTableMio(unsigned int & numeroTest, unsigned int & numeroErrori){
   
   cout << endl << "Inizio HashTableClsAdr Test DG :" << endl;
   testHashTableIntMio<lasd::HashTableClsAdr<int>>(numeroTest,numeroErrori);
-  //testHashTableDoubleMio<lasd::HashTableClsAdr<double>>(numeroTest,numeroErrori);
-  //testHashTableStringMio<lasd::HashTableClsAdr<string>>(numeroTest,numeroErrori);
+  testHashTableDoubleMio<lasd::HashTableClsAdr<double>>(numeroTest,numeroErrori);
+  testHashTableStringMio<lasd::HashTableClsAdr<string>>(numeroTest,numeroErrori);
   cout << endl << "Fine HashTableClsAdr Test DG !" << endl;
 
   cout << endl << "Inizio HashTableOpnAdr Test DG :" << endl;
   testHashTableIntMio<lasd::HashTableOpnAdr<int>>(numeroTest,numeroErrori);
-  //testHashTableDoubleMio<lasd::HashTableOpnAdr<double>>(numeroTest,numeroErrori);
-  //testHashTableStringMio<lasd::HashTableOpnAdr<string>>(numeroTest,numeroErrori);
+  testHashTableDoubleMio<lasd::HashTableOpnAdr<double>>(numeroTest,numeroErrori);
+  testHashTableStringMio<lasd::HashTableOpnAdr<string>>(numeroTest,numeroErrori);
   cout << endl << "Fine HashTableOpnAdr Test DG !" << endl;
 
 }
@@ -4932,6 +4932,8 @@ void testHashTableIntMio(unsigned int & numeroTest, unsigned int & numeroErrori)
     Exists(numeroLocaleTest, numeroLocaleErrori, primaHash, true, i);
   }
 
+  Size(numeroLocaleTest, numeroLocaleErrori, primaHash, true, 200);
+
   lasd::List<int> listaDue{};
  
   listaDue.InsertAtBack(12);
@@ -4941,7 +4943,7 @@ void testHashTableIntMio(unsigned int & numeroTest, unsigned int & numeroErrori)
   listaDue.InsertAtBack(7);
   listaDue.InsertAtBack(71);
   listaDue.InsertAtBack(11);
-  listaDue.InsertAtBack(7);
+  listaDue.InsertAtBack(77);
   listaDue.InsertAtBack(38);
   listaDue.InsertAtBack(1);
   listaDue.InsertAtBack(8);
@@ -4950,12 +4952,16 @@ void testHashTableIntMio(unsigned int & numeroTest, unsigned int & numeroErrori)
   lasd::List<int> copiaLista{listaDue};
 
   Hash secondaHash{100,std::move(copiaLista)};
+
+  Size(numeroLocaleTest, numeroLocaleErrori, secondaHash, true, 12);
+
   for(int i = 0; i < 100; i++){
     Exists(numeroLocaleTest, numeroLocaleErrori, secondaHash, listaDue.Exists(i) , i);
   }
 
 
   RemoveSome(numeroLocaleTest, numeroLocaleErrori, primaHash, true, listaDue);
+  Size(numeroLocaleTest, numeroLocaleErrori, primaHash, true, 188);
   for(int i = 0; i < 200; i++){
     Exists(numeroLocaleTest, numeroLocaleErrori, primaHash, !listaDue.Exists(i), i);
   }
@@ -4966,6 +4972,7 @@ void testHashTableIntMio(unsigned int & numeroTest, unsigned int & numeroErrori)
     primaHash.Remove(i);
 
   InsertSomeC(numeroLocaleTest, numeroLocaleErrori, primaHash, true, listaDue);
+  Size(numeroLocaleTest, numeroLocaleErrori, primaHash, true, 12);
 
   EqualHT(numeroLocaleTest, numeroLocaleErrori, primaHash, secondaHash); 
   
@@ -5038,7 +5045,7 @@ void testHashTableDoubleMio(unsigned int & numeroTest, unsigned int & numeroErro
   listaDue.InsertAtBack(7);
   listaDue.InsertAtBack(71);
   listaDue.InsertAtBack(11);
-  listaDue.InsertAtBack(7);
+  listaDue.InsertAtBack(77);
   listaDue.InsertAtBack(38);
   listaDue.InsertAtBack(1);
   listaDue.InsertAtBack(8);
@@ -5047,12 +5054,14 @@ void testHashTableDoubleMio(unsigned int & numeroTest, unsigned int & numeroErro
   lasd::List<double> copiaLista{listaDue};
 
   Hash secondaHash{100,std::move(copiaLista)};
+  Size(numeroLocaleTest, numeroLocaleErrori, secondaHash, true, 12);
   for(double i = 0; i < 100; i++){
     Exists(numeroLocaleTest, numeroLocaleErrori, secondaHash, listaDue.Exists(i) , i);
   }
 
 
   RemoveSome(numeroLocaleTest, numeroLocaleErrori, primaHash, true, listaDue);
+  Size(numeroLocaleTest, numeroLocaleErrori, primaHash, true, 188);
   for(double i = 0; i < 200; i++){
     Exists(numeroLocaleTest, numeroLocaleErrori, primaHash, !listaDue.Exists(i), i);
   }
@@ -5063,6 +5072,7 @@ void testHashTableDoubleMio(unsigned int & numeroTest, unsigned int & numeroErro
     primaHash.Remove(i);
 
   InsertSomeC(numeroLocaleTest, numeroLocaleErrori, primaHash, true, listaDue);
+  Size(numeroLocaleTest, numeroLocaleErrori, primaHash, true, 12);
 
   EqualHT(numeroLocaleTest, numeroLocaleErrori, primaHash, secondaHash); 
 
@@ -5114,7 +5124,7 @@ void testHashTableStringMio(unsigned int & numeroTest, unsigned int & numeroErro
   }
 
   InsertSomeM(numeroLocaleTest, numeroLocaleErrori, primaHash, true, std::move(list));
-
+  
   Size(numeroLocaleTest, numeroLocaleErrori, primaHash, true, 200);
 
   for(int i = 0; i < 200; i++){
@@ -5135,7 +5145,7 @@ void testHashTableStringMio(unsigned int & numeroTest, unsigned int & numeroErro
   listaDue.InsertAtBack(std::to_string(7));
   listaDue.InsertAtBack(std::to_string(71));
   listaDue.InsertAtBack(std::to_string(11));
-  listaDue.InsertAtBack(std::to_string(7));
+  listaDue.InsertAtBack(std::to_string(77));
   listaDue.InsertAtBack(std::to_string(38));
   listaDue.InsertAtBack(std::to_string(1));
   listaDue.InsertAtBack(std::to_string(8));
@@ -5144,12 +5154,16 @@ void testHashTableStringMio(unsigned int & numeroTest, unsigned int & numeroErro
   lasd::List<string> copiaLista{listaDue};
 
   Hash secondaHash{100,std::move(copiaLista)};
+  Size(numeroLocaleTest, numeroLocaleErrori, secondaHash, true, 12);
+
+  
   for(int i = 0; i < 100; i++){
     Exists(numeroLocaleTest, numeroLocaleErrori, secondaHash, listaDue.Exists(std::to_string(i)) , std::to_string(i));
   }
 
 
   RemoveSome(numeroLocaleTest, numeroLocaleErrori, primaHash, true, listaDue);
+  Size(numeroLocaleTest, numeroLocaleErrori, primaHash, true, 188);
   for(int i = 0; i < 200; i++){
     Exists(numeroLocaleTest, numeroLocaleErrori, primaHash, !listaDue.Exists(std::to_string(i)), std::to_string(i));
   }
@@ -5160,6 +5174,7 @@ void testHashTableStringMio(unsigned int & numeroTest, unsigned int & numeroErro
     primaHash.Remove(std::to_string(i));
 
   InsertSomeC(numeroLocaleTest, numeroLocaleErrori, primaHash, true, listaDue);
+  Size(numeroLocaleTest, numeroLocaleErrori, primaHash, true, 12);
 
   EqualHT(numeroLocaleTest, numeroLocaleErrori, primaHash, secondaHash); 
 
