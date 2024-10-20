@@ -363,16 +363,15 @@ template <typename Data>
 BST<Data>::NodeLnk * BST<Data>::Insert(NodeLnk * T,Data && k){
     if(T == nullptr){
         size++;
-        T = new NodeLnk(std::move(k));
-        return T;
+        return new NodeLnk(std::move(k));;
     }else{
         if(T->elemento == k){
             return T;
         }else if ( k > T->elemento){
-            T->figlioDestro = Insert(T->figlioDestro,k);
+            T->figlioDestro = Insert(T->figlioDestro,std::move(k));
             return T;
         }else{
-            T->figlioSinistro = Insert(T->figlioSinistro,k);
+            T->figlioSinistro = Insert(T->figlioSinistro,std::move(k));
             return T;
         }
     }
@@ -397,6 +396,19 @@ BST<Data>::NodeLnk * BST<Data>::RicercaBST(NodeLnk * T, const Data & k) const{
 
 
 }
+
+template <typename Data>
+void BST<Data>::Stampa(){
+    std::cout<<"\n[BST]";
+    lasd::BTBreadthIterator<Data> iteratore{*this};
+    while(!iteratore.Terminated()){
+        std::cout<<"-> "<<*iteratore;
+        ++iteratore;
+    }
+    std::cout<<" -|\n";
+}
+
+
 
 
 }

@@ -8,6 +8,7 @@
 // #include ...
 #include "../../vector/vector.hpp"
 #include "../../bst/bst.hpp"
+#include "../../iterator/iterator.hpp"
 
 /* ************************************************************************** */
 
@@ -31,7 +32,7 @@ protected:
   using HashTable<Data>::HashKey;
 
   Vector<BST<Data> *> hashtable{};
-
+  //Vector<List<Data> *> hashtable{};
   // ...
 
 public:
@@ -118,6 +119,10 @@ public:
 
   // type Clear() specifiers; // Override Container member
   void Clear() override;
+
+
+
+  void Stampa();
 
 };
 

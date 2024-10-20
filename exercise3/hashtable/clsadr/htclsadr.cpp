@@ -36,8 +36,7 @@ HashTableClsAdr<Data>::HashTableClsAdr(const TraversableContainer<Data>& struttu
 
   
 template <typename Data>
-HashTableClsAdr<Data>::HashTableClsAdr(const unsigned long& num, const TraversableContainer<Data>& struttura) 
-    : HashTableClsAdr(num){
+HashTableClsAdr<Data>::HashTableClsAdr(const unsigned long& num, const TraversableContainer<Data>& struttura) : HashTableClsAdr(num){
 
     DictionaryContainer<Data>::InsertAll(struttura);
     
@@ -67,9 +66,9 @@ HashTableClsAdr<Data>::HashTableClsAdr(const HashTableClsAdr<Data>& tabella)
     
     for(unsigned long i = 0; i < tabella.numeroCelle; i++)
         if(tabella.hashtable[i] != nullptr)
-            tabella.hashtable[i]->Traverse( 
+            tabella.hashtable[i]->BreadthTraverse( 
                 [this](const Data& elem){
-                    Insert(elem);
+                    this->Insert(elem);
                 }
 
             );
@@ -78,7 +77,7 @@ HashTableClsAdr<Data>::HashTableClsAdr(const HashTableClsAdr<Data>& tabella)
 
 
 template <typename Data> 
-HashTableClsAdr<Data>::HashTableClsAdr(HashTableClsAdr<Data>&& tabella) noexcept{
+HashTableClsAdr<Data>::HashTableClsAdr(HashTableClsAdr<Data>&& tabella) noexcept : HashTableClsAdr(GRANDEZZA_INIZIALE){
     std::swap(size,tabella.size);
     std::swap(numeroCelle,tabella.numeroCelle);
     std::swap(hashtable,tabella.hashtable);
@@ -119,21 +118,18 @@ bool HashTableClsAdr<Data>::operator==(const HashTableClsAdr<Data>& tabella) con
     
     if(size == 0 && size == tabella.size)
         return true;
-
+    
     bool uguali = true;
-    tabella.hashtable.Traverse(
-        [this, &uguali](const BST<Data> * albero){
-            if(albero != nullptr && !(albero->Empty()))
-                albero->BreadthTraverse(
+
+    for(unsigned long i = 0; i < tabella.numeroCelle; i++)
+        if(tabella.hashtable[i] != nullptr && !(tabella.hashtable[i]->Empty()))
+                tabella.hashtable[i]->BreadthTraverse(
                     [this, &uguali](const Data& dato){
                         uguali &= this->Exists(dato);
+                            
                     }
                 );
-        }
-
-    );
     
-
     return uguali;
 
 }
@@ -154,12 +150,13 @@ bool HashTableClsAdr<Data>::Insert(const Data& elem) {
 
     if(hashtable[chiave] == nullptr)
         hashtable[chiave] = new BST<Data>{};
+        //hashtable[chiave] = new List<Data>{};
 
     if(hashtable[chiave]->Insert(elem)){
         size++;
         return true;
     }
-
+   
     return false;
     
 
@@ -175,12 +172,13 @@ bool HashTableClsAdr<Data>::Insert(Data&& elem){
 
     if(hashtable[chiave] == nullptr)
         hashtable[chiave] = new BST<Data>{};
-
+        //hashtable[chiave] = new List<Data>{};
+    
     if(hashtable[chiave]->Insert(std::move(elem))){
         size++;
         return true;
     }
-
+    
     return false;
 
 }
@@ -243,7 +241,7 @@ void HashTableClsAdr<Data>::Resize (const unsigned long num){
 template <typename Data>
 void HashTableClsAdr<Data>::Clear() {
     
-    for(unsigned int i = 0; i < hashtable.Size(); i++){
+    for(unsigned int i = 0; i < numeroCelle; i++){
         delete hashtable[i];
         hashtable[i] = nullptr;
     }
@@ -253,6 +251,21 @@ void HashTableClsAdr<Data>::Clear() {
     hashtable.Resize(numeroCelle);
 
 
+}
+
+
+template <typename Data>
+void HashTableClsAdr<Data>::Stampa(){
+    std::cout<<"\n[Hash]("<<size<<")";
+    for(unsigned long k = 0; k < numeroCelle; k++)
+        if (hashtable[k] != nullptr){
+            lasd::BTBreadthIterator<Data> iteratore{*hashtable[k]};
+            while(!iteratore.Terminated()){
+                std::cout<<"-> "<<*iteratore;
+                ++iteratore;
+            }
+        }
+    std::cout<<" -|\n";
 }
 
 

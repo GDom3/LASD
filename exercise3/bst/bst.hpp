@@ -5,6 +5,7 @@
 /* ************************************************************************** */
 
 #include "../binarytree/lnk/binarytreelnk.hpp"
+#include "../iterator/iterator.hpp"
 
 /* ************************************************************************** */
 
@@ -151,6 +152,10 @@ public:
 
   // type Clear(argument) specifiers; // Override ClearableContainer member
   using BinaryTreeLnk<Data>::Clear;
+
+
+  void Stampa();
+  
 
 protected:
 

@@ -53,7 +53,7 @@ HashTableOpnAdr<Data>::HashTableOpnAdr(const HashTableOpnAdr& tabella) : HashTab
 }
 
 template <typename Data> 
-HashTableOpnAdr<Data>::HashTableOpnAdr(HashTableOpnAdr<Data>&& tabella) noexcept{
+HashTableOpnAdr<Data>::HashTableOpnAdr(HashTableOpnAdr<Data>&& tabella) noexcept : HashTableOpnAdr(GRANDEZZA_INIZIALE){
     std::swap(size,tabella.size);
     std::swap(numeroCelle,tabella.numeroCelle);
     std::swap(hashtable,tabella.hashtable);
@@ -119,9 +119,6 @@ bool HashTableOpnAdr<Data>::operator!=(const HashTableOpnAdr<Data>& tabella) con
 
 template <typename Data>
 bool HashTableOpnAdr<Data>::Insert(const Data& elem) {
-    //Stampa();
-    //std::cout<<"\nENTROOOOOOOOO";
-
     if(Exists(elem))
         return false;
     
@@ -129,17 +126,11 @@ bool HashTableOpnAdr<Data>::Insert(const Data& elem) {
         Resize(numeroCelle * TASSO_ESPANZIONE);
 
     unsigned long posizione = FindEmpty(elem);
-    
-     //std::cout<<"\nECCOMIIIII\n";   
+      
     hashtable[posizione].elemento = elem;  
-    //hashtable[posizione].deleted = false;
     hashtable[posizione].vuoto = false;
     hashtable[posizione].usato = true;
     size++;
-    
-    //std::cout<<"\n["<<size<<"] "<<elem<<"\n";
-
-    //std::cout<<"\n["<<posizione<<"] "<<elem<<"\n";
 
     return true;
     
@@ -156,40 +147,33 @@ bool HashTableOpnAdr<Data>::Insert(Data&& elem){
 
     unsigned long posizione = FindEmpty(elem);
     
-    //std::cout<<"["<<size+1<<"] "<<elem<<"\n";
     std::swap(hashtable[posizione].elemento,elem);
-    //hashtable[posizione].deleted = false;  
+
     hashtable[posizione].vuoto = false;
     hashtable[posizione].usato = true;
     size++; 
-    //std::cout<<"size = "<<size<<"\n";
     
-
     return true;
 
 }
 
 template <typename Data>
 bool HashTableOpnAdr<Data>::Remove(const Data& elem) {
-    //Stampa();
-    if(!Exists(elem)){
+    
+    unsigned long posizione = Find(elem);
+
+    if(posizione > numeroCelle){ // equivale a exists
         return false;
     }
 
-    unsigned long posizione = Find(elem);
-
-    //hashtable[posizione].deleted = true;
     hashtable[posizione].vuoto = true;
     size--;
-    //std::cout<<"\nsize = "<<size;
-    
-    
+     
     if(numeroCelle > GRANDEZZA_INIZIALE && size < (numeroCelle / (TASSO_RIDUZIONE * TASSO_RIDUZIONE)))
         Resize(numeroCelle / TASSO_RIDUZIONE);
 
     
     return true;
-
 }
 
 
@@ -204,7 +188,6 @@ bool HashTableOpnAdr<Data>::Exists(const Data& elem) const noexcept {
             return true;
         }
             
-
         pos = DoppioHashing(elem,pos,i);
     }
     
@@ -245,7 +228,6 @@ void HashTableOpnAdr<Data>::Clear() {
     numeroCelle = GRANDEZZA_INIZIALE;
     hashtable.Resize(numeroCelle);
     for(unsigned long i = 0; i < numeroCelle; i++){
-        //hashtable[i].deleted = false;
         hashtable[i].vuoto = true;
         hashtable[i].usato = false;
     }
@@ -256,14 +238,10 @@ void HashTableOpnAdr<Data>::Clear() {
 template <typename Data>
 const unsigned long HashTableOpnAdr<Data>::DoppioHashing(const Data& dato, const unsigned long& h, const unsigned long& i) const{
 
-    //return (h+num) % numeroCelle; Lineare
     Hashable<Data> hash{};
-    
     unsigned long dispari = std::floor(hash.hashDue(dato) * numeroCelle) * 2 + 1;
+
     return (HashKey(dato) + i * dispari) % numeroCelle;
-
-
-
 }
 
 template <typename Data>
@@ -277,8 +255,7 @@ const unsigned long HashTableOpnAdr<Data>::Find(const Data& dato) const{
 
         pos = DoppioHashing(dato,pos,i);
     }
-
-        
+    
     return numeroCelle + 1;
     
 
@@ -293,19 +270,17 @@ const unsigned long HashTableOpnAdr<Data>::FindEmpty(const Data& dato) const{
         if(hashtable[pos].vuoto)
             return pos;
 
-        //std::cout<<"\n["<<pos<<"] "<<dato<<"\n";
         pos = DoppioHashing(dato,pos,i); 
 
     }
-
-        
+      
     return pos;
 }
 
 
 template <typename Data>
 void HashTableOpnAdr<Data>::Stampa(){
-    std::cout<<"\n[Hash]";
+    std::cout<<"\n[Hash]("<<size<<")";
     for(unsigned long k = 0; k < numeroCelle; k++)
         if (hashtable[k].usato && hashtable[k].vuoto == false)
             std::cout<<"-> "<<hashtable[k].elemento;

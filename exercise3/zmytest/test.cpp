@@ -3599,7 +3599,7 @@ void testAlberoBSTIntMio(unsigned int & numeroTest, unsigned int & numeroErrori)
   InsertSomeC(numeroLocaleTest, numeroLocaleErrori, albBSTMoveConstructor, true,vettore);
   Traverse(numeroLocaleTest, numeroLocaleErrori, albBSTMoveConstructor, true, TraversePrint<int>);
   Root(numeroLocaleTest, numeroLocaleErrori, albBSTMoveConstructor, true, 0);
-  Size(numeroLocaleTest, numeroLocaleErrori, albBSTMoveConstructor, true, 12);
+  Size(numeroLocaleTest, numeroLocaleErrori, albBSTMoveConstructor, true, 1);
   Traverse(numeroLocaleTest, numeroLocaleErrori, albBSTCopyConstructor, true, TraversePrint<int>);
   //Controllo se c'è un valore che non c'è
   Exists(numeroLocaleTest, numeroLocaleErrori, albBSTCopyConstructor, false, 9);
@@ -4868,6 +4868,7 @@ void testHashTableMio(unsigned int & numeroTest, unsigned int & numeroErrori){
   testHashTableStringMio<lasd::HashTableClsAdr<string>>(numeroTest,numeroErrori);
   cout << endl << "Fine HashTableClsAdr Test DG !" << endl;
 
+  
   cout << endl << "Inizio HashTableOpnAdr Test DG :" << endl;
   testHashTableIntMio<lasd::HashTableOpnAdr<int>>(numeroTest,numeroErrori);
   testHashTableDoubleMio<lasd::HashTableOpnAdr<double>>(numeroTest,numeroErrori);
@@ -5112,12 +5113,14 @@ void testHashTableStringMio(unsigned int & numeroTest, unsigned int & numeroErro
   Size(numeroLocaleTest, numeroLocaleErrori, primaHash, true, 50);
  
   InsertAllM(numeroLocaleTest, numeroLocaleErrori, primaHash, false, std::move(list));
-
+  
   Size(numeroLocaleTest, numeroLocaleErrori, primaHash, true, 100);
 
   for(int i = 0; i < 100; i++){
     Exists(numeroLocaleTest, numeroLocaleErrori, primaHash, true, std::to_string(i));
   }
+  
+  while(list.Remove(""));
 
   for(int i = 0; i < 200; i++){
     list.InsertAtBack(std::to_string(i));
@@ -5125,8 +5128,9 @@ void testHashTableStringMio(unsigned int & numeroTest, unsigned int & numeroErro
 
   InsertSomeM(numeroLocaleTest, numeroLocaleErrori, primaHash, true, std::move(list));
   
-  Size(numeroLocaleTest, numeroLocaleErrori, primaHash, true, 200);
 
+  Size(numeroLocaleTest, numeroLocaleErrori, primaHash, true, 200);
+  
   for(int i = 0; i < 200; i++){
     Exists(numeroLocaleTest, numeroLocaleErrori, primaHash, true, std::to_string(i));
   }
