@@ -26,7 +26,6 @@ HashTableOpnAdr<Data>::HashTableOpnAdr(const unsigned long& num){
 
 template <typename Data>
 HashTableOpnAdr<Data>::HashTableOpnAdr(const TraversableContainer<Data>& struttura) : HashTableOpnAdr(struttura.Size()){
-    
     DictionaryContainer<Data>::InsertAll(struttura);
 }
 
@@ -57,13 +56,6 @@ HashTableOpnAdr<Data>::HashTableOpnAdr(HashTableOpnAdr<Data>&& tabella) noexcept
     std::swap(size,tabella.size);
     std::swap(numeroCelle,tabella.numeroCelle);
     std::swap(hashtable,tabella.hashtable);
-}
-
-template <typename Data> 
-HashTableOpnAdr<Data>::~HashTableOpnAdr(){
-    Clear();
-
-
 }
 
 template <typename Data> 
@@ -179,16 +171,16 @@ bool HashTableOpnAdr<Data>::Remove(const Data& elem) {
 
 template <typename Data>
 bool HashTableOpnAdr<Data>::Exists(const Data& elem) const noexcept { 
-    unsigned long pos = HashKey(elem);
+
+    unsigned long pos = 0;
     
-    unsigned long i = 0;
-    for( i = 0 ; i < numeroCelle; i++ ){
-        
+    for(unsigned long i = 0 ; i < numeroCelle; i++ ){
+        pos = DoppioHashing(elem,i);
+
         if(hashtable[pos].usato && !hashtable[pos].vuoto && hashtable[pos].elemento == elem){
             return true;
-        }
-            
-        pos = DoppioHashing(elem,pos,i);
+        }  
+        
     }
     
         
@@ -203,16 +195,11 @@ void HashTableOpnAdr<Data>::Resize (const unsigned long num){
         return;
     }else if (num < GRANDEZZA_INIZIALE || num == numeroCelle)
         return;
-    
-    unsigned long newNumCelle = num < numeroCelle?GRANDEZZA_INIZIALE:numeroCelle;
-    while(newNumCelle < num)
-        newNumCelle*=2;
-    
-    
-    HashTableOpnAdr<Data> * copia = new HashTableOpnAdr(newNumCelle);
+   
+    HashTableOpnAdr<Data> * copia = new HashTableOpnAdr(num);
     for(unsigned long i = 0; i < numeroCelle; i++)
         if(hashtable[i].usato && !hashtable[i].vuoto )
-            copia->Insert(hashtable[i].elemento);
+            copia->Insert(std::move(hashtable[i].elemento));
 
     
     std::swap(*copia,*this);
@@ -236,7 +223,7 @@ void HashTableOpnAdr<Data>::Clear() {
 }
 
 template <typename Data>
-const unsigned long HashTableOpnAdr<Data>::DoppioHashing(const Data& dato, const unsigned long& h, const unsigned long& i) const{
+const unsigned long HashTableOpnAdr<Data>::DoppioHashing(const Data& dato, const unsigned long& i) const{
 
     Hashable<Data> hash{};
     unsigned long dispari = std::floor(hash.hashDue(dato) * numeroCelle) * 2 + 1;
@@ -246,14 +233,16 @@ const unsigned long HashTableOpnAdr<Data>::DoppioHashing(const Data& dato, const
 
 template <typename Data>
 const unsigned long HashTableOpnAdr<Data>::Find(const Data& dato) const{
-    unsigned long pos = HashKey(dato);
 
-    unsigned long i = 0;
-    for( i = 0 ; i < numeroCelle ; i++ ){
-        if(hashtable[pos].usato && hashtable[pos].vuoto == false && hashtable[pos].elemento == dato)
+    unsigned long pos = 0;
+
+    for(unsigned long i = 0 ; i < numeroCelle ; i++ ){
+        
+        pos = DoppioHashing(dato,i);
+
+        if(hashtable[pos].usato && !hashtable[pos].vuoto && hashtable[pos].elemento == dato)
             return pos;
-
-        pos = DoppioHashing(dato,pos,i);
+        
     }
     
     return numeroCelle + 1;
@@ -264,13 +253,13 @@ const unsigned long HashTableOpnAdr<Data>::Find(const Data& dato) const{
 template <typename Data>
 const unsigned long HashTableOpnAdr<Data>::FindEmpty(const Data& dato) const{
 
-    unsigned long pos = HashKey(dato);
+    unsigned long pos = 0;
     
     for(unsigned long i = 0; i < numeroCelle; i++ ){
+        pos = DoppioHashing(dato,i); 
+        
         if(hashtable[pos].vuoto)
             return pos;
-
-        pos = DoppioHashing(dato,pos,i); 
 
     }
       

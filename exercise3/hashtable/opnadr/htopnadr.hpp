@@ -95,7 +95,7 @@ public:
 
   // Destructor
   // ~HashTableOpnAdr() specifiers;
-  ~HashTableOpnAdr();
+  ~HashTableOpnAdr() = default;
 
   /* ************************************************************************ */
 
@@ -155,7 +155,7 @@ protected:
   // Auxiliary member functions
 
   // type HashKey(argument) specifiers;
-  const unsigned long DoppioHashing(const Data& , const unsigned long& , const unsigned long& ) const;
+  const unsigned long DoppioHashing(const Data& , const unsigned long& ) const;
   // type Find(argument) specifiers;
   const unsigned long Find(const Data& ) const;
   // type FindEmpty(argument) specifiers;
