@@ -31,13 +31,11 @@ template <typename Data>
 HashTableClsAdr<Data>::HashTableClsAdr(const TraversableContainer<Data>& struttura) : HashTableClsAdr(struttura.Size()){
     DictionaryContainer<Data>::InsertAll(struttura);
 
-
 }
 
   
 template <typename Data>
 HashTableClsAdr<Data>::HashTableClsAdr(const unsigned long& num, const TraversableContainer<Data>& struttura) : HashTableClsAdr(num){
-
     DictionaryContainer<Data>::InsertAll(struttura);
     
 }
@@ -52,20 +50,17 @@ HashTableClsAdr<Data>::HashTableClsAdr(MappableContainer<Data>&& struttura) noex
 
   
 template <typename Data> 
-HashTableClsAdr<Data>::HashTableClsAdr(const unsigned long& num, MappableContainer<Data>&& struttura) noexcept 
-    : HashTableClsAdr(num){
-
+HashTableClsAdr<Data>::HashTableClsAdr(const unsigned long& num, MappableContainer<Data>&& struttura) noexcept : HashTableClsAdr(num){
     DictionaryContainer<Data>::InsertAll(std::move(struttura));
 
 }
 
 
 template <typename Data> 
-HashTableClsAdr<Data>::HashTableClsAdr(const HashTableClsAdr<Data>& tabella) 
-    : HashTableClsAdr(tabella.numeroCelle){
+HashTableClsAdr<Data>::HashTableClsAdr(const HashTableClsAdr<Data>& tabella) : HashTableClsAdr(tabella.numeroCelle){
     
     for(unsigned long i = 0; i < tabella.numeroCelle; i++)
-        if(tabella.hashtable[i] != nullptr)
+        if(tabella.hashtable[i] != nullptr && !(tabella.hashtable[i]->Empty()))
             tabella.hashtable[i]->BreadthTraverse( 
                 [this](const Data& elem){
                     this->Insert(elem);
@@ -216,17 +211,11 @@ void HashTableClsAdr<Data>::Resize (const unsigned long num){
         Clear();
         return;
     }
-
-    unsigned long newNumeroCelle = GRANDEZZA_INIZIALE;
-    if(num > GRANDEZZA_INIZIALE)
-        while(newNumeroCelle < num)
-            newNumeroCelle*=2;
-
-    
-    HashTableClsAdr<Data> * copia = new HashTableClsAdr(newNumeroCelle);
+  
+    HashTableClsAdr<Data> * copia = new HashTableClsAdr(num);
 
     for(unsigned long i = 0; i < numeroCelle; i++)
-        if(hashtable[i] != nullptr && !hashtable[i]->Empty())
+        if(hashtable[i] != nullptr && !(hashtable[i]->Empty()))
             hashtable[i]->BreadthTraverse(
                 [copia](const Data& elem){
                     copia->Insert(elem);
