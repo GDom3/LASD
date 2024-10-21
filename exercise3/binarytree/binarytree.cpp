@@ -27,7 +27,7 @@ bool BinaryTree<Data>::Node::operator!= (const Node& altroNodo) const noexcept{
 
 template <typename Data>
 bool BinaryTree<Data>::Node::IsLeaf () const noexcept{
-    return !this->HasLeftChild() && !this->HasRightChild(); // Devo avere almeno un figlio
+    return !this->HasLeftChild() && !this->HasRightChild(); // Devo avere almeno un figlio affiniche sia falsa
 }
 
 template <typename Data>
